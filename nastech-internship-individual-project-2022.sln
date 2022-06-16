@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClotheShop.CustomerSite", "ClotheShop.CustomerSite\ClotheShop.CustomerSite.csproj", "{49C5D3BB-2471-4FD0-8864-1252D7945D3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClotheShop.API", "ClotheShop.API\ClotheShop.API.csproj", "{65810B16-6802-404B-B35F-8FB8F31D7463}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49C5D3BB-2471-4FD0-8864-1252D7945D3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49C5D3BB-2471-4FD0-8864-1252D7945D3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49C5D3BB-2471-4FD0-8864-1252D7945D3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49C5D3BB-2471-4FD0-8864-1252D7945D3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65810B16-6802-404B-B35F-8FB8F31D7463}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65810B16-6802-404B-B35F-8FB8F31D7463}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65810B16-6802-404B-B35F-8FB8F31D7463}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65810B16-6802-404B-B35F-8FB8F31D7463}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA41D8CE-9DAD-4A83-940F-59869D6211ED}
+	EndGlobalSection
+EndGlobal
