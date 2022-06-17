@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ClotheShop.API.Migrations
 {
-    [DbContext(typeof(ClotheContext))]
+    [DbContext(typeof(ClotheDbContext))]
     [Migration("20220616133305_initialize-database")]
     partial class initializedatabase
     {

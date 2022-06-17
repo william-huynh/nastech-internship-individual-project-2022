@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ClotheShop.API.Migrations
 {
-    [DbContext(typeof(ClotheContext))]
+    [DbContext(typeof(ClotheDbContext))]
     partial class ClotheContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

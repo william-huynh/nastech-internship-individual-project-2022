@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClotheShop.API.Data
 {
-    public class ClotheContext : DbContext
+    public class ClotheDbContext : DbContext
     {
+        public ClotheDbContext(DbContextOptions<ClotheDbContext> options) : base (options) { }
         public DbSet<Clothe> Clothes { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Image> Images { get; set; }
