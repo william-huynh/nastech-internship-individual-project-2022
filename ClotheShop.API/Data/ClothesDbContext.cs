@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClotheShop.API.Data
 {
-    public class ClotheDbContext : DbContext
+    public class ClothesDbContext : DbContext
     {
-        public ClotheDbContext(DbContextOptions<ClotheDbContext> options) : base (options) { }
-        public DbSet<Clothe> Clothes { get; set; }
+        public ClothesDbContext(DbContextOptions<ClothesDbContext> options) : base (options) { }
+        public DbSet<Clothes> Clothes { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Customer> Customers { get; set; }

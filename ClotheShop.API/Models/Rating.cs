@@ -8,6 +8,6 @@
         public int RatingNumber { get; set; }
 
         public virtual Customer Customer { get; set; }
-        public virtual Clothe Clothe { get; set; }
+        public virtual Clothes Clothes { get; set; }
     }
 }

@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Configure for DbContext
-builder.Services.AddDbContext<ClotheDbContext>(options => options.UseSqlServer(
+builder.Services.AddDbContext<ClothesDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
 ));
 
