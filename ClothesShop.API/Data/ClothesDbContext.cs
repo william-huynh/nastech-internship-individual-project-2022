@@ -13,16 +13,15 @@ namespace ClotheShop.API.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Cart> Carts { get; set; }
-        public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<ShippingAddress> ShippingAddresses { get; set; }
-        public DbSet<BillingAddress> BillingAddresses { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
-                "Data Source=.;Initial Catalog=ClotheShop;Integrated Security=True")
+                "Data Source=.;Initial Catalog=ClothesShop;Integrated Security=True")
                 .UseLazyLoadingProxies()
                 .LogTo(Console.WriteLine, new[]
                 {
@@ -34,6 +33,19 @@ namespace ClotheShop.API.Data
                 },
                     LogLevel.Information)
                 .EnableSensitiveDataLogging();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Customer)
+                .WithOne(c => c.User)
+                .HasForeignKey<Customer>(c => c.Email);
+
+            //modelBuilder.Entity<Order>()
+            //    .HasOne(c => c.Customer)
+            //    .WithMany()
+            //    .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

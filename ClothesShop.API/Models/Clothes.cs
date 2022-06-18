@@ -12,7 +12,6 @@ namespace ClotheShop.API.Models
         public DateTime AddedDate { get; set; }
         public bool IsDeleted { get; set; }
         public int CategoryId { get; set; }
-        public int RatingId { get; set; }
 
         public virtual Category Category { get; set; }
         public virtual List<Image> Images { get; set; } = new List<Image>();
