@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClotheShop.CustomerSite", "ClotheShop.CustomerSite\ClotheShop.CustomerSite.csproj", "{49C5D3BB-2471-4FD0-8864-1252D7945D3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClothesShop.CustomerSite", "ClothesShop.CustomerSite\ClothesShop.CustomerSite.csproj", "{49C5D3BB-2471-4FD0-8864-1252D7945D3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClotheShop.API", "ClotheShop.API\ClotheShop.API.csproj", "{65810B16-6802-404B-B35F-8FB8F31D7463}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClothesShop.API", "ClothesShop.API\ClothesShop.API.csproj", "{65810B16-6802-404B-B35F-8FB8F31D7463}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
