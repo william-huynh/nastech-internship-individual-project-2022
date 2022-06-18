@@ -1,4 +1,5 @@
 ﻿using ClotheShop.API.Models;
+using ClothesShop.API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClotheShop.API.Data
@@ -10,8 +11,13 @@ namespace ClotheShop.API.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Employee> Employees { get; set; }
-        public DbSet<Rating> Rating { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<ShippingAddress> ShippingAddresses { get; set; }
+        public DbSet<BillingAddress> BillingAddresses { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

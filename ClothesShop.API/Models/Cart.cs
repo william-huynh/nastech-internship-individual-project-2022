@@ -5,6 +5,6 @@
         public int Id { get; set; }
         public decimal TotalPrice { get; set; }
 
-        public List<CartItem> CartItems { get; set; } = new List<CartItem>();
+        public virtual List<CartItem> CartItems { get; set; } = new List<CartItem>();
     }
 }

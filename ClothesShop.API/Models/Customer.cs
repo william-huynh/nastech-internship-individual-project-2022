@@ -15,11 +15,11 @@ namespace ClotheShop.API.Models
         public int OrderId { get; set; }
         public int RatingId { get; set; }
 
-        public User user { get; set; }
-        public Cart Cart { get; set; }
-        public ShippingAddress ShippingAddress { get; set; }
-        public BillingAddress BillingAddress { get; set; }
-        public List<Order> Orders { get; set; } = new List<Order>();
-        public List<Rating> Ratings { get; set; } = new List<Rating>();
+        public virtual User user { get; set; }
+        public virtual Cart Cart { get; set; }
+        public virtual ShippingAddress ShippingAddress { get; set; }
+        public virtual BillingAddress BillingAddress { get; set; }
+        public virtual List<Order> Orders { get; set; } = new List<Order>();
+        public virtual List<Rating> Ratings { get; set; } = new List<Rating>();
     }
 }
