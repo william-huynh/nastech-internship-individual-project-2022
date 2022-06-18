@@ -2,4 +2,5 @@
 
 Trello for project: https://trello.com/b/xwlPuDIL/nastech-internship-individual-project
 
-Project ERD ![Uploading Clothes Shop ERD.drawio.png…]()
+Project ERD
+![Clothes Shop ERD drawio](https://user-images.githubusercontent.com/34576262/174422649-c5081fce-6dea-400d-84c9-dc8e21c39987.png)
