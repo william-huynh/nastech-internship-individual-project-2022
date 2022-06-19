@@ -19,44 +19,121 @@ namespace ClotheShop.API.Controllers
 
         // GET (all): api/Categories
         [HttpGet]
-        public async Task<ActionResult<List<Category>>> GetAllCategories()
+        public async Task<IActionResult> GetAllCategories()
         {
-            if (_context.Categories == null)
+            try
             {
-                return NotFound();
+                var allCategories = await _context.Categories.Select(c => new CategoriesModel
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Description = c.Description,
+                    IsDeleted = c.IsDeleted,
+                }).ToListAsync();
+                return Ok(allCategories.Where(ac => ac.IsDeleted == false));
             }
-            return Ok(await _context.Categories.ToListAsync());
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         // GET (single product): api/Categories/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(int? id)
+        public async Task<IActionResult> GetCategory(int? id)
         {
-            if (_context.Categories == null)
+            try
             {
-                return NotFound();
+                var checkedCategory = await _context.Categories.FindAsync(id);
+                if (checkedCategory == null || checkedCategory.IsDeleted == true)
+                {
+                    return NotFound();
+                }
+                var singleCategory = new CategoriesModel
+                {
+                    Id = checkedCategory.Id,
+                    Name = checkedCategory.Name,
+                    Description = checkedCategory.Description,
+                    IsDeleted = checkedCategory.IsDeleted,
+                };
+                return Ok(singleCategory);
             }
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            catch
             {
-                return NotFound();
+                return BadRequest();
             }
-            return Ok(category);
         }
 
         // POST: api/Categories
         [HttpPost]
-        public async Task<ActionResult<List<Category>>> PostCategory(Category category)
+        public async Task<IActionResult> PostCategory(CategoriesModel categoryModel)
         {
-            var isNameAvailable = await _context.Categories.Where(n => n.Name == category.Name).FirstOrDefaultAsync();
-            System.Diagnostics.Debug.WriteLine(isNameAvailable);
-            if (isNameAvailable != null)
+            try
             {
-                return Problem("Category name is already existed! Please choose another name");
+                var newCategory = new Category
+                {
+                    Name = categoryModel.Name,
+                    Description = categoryModel.Description,
+                };
+                await _context.Categories.AddAsync(newCategory);
+                await _context.SaveChangesAsync();
+                return Ok(newCategory);
             }
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
-            return Ok(await _context.Categories.ToListAsync());
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        // PUT: api/Categories/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutCategory(int? id, CategoriesModel categoryModel)
+        {
+            try
+            {
+                var updatedCategory = await _context.Categories.FindAsync(id);
+                if (updatedCategory == null)
+                {
+                    return NotFound();
+                }
+                updatedCategory.Name = categoryModel.Name;
+                updatedCategory.Description = categoryModel.Description;
+                await _context.SaveChangesAsync();
+                return Ok(updatedCategory);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        // DELETE: api/Categories/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategory(int? id)
+        {
+            try
+            {
+                var deletedCategory = await _context.Categories.FindAsync(id);
+                if (deletedCategory == null)
+                {
+                    return NotFound();
+                }
+                deletedCategory.IsDeleted = true;
+                await _context.SaveChangesAsync();
+                return Ok(deletedCategory);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        public class CategoriesModel
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public bool IsDeleted { get; set; } = false;
         }
     }
 }
