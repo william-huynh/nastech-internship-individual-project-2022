@@ -44,7 +44,7 @@ namespace ClotheShop.API.Controllers
         {
             try
             {
-                var checkedCategory = await _context.Categories.FindAsync(id);
+                var checkedCategory = _context.Categories.Find(id);
                 if (checkedCategory == null || checkedCategory.IsDeleted == true)
                 {
                     return NotFound();

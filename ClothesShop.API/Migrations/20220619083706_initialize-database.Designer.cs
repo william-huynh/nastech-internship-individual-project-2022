@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClothesShop.API.Migrations
 {
     [DbContext(typeof(ClothesDbContext))]
-    [Migration("20220618195715_change-category-default-value")]
-    partial class changecategorydefaultvalue
+    [Migration("20220619083706_initialize-database")]
+    partial class initializedatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -129,8 +129,11 @@ namespace ClothesShop.API.Migrations
 
             modelBuilder.Entity("ClotheShop.API.Models.Image", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("ClothesID")
                         .HasColumnType("int");
