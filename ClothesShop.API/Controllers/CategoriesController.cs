@@ -38,7 +38,7 @@ namespace ClotheShop.API.Controllers
             }
         }
 
-        // GET (single product): api/Categories/{id}
+        // GET (single): api/Categories/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategory(int? id)
         {
@@ -128,6 +128,7 @@ namespace ClotheShop.API.Controllers
             }
         }
 
+        // Categories POCO model (for testing)
         public class CategoriesModel
         {
             public int Id { get; set; }
