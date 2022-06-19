@@ -2,7 +2,7 @@
 {
     public class Image
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string URL { get; set; }
         public bool IsDeleted { get; set; }
         public int ClothesID { get; set; }

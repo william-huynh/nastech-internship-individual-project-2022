@@ -38,13 +38,13 @@ namespace ClotheShop.API.Controllers
             }
         }
 
-        // GET (single product): api/Categories/{id}
+        // GET (single): api/Categories/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategory(int? id)
         {
             try
             {
-                var checkedCategory = await _context.Categories.FindAsync(id);
+                var checkedCategory = _context.Categories.Find(id);
                 if (checkedCategory == null || checkedCategory.IsDeleted == true)
                 {
                     return NotFound();
@@ -128,6 +128,7 @@ namespace ClotheShop.API.Controllers
             }
         }
 
+        // Categories POCO model (for testing)
         public class CategoriesModel
         {
             public int Id { get; set; }
