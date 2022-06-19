@@ -19,17 +19,17 @@ namespace ClotheShop.API.Controllers
 
         // GET (all): api/Categories
         [HttpGet]
-        public async Task<IActionResult> GetAllCategories()
+        public IActionResult GetAllCategories()
         {
             try
             {
-                var allCategories = await _context.Categories.Select(c => new CategoriesModel
+                var allCategories = _context.Categories.Select(c => new CategoriesModel
                 {
                     Id = c.Id,
                     Name = c.Name,
                     Description = c.Description,
                     IsDeleted = c.IsDeleted,
-                }).ToListAsync();
+                }).ToList();
                 return Ok(allCategories.Where(ac => ac.IsDeleted == false));
             }
             catch
@@ -40,7 +40,7 @@ namespace ClotheShop.API.Controllers
 
         // GET (single): api/Categories/{id}
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCategory(int? id)
+        public IActionResult GetCategory(int id)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace ClotheShop.API.Controllers
 
         // POST: api/Categories
         [HttpPost]
-        public async Task<IActionResult> PostCategory(CategoriesModel categoryModel)
+        public IActionResult PostCategory(CategoriesModel categoryModel)
         {
             try
             {
@@ -75,9 +75,15 @@ namespace ClotheShop.API.Controllers
                     Name = categoryModel.Name,
                     Description = categoryModel.Description,
                 };
-                await _context.Categories.AddAsync(newCategory);
-                await _context.SaveChangesAsync();
-                return Ok(newCategory);
+                _context.Categories.Add(newCategory);
+                _context.SaveChanges();
+                return Ok(new CategoriesModel
+                {
+                    Id = newCategory.Id,
+                    Name = newCategory.Name,
+                    Description = newCategory.Description,
+                    IsDeleted = newCategory.IsDeleted,
+                });
             }
             catch
             {
@@ -87,19 +93,25 @@ namespace ClotheShop.API.Controllers
 
         // PUT: api/Categories/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int? id, CategoriesModel categoryModel)
+        public IActionResult PutCategory(int id, CategoriesModel categoryModel)
         {
             try
             {
-                var updatedCategory = await _context.Categories.FindAsync(id);
+                var updatedCategory = _context.Categories.Find(id);
                 if (updatedCategory == null)
                 {
                     return NotFound();
                 }
                 updatedCategory.Name = categoryModel.Name;
                 updatedCategory.Description = categoryModel.Description;
-                await _context.SaveChangesAsync();
-                return Ok(updatedCategory);
+                _context.SaveChanges();
+                return Ok(new CategoriesModel
+                {
+                    Id = updatedCategory.Id,
+                    Name = updatedCategory.Name,
+                    Description = updatedCategory.Description,
+                    IsDeleted = updatedCategory.IsDeleted,
+                });
             }
             catch
             {
@@ -109,18 +121,24 @@ namespace ClotheShop.API.Controllers
 
         // DELETE: api/Categories/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory(int? id)
+        public IActionResult DeleteCategory(int id)
         {
             try
             {
-                var deletedCategory = await _context.Categories.FindAsync(id);
+                var deletedCategory = _context.Categories.Find(id);
                 if (deletedCategory == null)
                 {
                     return NotFound();
                 }
                 deletedCategory.IsDeleted = true;
-                await _context.SaveChangesAsync();
-                return Ok(deletedCategory);
+                _context.SaveChanges();
+                return Ok(new CategoriesModel
+                {
+                    Id = deletedCategory.Id,
+                    Name = deletedCategory.Name,
+                    Description = deletedCategory.Description,
+                    IsDeleted = deletedCategory.IsDeleted,
+                });
             }
             catch
             {
