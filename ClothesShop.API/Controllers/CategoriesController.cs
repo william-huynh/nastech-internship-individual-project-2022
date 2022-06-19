@@ -15,8 +15,6 @@ namespace ClotheShop.API.Controllers
         public CategoriesController(ClothesDbContext context)
         {
             _context = context;
-        }
-
-        
+        }        
     }
 }
