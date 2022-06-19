@@ -23,14 +23,14 @@ namespace ClothesShop.API.Controllers
         {
             try
             {
-                var allImages = _context.Images.Select(ai => new ImagesModel
+                var allImages = _context.Images.Select(images => new ImagesModel
                 {
-                    Id = ai.Id,
-                    URL = ai.URL,
-                    IsDeleted = ai.IsDeleted,
-                    ClothesId = ai.ClothesID,
+                    Id = images.Id,
+                    URL = images.URL,
+                    ClothesId = images.ClothesID,
+                    IsDeleted = images.IsDeleted,
                 }).ToList();
-                return Ok(allImages.Where(ai => ai.IsDeleted == false));
+                return Ok(allImages.Where(images => images.IsDeleted == false));
             }
             catch
             {
@@ -53,6 +53,7 @@ namespace ClothesShop.API.Controllers
                 {
                     Id = checkedImage.Id,
                     URL = checkedImage.URL,
+                    ClothesId = checkedImage.ClothesID,
                     IsDeleted = checkedImage.IsDeleted,
                 };
                 return Ok(singleImage);
@@ -74,7 +75,7 @@ namespace ClothesShop.API.Controllers
 
                 // Find image with similar URL & active => return image or null
                 var checkedImage = _context.Images.FirstOrDefault(
-                    i => i.URL == imagesModel.URL && i.IsDeleted == false);
+                    similarURLImage => similarURLImage.URL == imagesModel.URL && similarURLImage.IsDeleted == false);
 
                 // Check if reference clothes available or not
                 if (checkedClothes == null || checkedClothes.IsDeleted == true)
@@ -106,7 +107,69 @@ namespace ClothesShop.API.Controllers
                 return Ok(new ImagesModel
                 {
                     Id = newImage.Id,
+                    URL = newImage.URL,
                     ClothesId = newImage.ClothesID,
+                    IsDeleted = newImage.IsDeleted,
+                });
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        // PUT: api/Images/{id}
+        [HttpPut("{id}")]
+        public IActionResult PutImage(int id, ImagesModel imagesModel)
+        {
+            try
+            {
+                var updatedImage = _context.Images.Find(id);
+                var checkedImage = _context.Images.FirstOrDefault(
+                    similarURLImage => similarURLImage.URL == imagesModel.URL && similarURLImage.IsDeleted == false);
+                if (updatedImage == null || updatedImage.IsDeleted == true)
+                {
+                    return NotFound();
+                }
+                if (checkedImage != null && checkedImage.ClothesID == imagesModel.ClothesId)
+                {
+                    return BadRequest("Similar image existed!");
+                }
+                updatedImage.URL = imagesModel.URL;
+                _context.SaveChanges();
+                return Ok(new ImagesModel
+                {
+                    Id = updatedImage.Id,
+                    URL = updatedImage.URL,
+                    ClothesId = updatedImage.ClothesID,
+                    IsDeleted = updatedImage.IsDeleted,
+                });
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        // DELETE: api/Images/{id}
+        [HttpDelete("{id}")]
+        public IActionResult DeleteImage(int id)
+        {
+            try
+            {
+                var deletedImage = _context.Images.Find(id);
+                if (deletedImage == null || deletedImage.IsDeleted == true)
+                {
+                    return NotFound();
+                }
+                deletedImage.IsDeleted = true;
+                _context.SaveChanges();
+                return Ok(new ImagesModel
+                {
+                    Id = deletedImage.Id,
+                    URL = deletedImage.URL,
+                    ClothesId = deletedImage.ClothesID,
+                    IsDeleted = deletedImage.IsDeleted,
                 });
             }
             catch
