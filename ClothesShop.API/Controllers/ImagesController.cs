@@ -39,7 +39,7 @@ namespace ClothesShop.API.Controllers
         }
 
         // GET (single): api/Images/{id}
-        [HttpGet("{id}")]
+        [HttpGet("GetById/{id}")]
         public IActionResult GetImage(int? id)
         {
             try
@@ -62,6 +62,17 @@ namespace ClothesShop.API.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [HttpGet("GetByClothesId/{clothesId}")]
+        public List<ImagesModel> GetImagesOfClothes(int clothesId)
+        {
+            var imagesOfClothes = _context.Images.Select(i => new ImagesModel
+            {
+                Id = i.Id,
+                ClothesId = i.ClothesID,
+            }).Where(i => i.ClothesId == clothesId).ToList();
+            return imagesOfClothes;
         }
 
         // POST: api/Images
