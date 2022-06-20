@@ -1,20 +1,24 @@
-﻿using ClotheShop.API.Data;
+﻿using AutoMapper;
+using ClotheShop.API.Data;
 using ClotheShop.API.Models;
+using ClothesShop.API.DataTransferObject.Categories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace ClotheShop.API.Controllers
+namespace ClothesShop.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
     {
         private readonly ClothesDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CategoriesController(ClothesDbContext context)
+        public CategoriesController(ClothesDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET (all): api/Categories
@@ -23,14 +27,20 @@ namespace ClotheShop.API.Controllers
         {
             try
             {
-                var allCategories = _context.Categories.Select(c => new CategoriesModel
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    Description = c.Description,
-                    IsDeleted = c.IsDeleted,
-                }).ToList();
-                return Ok(allCategories.Where(ac => ac.IsDeleted == false));
+                // Map data using Auto Mapper
+                var allCategories = _mapper.Map<List<CategoriesReadDto>>(
+                    _context.Categories.Where(category => category.IsDeleted == false));
+
+                // Map data using manual style
+                //var allCategories = _context.Categories.Select(c => new CategoriesModel
+                //{
+                //    Id = c.Id,
+                //    Name = c.Name,
+                //    Description = c.Description,
+                //    IsDeleted = c.IsDeleted,
+                //}).ToList();
+
+                return Ok(allCategories);
             }
             catch
             {
@@ -49,13 +59,19 @@ namespace ClotheShop.API.Controllers
                 {
                     return NotFound();
                 }
-                var singleCategory = new CategoriesModel
-                {
-                    Id = checkedCategory.Id,
-                    Name = checkedCategory.Name,
-                    Description = checkedCategory.Description,
-                    IsDeleted = checkedCategory.IsDeleted,
-                };
+
+                // Map data using Auto Mapper
+                var singleCategory = _mapper.Map<CategoriesReadDto>(checkedCategory);
+
+                // Map data using manual style
+                //var singleCategory = new CategoriesModel
+                //{
+                //    Id = checkedCategory.Id,
+                //    Name = checkedCategory.Name,
+                //    Description = checkedCategory.Description,
+                //    IsDeleted = checkedCategory.IsDeleted,
+                //};
+
                 return Ok(singleCategory);
             }
             catch
