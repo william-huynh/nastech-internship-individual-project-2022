@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ClotheShop.API.Models;
-using ClothesShop.API.DataTransferObject.Categories;
+using ClothesShop.SharedVMs.Categories;
 
 namespace ClothesShop.API.Profiles
 {

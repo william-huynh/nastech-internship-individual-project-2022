@@ -1,4 +1,4 @@
-﻿namespace ClothesShop.API.DataTransferObject.Categories
+﻿namespace ClothesShop.SharedVMs.Categories
 {
     public class CategoriesUpdateDto
     {

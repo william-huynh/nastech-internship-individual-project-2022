@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using ClotheShop.API.Data;
 using ClotheShop.API.Models;
-using ClothesShop.API.DataTransferObject.Categories;
+using ClothesShop.SharedVMs.Categories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
