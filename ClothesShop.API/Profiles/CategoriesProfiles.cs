@@ -9,7 +9,15 @@ namespace ClothesShop.API.Profiles
         public CategoriesProfiles()
         {
             // Source => Destination
+
+            // Use for read data (GET, GET single)
             CreateMap<Category, CategoriesReadDto>();
+
+            // Use for write data (POST)
+            CreateMap<CategoriesCreateDto, Category>();
+
+            // Use for update data (PUT)
+            CreateMap<CategoriesUpdateDto, Category>();
         }
     }
 }
