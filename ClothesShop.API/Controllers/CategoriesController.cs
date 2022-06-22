@@ -23,7 +23,7 @@ namespace ClothesShop.API.Controllers
 
         // GET (all): api/Categories
         [HttpGet]
-        public IActionResult GetAllCategories()
+        public List<CategoriesReadDto> GetAllCategories()
         {
             try
             {
@@ -38,12 +38,13 @@ namespace ClothesShop.API.Controllers
                     IsDeleted = c.IsDeleted,
                 }).ToList(); */
 
-                return Ok(allCategories);
+                return allCategories;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Something went very wrong in GetAllCategories action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                StatusCode(500, "Internal server error");
+                return new List<CategoriesReadDto>();
             }
         }
 
