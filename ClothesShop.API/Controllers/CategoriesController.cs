@@ -1,8 +1,10 @@
-﻿using AutoMapper;
+﻿using Amazon.SimpleSystemsManagement.Model;
+using AutoMapper;
 using ClotheShop.API.Data;
 using ClotheShop.API.Models;
 using ClothesShop.SharedVMs.Categories;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +25,7 @@ namespace ClothesShop.API.Controllers
 
         // GET (all): api/Categories
         [HttpGet]
-        public IActionResult GetAllCategories()
+        public List<CategoriesReadDto> GetAllCategories()
         {
             try
             {
@@ -38,12 +40,13 @@ namespace ClothesShop.API.Controllers
                     IsDeleted = c.IsDeleted,
                 }).ToList(); */
 
-                return Ok(allCategories);
+                return allCategories;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Something went very wrong in GetAllCategories action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                StatusCode(500, "Internal server error");
+                return new List<CategoriesReadDto>();
             }
         }
 
@@ -113,25 +116,29 @@ namespace ClothesShop.API.Controllers
 
         // PUT: api/Categories/{id}
         [HttpPut("{id}")]
-        public IActionResult PutCategory(int id, CategoriesUpdateDto categoryUpdate)
+        public CategoriesReadDto PutCategory(int id, CategoriesUpdateDto categoryUpdate)
         {
             try
             {
                 var updatedCategory = _context.Categories.Find(id);
                 if (updatedCategory == null || updatedCategory.IsDeleted == true)
                 {
-                    return NotFound("Category not found!");
+                    NotFound("Category not found!");
+                    return new CategoriesReadDto();
                 }
+                updatedCategory.Id = id;
                 updatedCategory.Name = categoryUpdate.Name;
                 updatedCategory.Description = categoryUpdate.Description;
                 updatedCategory.ProductQuantity = categoryUpdate.ProductQuantity;
+                updatedCategory.IsDeleted = false;
                 _context.SaveChanges();
-                return Ok(_mapper.Map<CategoriesReadDto>(updatedCategory)); // Use Auto Mapper => updatedCategory to CategoriesReadDto
+                return _mapper.Map<CategoriesReadDto>(updatedCategory); // Use Auto Mapper => updatedCategory to CategoriesReadDto
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Something went very wrong in PutCategory action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                StatusCode(500, "Internal server error");
+                return new CategoriesReadDto();
             }
         }
 
