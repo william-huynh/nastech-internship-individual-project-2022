@@ -1,8 +1,10 @@
-﻿using AutoMapper;
+﻿using Amazon.SimpleSystemsManagement.Model;
+using AutoMapper;
 using ClotheShop.API.Data;
 using ClotheShop.API.Models;
 using ClothesShop.SharedVMs.Categories;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

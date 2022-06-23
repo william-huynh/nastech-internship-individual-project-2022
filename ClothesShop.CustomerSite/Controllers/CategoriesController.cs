@@ -3,6 +3,7 @@ using ClothesShop.SharedVMs.Categories;
 using Newtonsoft.Json;
 using System.Net.Http.Formatting;
 using System.Text;
+using ClotheShop.API.Models;
 
 namespace ClothesShop.CustomerSite.Controllers
 {
@@ -99,35 +100,35 @@ namespace ClothesShop.CustomerSite.Controllers
             {
                 using (var response = await httpClient.GetAsync(baseAddress + "/Categories/" + id))
                 {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
 
-                    #pragma warning disable CS8601 // Possible null reference assignment.
-                    _oCategoryRead = JsonConvert.DeserializeObject<CategoriesReadDto>(apiResponse);
-                    #pragma warning restore CS8601 // Possible null reference assignment.
+                        #pragma warning disable CS8601 // Possible null reference assignment.
+                        _oCategoryRead = JsonConvert.DeserializeObject<CategoriesReadDto>(apiResponse);
+                        #pragma warning restore CS8601 // Possible null reference assignment.
+                    }
+                    else
+                    {
+                        ViewBag.StatusCode = response.StatusCode;
+                    }
                 }
             }
             return View(_oCategoryRead);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(CategoriesUpdateDto _categoryUpdate)
+        public async Task<IActionResult> Update(int id, [FromForm] CategoriesUpdateDto _categoryUpdate)
         {
             _oCategoryRead = new CategoriesReadDto();
             using (httpClient)
             {
-                var content = new MultipartFormDataContent();
-                content.Add(new StringContent(_categoryUpdate.Id.ToString()), "Id");
-                content.Add(new StringContent(_categoryUpdate.Name), "Name");
-                content.Add(new StringContent(_categoryUpdate.Description), "Description");
-                content.Add(new StringContent(_categoryUpdate.ProductQuantity.ToString()), "ProductQuantity");
-
-                //StringContent content = new StringContent(JsonConvert.SerializeObject(_categoryUpdate), Encoding.UTF8, "application/json");
-
-                using (var response = await httpClient.PutAsync(baseAddress + "/Categories/" + (_categoryUpdate.Id - 1), content))
+                StringContent content = new StringContent(JsonConvert.SerializeObject(_categoryUpdate), Encoding.UTF8, "application/json");
+                using (var response = await httpClient.PutAsync(baseAddress + "/Categories/" + id, content))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     ViewBag.Result = "Success";
-                    
+
                     #pragma warning disable CS8601 // Possible null reference assignment.
                     _oCategoryRead = JsonConvert.DeserializeObject<CategoriesReadDto>(apiResponse);
                     #pragma warning restore CS8601 // Possible null reference assignment.
