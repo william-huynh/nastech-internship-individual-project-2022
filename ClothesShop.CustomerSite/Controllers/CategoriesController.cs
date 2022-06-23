@@ -90,5 +90,64 @@ namespace ClothesShop.CustomerSite.Controllers
             }
             return View(_oCategoryRead);
         }
+
+        // PUT category
+        public async Task<IActionResult> Update(int id)
+        {
+            _oCategoryRead = new CategoriesReadDto();
+            using (httpClient)
+            {
+                using (var response = await httpClient.GetAsync(baseAddress + "/Categories/" + id))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+
+                    #pragma warning disable CS8601 // Possible null reference assignment.
+                    _oCategoryRead = JsonConvert.DeserializeObject<CategoriesReadDto>(apiResponse);
+                    #pragma warning restore CS8601 // Possible null reference assignment.
+                }
+            }
+            return View(_oCategoryRead);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(CategoriesUpdateDto _categoryUpdate)
+        {
+            _oCategoryRead = new CategoriesReadDto();
+            using (httpClient)
+            {
+                var content = new MultipartFormDataContent();
+                content.Add(new StringContent(_categoryUpdate.Id.ToString()), "Id");
+                content.Add(new StringContent(_categoryUpdate.Name), "Name");
+                content.Add(new StringContent(_categoryUpdate.Description), "Description");
+                content.Add(new StringContent(_categoryUpdate.ProductQuantity.ToString()), "ProductQuantity");
+
+                //StringContent content = new StringContent(JsonConvert.SerializeObject(_categoryUpdate), Encoding.UTF8, "application/json");
+
+                using (var response = await httpClient.PutAsync(baseAddress + "/Categories/" + (_categoryUpdate.Id - 1), content))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    ViewBag.Result = "Success";
+                    
+                    #pragma warning disable CS8601 // Possible null reference assignment.
+                    _oCategoryRead = JsonConvert.DeserializeObject<CategoriesReadDto>(apiResponse);
+                    #pragma warning restore CS8601 // Possible null reference assignment.
+                }
+            }
+            return View(_oCategoryRead);
+        }
+
+        // DELETE category
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            using (httpClient)
+            {
+                using (var response = await httpClient.DeleteAsync(baseAddress + "/Categories/" + id))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                }
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
