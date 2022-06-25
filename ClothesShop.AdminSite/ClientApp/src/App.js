@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
+import React, { Component } from "react";
+import { Home } from "./components/Home/Home";
+import { Categories } from "./components/Categories/Categories";
+import { Layout } from "./components/Layout/Layout";
+import { Route } from "react-router-dom";
 
-import './custom.css'
+import "./App.css";
 
 export default class App extends Component {
   static displayName = App.name;
 
-  render () {
+  render() {
     return (
+      // <div className="container">
+      //   <h3 className="m-3 d-flex justify-content-center">React JS Thing</h3>
+      // </div>
       <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
+        <Route exact path="/" component={Home} />
+        <Route path="/categories" component={Categories} />
       </Layout>
     );
   }
