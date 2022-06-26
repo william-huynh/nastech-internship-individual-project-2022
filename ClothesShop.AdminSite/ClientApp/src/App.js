@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { Home } from "./components/Home/Home";
-import { Categories } from "./components/Categories/Categories";
+import { Index } from "./components/Categories/Index";
 import { Layout } from "./components/Layout/Layout";
 import { Route } from "react-router-dom";
-
 import "./App.css";
 
 export default class App extends Component {
@@ -16,7 +15,7 @@ export default class App extends Component {
       // </div>
       <Layout>
         <Route exact path="/" component={Home} />
-        <Route path="/categories" component={Categories} />
+        <Route path="/categories" component={Index} />
       </Layout>
     );
   }
