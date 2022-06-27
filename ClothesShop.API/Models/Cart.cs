@@ -7,7 +7,7 @@ namespace ClothesShop.API.Models
         public int Id { get; set; }
         public DateTime CreatedDate { get; set; }
 
-        public virtual Customer Customer { get; set; }
+        public virtual User Customer { get; set; }
         public virtual List<CartItem> CartItems { get; set; } = new List<CartItem>();
     }
 }
