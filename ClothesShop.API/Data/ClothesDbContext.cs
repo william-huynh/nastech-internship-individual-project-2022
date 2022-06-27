@@ -37,15 +37,15 @@ namespace ClotheShop.API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
+            /*modelBuilder.Entity<User>()
                 .HasOne(u => u.Customer)
                 .WithOne(c => c.User)
-                .HasForeignKey<Customer>(c => c.Email);
+                .HasForeignKey<Customer>(c => c.Email);*/
 
-            //modelBuilder.Entity<Order>()
-            //    .HasOne(c => c.Customer)
-            //    .WithMany()
-            //    .OnDelete(DeleteBehavior.NoAction);
+            /*modelBuilder.Entity<Order>()
+                .HasOne(c => c.Customer)
+                .WithMany()
+                .OnDelete(DeleteBehavior.NoAction);*/
         }
     }
 }

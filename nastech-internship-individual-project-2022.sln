@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClothesShop.CustomerSite", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClothesShop.API", "ClothesShop.API\ClothesShop.API.csproj", "{65810B16-6802-404B-B35F-8FB8F31D7463}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClothesShop.SharedVMs", "ClothesShop.SharedVMs\ClothesShop.SharedVMs.csproj", "{342BFF48-BDEA-4039-ACF7-C27AEDC400A7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClothesShop.AdminSite", "ClothesShop.AdminSite\ClothesShop.AdminSite.csproj", "{D305B908-F13D-42DC-A7A1-9F973649FFA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{65810B16-6802-404B-B35F-8FB8F31D7463}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65810B16-6802-404B-B35F-8FB8F31D7463}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65810B16-6802-404B-B35F-8FB8F31D7463}.Release|Any CPU.Build.0 = Release|Any CPU
+		{342BFF48-BDEA-4039-ACF7-C27AEDC400A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{342BFF48-BDEA-4039-ACF7-C27AEDC400A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{342BFF48-BDEA-4039-ACF7-C27AEDC400A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{342BFF48-BDEA-4039-ACF7-C27AEDC400A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D305B908-F13D-42DC-A7A1-9F973649FFA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D305B908-F13D-42DC-A7A1-9F973649FFA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D305B908-F13D-42DC-A7A1-9F973649FFA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D305B908-F13D-42DC-A7A1-9F973649FFA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
