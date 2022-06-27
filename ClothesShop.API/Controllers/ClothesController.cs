@@ -1,10 +1,12 @@
 ﻿using ClotheShop.API.Data;
 using ClotheShop.API.Models;
+using ClothesShop.API.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static ClothesShop.API.Controllers.ImagesController;
 
-namespace ClotheShop.API.Controllers
+namespace ClothesShop.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -17,84 +19,50 @@ namespace ClotheShop.API.Controllers
             _context = context;
         }
 
-        //[HttpGet]
-        //public ActionResult<IEnumerable<Category>> GetClothes()
-        //{
-        //    IList<Category> categories = null;
-
-        //    using (var context = _context)
-        //    {
-        //        categories = context.Categories.Select(s => new Category()
-        //        {
-        //            Id = s.Id,
-        //            Name = s.Name,
-        //            Description = s.Description,
-        //        })
-        //    }
-        //}
-
-        //// GET: api/Clothes
-        //[HttpGet]
-        //public async  Task<ActionResult<IEnumerable<Clothes>>> GetClothes()
-        //{
-        //    if (_context.Clothes == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return await _context.Clothes.ToListAsync();
-        //}
-
-        //[HttpPost]
-        //public IHttpActionResult PostClothes(Clothes obj)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return (IHttpActionResult)BadRequest("Invalid data");
-        //    }
-        //    using (var context = _context)
-        //    {
-        //        context.Clothes.Add(new Clothes()
-        //        {
-        //            ID = obj.ID,
-        //            Name = obj.Name,
-        //            Description = obj.Description,
-        //            CategoryID = obj.CategoryID,
-        //            Price = obj.Price,
-        //            Stock = obj.Stock,
-        //            AddedDate = DateTime.Now,
-        //            Category = obj.Category,
-        //        });
-        //        context.SaveChanges();
-        //    }
-        //    return (IHttpActionResult)Ok();
-        //}
-
-        // POST: api/Clothes
-        [HttpPost]
-        public ActionResult<Clothes> PostClothes(Clothes obj)
+        // GET (all): api/Clothes
+        [HttpGet]
+        public IActionResult GetAllClothes()
         {
-            if (_context.Clothes == null)
+            try
             {
-                return Problem("_context.Clothes is null");
+                var allClothes = _context.Clothes.Include(clothes => clothes.Images).Select(clothes => new ClothesModel
+                {
+                    Id = clothes.ID,
+                    Name = clothes.Name,
+                    Description = clothes.Description,
+                    Price = clothes.Price,
+                    Stock = clothes.Stock,
+                    AddedDate = clothes.AddedDate,
+                    CategoryId = clothes.CategoryId, 
+                    IsDeleted = clothes.IsDeleted,
+                    Images = clothes.Images.Select(images => new ImagesModel
+                    {
+                        Id = images.Id,
+                        URL = images.URL,
+                        ClothesId = images.ClothesID,
+                    }).ToList()
+                }).ToList();
+                return Ok(allClothes);
             }
-            _context.Clothes.Add(obj);
-            _context.SaveChangesAsync();
-
-            return Ok();
+            catch
+            {
+                return BadRequest();
+            }
         }
 
-        //// POST: api/Categories
-        //[HttpPost]
-        //public async Task<ActionResult<Category>> PostCategories(Category obj)
-        //{
-        //    if (_context.Categories == null)
-        //    {
-        //        return Problem("_context.Categories is null");
-        //    }
-        //    _context.Categories.Add(obj);
-        //    await _context.SaveChangesAsync();
+        // Clothes POCO model (for testing)
+        public class ClothesModel
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public int Price { get; set; }
+            public int Stock { get; set; }
+            public DateTime AddedDate { get; set; }
+            public bool IsDeleted { get; set; }
+            public int CategoryId { get; set; }
+            public List<ImagesModel> Images { get; set; } = new List<ImagesModel>();
 
-        //    return Ok();
-        //}
+        }
     }
 }

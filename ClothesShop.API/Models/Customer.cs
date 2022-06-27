@@ -14,7 +14,6 @@ namespace ClotheShop.API.Models
         public string Email { get; set; }
         public int CartId { get; set; }
 
-        public virtual User User { get; set; }
         public virtual Cart Carts { get; set; } 
         public virtual List<Order> Orders { get; set; } = new List<Order>();
         public virtual List<Rating> Ratings { get; set; } = new List<Rating>();

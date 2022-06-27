@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ClothesShop.API.Models
 {
-    public class User
+    public class Login
     {
         [Key]
         public string Username { get; set; }
