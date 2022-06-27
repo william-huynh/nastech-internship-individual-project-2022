@@ -89,7 +89,7 @@ namespace ClothesShop.API.Controllers
                 var _oAuthClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, _oUser.Username),
-                    new Claim(ClaimTypes.Role, _oUser.Role),
+                    new Claim(ClaimTypes.Role, _oUser.Role), 
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToString())
                 };
