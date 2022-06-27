@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClothesShop.API.Migrations
 {
     [DbContext(typeof(ClothesDbContext))]
-    [Migration("20220619083706_initialize-database")]
+    [Migration("20220627165703_initialize-database")]
     partial class initializedatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -87,46 +87,6 @@ namespace ClothesShop.API.Migrations
                     b.ToTable("Clothes");
                 });
 
-            modelBuilder.Entity("ClotheShop.API.Models.Customer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Phone")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId")
-                        .IsUnique();
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.ToTable("Customers");
-                });
-
             modelBuilder.Entity("ClotheShop.API.Models.Image", b =>
                 {
                     b.Property<int>("Id")
@@ -181,6 +141,56 @@ namespace ClothesShop.API.Migrations
                     b.ToTable("Ratings");
                 });
 
+            modelBuilder.Entity("ClotheShop.API.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Phone")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId")
+                        .IsUnique()
+                        .HasFilter("[CartId] IS NOT NULL");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("ClothesShop.API.Models.Cart", b =>
                 {
                     b.Property<int>("Id")
@@ -227,6 +237,20 @@ namespace ClothesShop.API.Migrations
                     b.HasIndex("ClothesId");
 
                     b.ToTable("CartItems");
+                });
+
+            modelBuilder.Entity("ClothesShop.API.Models.Login", b =>
+                {
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Username");
+
+                    b.ToTable("Login");
                 });
 
             modelBuilder.Entity("ClothesShop.API.Models.Order", b =>
@@ -291,23 +315,6 @@ namespace ClothesShop.API.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("ClothesShop.API.Models.User", b =>
-                {
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Roles")
-                        .HasColumnType("int");
-
-                    b.HasKey("Email");
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("ClotheShop.API.Models.Clothes", b =>
                 {
                     b.HasOne("ClotheShop.API.Models.Category", "Category")
@@ -317,25 +324,6 @@ namespace ClothesShop.API.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("ClotheShop.API.Models.Customer", b =>
-                {
-                    b.HasOne("ClothesShop.API.Models.Cart", "Carts")
-                        .WithOne("Customer")
-                        .HasForeignKey("ClotheShop.API.Models.Customer", "CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ClothesShop.API.Models.User", "User")
-                        .WithOne("Customer")
-                        .HasForeignKey("ClotheShop.API.Models.Customer", "Email")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Carts");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ClotheShop.API.Models.Image", b =>
@@ -357,7 +345,7 @@ namespace ClothesShop.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ClotheShop.API.Models.Customer", "Customer")
+                    b.HasOne("ClotheShop.API.Models.User", "Customer")
                         .WithMany("Ratings")
                         .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -366,6 +354,15 @@ namespace ClothesShop.API.Migrations
                     b.Navigation("Clothes");
 
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("ClotheShop.API.Models.User", b =>
+                {
+                    b.HasOne("ClothesShop.API.Models.Cart", "Carts")
+                        .WithOne("Customer")
+                        .HasForeignKey("ClotheShop.API.Models.User", "CartId");
+
+                    b.Navigation("Carts");
                 });
 
             modelBuilder.Entity("ClothesShop.API.Models.CartItem", b =>
@@ -389,7 +386,7 @@ namespace ClothesShop.API.Migrations
 
             modelBuilder.Entity("ClothesShop.API.Models.Order", b =>
                 {
-                    b.HasOne("ClotheShop.API.Models.Customer", "Customer")
+                    b.HasOne("ClotheShop.API.Models.User", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -431,7 +428,7 @@ namespace ClothesShop.API.Migrations
                     b.Navigation("Ratings");
                 });
 
-            modelBuilder.Entity("ClotheShop.API.Models.Customer", b =>
+            modelBuilder.Entity("ClotheShop.API.Models.User", b =>
                 {
                     b.Navigation("Orders");
 
@@ -449,12 +446,6 @@ namespace ClothesShop.API.Migrations
             modelBuilder.Entity("ClothesShop.API.Models.Order", b =>
                 {
                     b.Navigation("CartItems");
-                });
-
-            modelBuilder.Entity("ClothesShop.API.Models.User", b =>
-                {
-                    b.Navigation("Customer")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

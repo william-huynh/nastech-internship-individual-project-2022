@@ -12,7 +12,7 @@ namespace ClothesShop.API.Models
         public bool IsDeleted { get; set; }
         public int CustomerId { get; set; }
 
-        public virtual Customer Customer { get; set; }
+        public virtual User Customer { get; set; }
         public virtual List<OrderItem> CartItems { get; set; } = new List<OrderItem>();
     }
 }

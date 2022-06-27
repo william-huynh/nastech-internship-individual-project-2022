@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ClothesShop.API.Models
+namespace ClothesShop.SharedVMs.Login
 {
-    public class Login
+    public class LoginReadDto
     {
         [Key]
         public string Username { get; set; }
