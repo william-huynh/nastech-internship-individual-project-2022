@@ -46,7 +46,7 @@ namespace ClothesShop.API.Controllers
                 return Unauthorized(new { message = "Unauthorized" });
 
             var user = _userService.GetById(id);
-            return Ok(user);
+            return Ok(user); 
         }
 
         /* [HttpGet("Admins")]
