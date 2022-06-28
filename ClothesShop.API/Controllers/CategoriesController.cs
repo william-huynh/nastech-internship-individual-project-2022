@@ -1,7 +1,7 @@
 ﻿using Amazon.SimpleSystemsManagement.Model;
 using AutoMapper;
-using ClotheShop.API.Data;
-using ClotheShop.API.Models;
+using ClothesShop.API.Data;
+using ClothesShop.API.Models;
 using ClothesShop.SharedVMs.Categories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;

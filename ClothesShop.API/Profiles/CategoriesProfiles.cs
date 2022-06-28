@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ClotheShop.API.Models;
+using ClothesShop.API.Models;
 using ClothesShop.SharedVMs.Categories;
 
 namespace ClothesShop.API.Profiles

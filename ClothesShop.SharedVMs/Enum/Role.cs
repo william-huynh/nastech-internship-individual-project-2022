@@ -2,7 +2,7 @@
 {
     public enum Role
     {
-        Admin = 1,
-        Customer = 2,
+        Administrator,
+        Customer
     }
 }

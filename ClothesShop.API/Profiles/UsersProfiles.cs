@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ClotheShop.API.Models;
-using ClotheShop.SharedVMs.Users;
+using ClothesShop.API.Models;
+using ClothesShop.SharedVMs;
 
 namespace ClothesShop.API.Profiles
 {
@@ -11,7 +11,7 @@ namespace ClothesShop.API.Profiles
             // Source => Destination
 
             // Use for read data (GET, GET single)
-            CreateMap<User, UserReadDto>();
+            CreateMap<User, UserDto>();
         }
     }
 }
