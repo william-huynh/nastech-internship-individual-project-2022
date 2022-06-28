@@ -1,6 +1,6 @@
 ﻿using ClothesShop.API.Models;
 
-namespace ClotheShop.API.Models
+namespace ClothesShop.API.Models
 {
     public class Clothes
     {

@@ -1,5 +1,5 @@
-﻿using ClotheShop.API.Data;
-using ClotheShop.API.Models;
+﻿using ClothesShop.API.Data;
+using ClothesShop.API.Models;
 using ClothesShop.API.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

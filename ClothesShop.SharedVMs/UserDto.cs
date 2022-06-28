@@ -1,13 +1,15 @@
 ﻿using ClothesShop.SharedVMs.Enum;
+using System.Text.Json.Serialization;
 
-namespace ClotheShop.SharedVMs.Users
+namespace ClothesShop.SharedVMs
 {
-    public class UserReadDto
+    public class UserDto
     {
         public int Id { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
+        [JsonIgnore]
+        public string PasswordHash { get; set; }
+        public Role Role { get; set; }
         public string Name { get; set; }
         public int Phone { get; set; }
         public string Address { get; set; }

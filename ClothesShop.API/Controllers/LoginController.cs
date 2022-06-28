@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using ClothesShop.SharedVMs.Login;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ClotheShop.API.Data;
+using ClothesShop.API.Data;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using ClotheShop.SharedVMs.Users;
+using ClothesShop.SharedVMs;
 using AutoMapper;
 using ClothesShop.SharedVMs.Enum;
+using ClothesShop.SharedVMs.Authenticate;
 
-namespace ClothesShop.API.Controllers
+/* namespace ClothesShop.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -28,59 +28,61 @@ namespace ClothesShop.API.Controllers
             _mapper = mapper;
         }
 
-        //[AllowAnonymous]
-        //[HttpPost]
-        //public IActionResult Login([FromBody] UserLogin userLogin)
-        //{
-        //    var user = Authenticate(userLogin);
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult Login([FromBody] UserLogin userLogin)
+        {
+            var user = Authenticate(userLogin);
 
-        //    if (user != null)
-        //    {
-        //        var token = Generate(user);
-        //        return Ok(token);
-        //    }
+            if (user != null)
+            {
+                var token = Generate(user);
+                return Ok(token);
+            }
 
-        //    return NotFound("User not found");
-        //}
+            return NotFound("User not found");
+        }
 
-        //private string Generate(UserModel user)
-        //{
-        //    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SymmetricKey"]));
-        //    var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        private string Generate(UserModel user)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SymmetricKey"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-        //    var claims = new[]
-        //    {
-        //        new Claim(ClaimTypes.NameIdentifier, user.Username),
-        //        new Claim(ClaimTypes.Email, user.EmailAddress),
-        //        new Claim(ClaimTypes.GivenName, user.GivenName),
-        //        new Claim(ClaimTypes.Surname, user.Surname),
-        //        new Claim(ClaimTypes.Role, user.Role)
-        //    };
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Username),
+                new Claim(ClaimTypes.Email, user.EmailAddress),
+                new Claim(ClaimTypes.GivenName, user.GivenName),
+                new Claim(ClaimTypes.Surname, user.Surname),
+                new Claim(ClaimTypes.Role, user.Role)
+            };
 
-        //    var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
-        //      _configuration["Jwt:Audience"],
-        //      claims,
-        //      expires: DateTime.Now.AddMinutes(15),
-        //      signingCredentials: credentials);
+            var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
+              _configuration["Jwt:Audience"],
+              claims,
+              expires: DateTime.Now.AddMinutes(15),
+              signingCredentials: credentials);
 
-        //    return new JwtSecurityTokenHandler().WriteToken(token);
-        //}
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
 
-        //private UserModel Authenticate(UserLogin userLogin)
-        //{
-        //    var currentUser = UserConstants.Users.FirstOrDefault(o => o.Username.ToLower() == userLogin.Username.ToLower() && o.Password == userLogin.Password);
+        private UserModel Authenticate(UserLogin userLogin)
+        {
+            var currentUser = UserConstants.Users.FirstOrDefault(o => o.Username.ToLower() == userLogin.Username.ToLower() && o.Password == userLogin.Password);
 
-        //    if (currentUser != null)
-        //    {
-        //        return currentUser;
-        //    }
+            if (currentUser != null)
+            {
+                return currentUser;
+            }
 
-        //    return null;
-        //}
+            return null;
+        }
+
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] LoginReadDto _oLoginModel)
+        public async Task<IActionResult> Login([FromBody] AuthenticateRequestDto _oLoginModel)
         {
             if (_oLoginModel != null)
             {
@@ -104,16 +106,16 @@ namespace ClothesShop.API.Controllers
             }
         }
 
-        private UserReadDto Authenticate(LoginReadDto oLoginModel)
+        private UserDto Authenticate(AuthenticateRequestDto oLoginModel)
         {
             var _oCurrentUser = _context.Users.FirstOrDefault(o => o.Username.ToLower() == oLoginModel.Username.ToLower() && o.Password == oLoginModel.Password);
 
             if (_oCurrentUser != null)
             {
-                return _mapper.Map<UserReadDto>(_oCurrentUser);
+                return _mapper.Map<UserDto>(_oCurrentUser);
             }
 
-            return new UserReadDto();
+            return new UserDto();
         }
 
         private JwtSecurityToken CreateToken(List<Claim> oAuthClaims)
@@ -130,4 +132,4 @@ namespace ClothesShop.API.Controllers
             return token;
         }
     }
-}
+} */
