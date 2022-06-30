@@ -28,6 +28,7 @@ namespace ClothesShop.API.Authorization
         {
             // Generate token that is valid for 15 minutes
             var tokenHandler = new JwtSecurityTokenHandler();
+            Console.WriteLine(_appSettings.Secret);
             var key = Encoding.UTF8.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
