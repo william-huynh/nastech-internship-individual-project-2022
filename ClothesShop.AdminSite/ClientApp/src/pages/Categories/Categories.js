@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Button, ButtonToolbar, Table, Form, Modal } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 const baseAddress = "https://localhost:7167/api/";
 
-export class Index extends Component {
+export class Categories extends Component {
   constructor(props) {
     super(props);
     this.state = {
