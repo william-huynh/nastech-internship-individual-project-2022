@@ -32,7 +32,10 @@ namespace ClothesShop.API.Authorization
             var key = Encoding.UTF8.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("Id", user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { 
+                    new Claim("Id", user.Id.ToString()),
+                    new Claim("Role", user.Role.ToString())
+                }),
                 Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256),
             };

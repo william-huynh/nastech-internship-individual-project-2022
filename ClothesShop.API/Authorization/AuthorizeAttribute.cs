@@ -24,13 +24,15 @@ namespace ClothesShop.API.Authorization
             // Authorization
             var user = (UserDto)context.HttpContext.Items["User"];
 
-            if (user == null)
+            if (user == null || _roles.Any() && !_roles.Contains(user.Role))
                 // Not logged in
-                context.Result = new RedirectResult("/error401");
-            else if (_roles.Any() && !_roles.Contains(user.Role))
-                // Role not authorized
-                context.Result = new RedirectResult("/error403");
-                //context.Result = new JsonResult(new {message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
+                context.Result = new RedirectToRouteResult(new RouteValueDictionary(
+                    new
+                    {
+                        controller = "Home",
+                        action = "Error",
+                    }));
+                //context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
         }
     }
 }

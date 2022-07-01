@@ -39,20 +39,17 @@ namespace ClotheShop.CustomerSite.Controllers
             return View();
         }
 
+        public IActionResult Logout()
+        {
+            return RedirectToAction("Login");
+        }
 
         public IActionResult Privacy()
         {
             return View();
         }
 
-        [Route("error/403")]
-        public IActionResult Error403()
-        {
-            return View();
-        }
-
-        [Route("error/401")]
-        public IActionResult Error401()
+        public IActionResult Error()
         {
             return View();
         }
