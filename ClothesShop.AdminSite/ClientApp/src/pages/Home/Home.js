@@ -13,7 +13,7 @@ function Home() {
       <div className="mt-5 d-flex justify-content-center">
         <h2>This is Home page.</h2>
       </div>
-      <button onClick={Logout} className="btn btn primary">
+      <button onClick={Logout} className="btn btn-primary">
         Log Out
       </button>
     </div>
