@@ -27,6 +27,7 @@ namespace ClotheShop.CustomerSite.Controllers
         public IActionResult Login(AuthenticateRequestDto authenticateRequest)
         {
             var response = _userService.Authenticate(authenticateRequest);
+            if (response == null) return RedirectToAction("Error");
             HttpContext.Session.SetString("Token", response.Token);
             return RedirectToAction("Index");
         }
