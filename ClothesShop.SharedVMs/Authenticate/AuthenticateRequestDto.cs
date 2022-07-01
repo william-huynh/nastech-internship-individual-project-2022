@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ClothesShop.SharedVMs.Login
+namespace ClothesShop.SharedVMs.Authenticate
 {
-    public class LoginReadDto
+    public class AuthenticateRequestDto
     {
-        [Key]
+        [Required]
         public string Username { get; set; }
+        [Required]
         public string Password { get; set; }
     }
 }

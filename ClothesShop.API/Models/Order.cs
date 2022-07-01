@@ -1,5 +1,4 @@
-﻿using ClotheShop.API.Models;
-using ClothesShop.API.Models.Enum;
+﻿using ClothesShop.API.Models.Enum;
 
 namespace ClothesShop.API.Models
 {

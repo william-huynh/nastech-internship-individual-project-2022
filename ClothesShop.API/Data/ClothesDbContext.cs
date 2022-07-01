@@ -1,8 +1,8 @@
-﻿using ClotheShop.API.Models;
-using ClothesShop.API.Models;
+﻿using ClothesShop.API.Models;
+using ClothesShop.API.Models.Authenticate;
 using Microsoft.EntityFrameworkCore;
 
-namespace ClotheShop.API.Data
+namespace ClothesShop.API.Data
 {
     public class ClothesDbContext : DbContext
     {
@@ -16,7 +16,6 @@ namespace ClotheShop.API.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-        public DbSet<Login> Login { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

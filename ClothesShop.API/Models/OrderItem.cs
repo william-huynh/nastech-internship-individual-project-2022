@@ -1,4 +1,4 @@
-﻿using ClotheShop.API.Models;
+﻿using ClothesShop.API.Models;
 
 namespace ClothesShop.API.Models
 {

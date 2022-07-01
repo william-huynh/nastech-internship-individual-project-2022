@@ -1,22 +1,23 @@
 import React, { Component } from "react";
-import { Home } from "./components/Home/Home";
-import { Index } from "./components/Categories/Index";
-import { Layout } from "./components/Layout/Layout";
-import { Route } from "react-router-dom";
 import "./App.css";
 
-export default class App extends Component {
-  static displayName = App.name;
+// Routes
+import Routes from "./routes/Routes";
 
-  render() {
-    return (
-      // <div className="container">
-      //   <h3 className="m-3 d-flex justify-content-center">React JS Thing</h3>
-      // </div>
-      <Layout>
-        <Route exact path="/" component={Home} />
-        <Route path="/categories" component={Index} />
-      </Layout>
-    );
+import { setAuthToken } from "./helpers/setAuthToken";
+
+function App() {
+  // Check JWT token
+  const token = localStorage.getItem("token");
+  if (token) {
+    setAuthToken(token);
   }
+
+  return (
+    <div>
+      <Routes />
+    </div>
+  );
 }
+
+export default App;

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ClotheShop.API.Models
+﻿namespace ClothesShop.API.Models
 {
     public class Category
     {

@@ -3,7 +3,7 @@ using ClothesShop.SharedVMs.Categories;
 using Newtonsoft.Json;
 using System.Net.Http.Formatting;
 using System.Text;
-using ClotheShop.API.Models;
+using ClothesShop.API.Models;
 
 namespace ClothesShop.CustomerSite.Controllers
 {
