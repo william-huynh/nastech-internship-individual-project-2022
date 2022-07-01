@@ -9,7 +9,7 @@ const RouteGuard = ({ component: Component, ...rest }) => {
     let token = localStorage.getItem("token");
     let decodedToken = decodeToken(token).Role;
 
-    // Check if user has JWT token
+    // Check if user has JWT token and authorize
     if (token != null && decodedToken == "Administrator") {
       flag = true;
     } else {
@@ -26,7 +26,7 @@ const RouteGuard = ({ component: Component, ...rest }) => {
         hasJWT() ? (
           <Component {...props} />
         ) : (
-          <Redirect to={{ pathname: "/login" }} />
+          <Redirect to={{ pathname: "/error" }} />
         )
       }
     />
