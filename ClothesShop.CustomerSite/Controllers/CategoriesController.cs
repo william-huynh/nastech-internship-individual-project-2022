@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using System.Net.Http.Formatting;
 using System.Text;
 using ClothesShop.API.Models;
+using Refit;
+using ClothesShop.CustomerSite.Services;
 
 namespace ClothesShop.CustomerSite.Controllers
 {
@@ -12,12 +14,10 @@ namespace ClothesShop.CustomerSite.Controllers
         Uri baseAddress = new Uri("https://localhost:7167/api");
         HttpClient httpClient;
 
-        // Read category/categories
-        CategoryDto _oCategoryRead = new CategoryDto();
-        List<CategoryDto> _oCategoriesRead = new List<CategoryDto>();
-
-        // Create category
-        CategoryDto _oCategoryCreate = new CategoryDto();
+        // Category & List of categories
+        CategoryDto category = new CategoryDto();
+        List<CategoryDto> categories = new List<CategoryDto>();
+        ICategoriesService categoriesService = RestService.For<ICategoriesService>("https://localhost:7167/api");
 
         public CategoriesController()
         {
@@ -27,19 +27,15 @@ namespace ClothesShop.CustomerSite.Controllers
         // GET (all) categories
         public async Task<IActionResult> Index()
         {
-            _oCategoriesRead = new List<CategoryDto>();
-            using (httpClient)
+            try
             {
-                using (var response = await httpClient.GetAsync(baseAddress + "/Categories"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-
-                    #pragma warning disable CS8601 // Possible null reference assignment.
-                    _oCategoriesRead = JsonConvert.DeserializeObject<List<CategoryDto>>(apiResponse);
-                    #pragma warning restore CS8601 // Possible null reference assignment.
-                }
+                categories = await categoriesService.GetCategories();
+                return View(categories);
             }
-            return View(_oCategoriesRead);
+            catch
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         // GET (single) category
@@ -48,107 +44,78 @@ namespace ClothesShop.CustomerSite.Controllers
         [HttpPost]
         public async Task<IActionResult> Single(int id)
         {
-            _oCategoryRead = new CategoryDto();
-            using (httpClient)
+            try
             {
-                using (var response = await httpClient.GetAsync(baseAddress + "/Categories/" + id))
-                {
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                    {
-                        string apiResponse = await response.Content.ReadAsStringAsync();
-
-                        #pragma warning disable CS8601 // Possible null reference assignment.
-                        _oCategoryRead = JsonConvert.DeserializeObject<CategoryDto>(apiResponse);
-                        #pragma warning restore CS8601 // Possible null reference assignment.
-                    }
-                    else
-                    {
-                        ViewBag.StatusCode = response.StatusCode;
-                    }
-                }
+                category = await categoriesService.GetCategory(id);
+                return View(category);
             }
-            return View(_oCategoryRead);
+            catch
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         // POST category
         public ViewResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(CategoryDto _categoryCreate)
+        public async Task<IActionResult> Create(CategoryDto _oCategoryCreate)
         {
-            _oCategoryRead = new CategoryDto();
-            using (httpClient)
+            try
             {
-                StringContent content = new StringContent(JsonConvert.SerializeObject(_categoryCreate), Encoding.UTF8, "application/json");
-                using (var response = await httpClient.PostAsync(baseAddress + "/Categories", content))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    
-                    #pragma warning disable CS8601 // Possible null reference assignment.
-                    _oCategoryRead = JsonConvert.DeserializeObject<CategoryDto>(apiResponse);
-                    #pragma warning restore CS8601 // Possible null reference assignment.
-                }
+                await categoriesService.CreateCategory(_oCategoryCreate);
+                return RedirectToAction("Index");
             }
-            return View(_oCategoryRead);
+            catch
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         // PUT category
         public async Task<IActionResult> Update(int id)
         {
-            _oCategoryRead = new CategoryDto();
-            using (httpClient)
+            try
             {
-                using (var response = await httpClient.GetAsync(baseAddress + "/Categories/" + id))
-                {
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                    {
-                        string apiResponse = await response.Content.ReadAsStringAsync();
-
-                        #pragma warning disable CS8601 // Possible null reference assignment.
-                        _oCategoryRead = JsonConvert.DeserializeObject<CategoryDto>(apiResponse);
-                        #pragma warning restore CS8601 // Possible null reference assignment.
-                    }
-                    else
-                    {
-                        ViewBag.StatusCode = response.StatusCode;
-                    }
-                }
+                category = await categoriesService.GetCategory(id);
+                return View(category);
             }
-            return View(_oCategoryRead);
+            catch
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(int id, [FromForm] CategoryDto _categoryUpdate)
+        public async Task<IActionResult> Update(int id, [FromForm] CategoryDto _oCategoryUpdate)
         {
-            _oCategoryRead = new CategoryDto();
-            using (httpClient)
+            try
             {
-                StringContent content = new StringContent(JsonConvert.SerializeObject(_categoryUpdate), Encoding.UTF8, "application/json");
-                using (var response = await httpClient.PutAsync(baseAddress + "/Categories/" + id, content))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    ViewBag.Result = "Success";
-
-                    #pragma warning disable CS8601 // Possible null reference assignment.
-                    _oCategoryRead = JsonConvert.DeserializeObject<CategoryDto>(apiResponse);
-                    #pragma warning restore CS8601 // Possible null reference assignment.
-                }
+                await categoriesService.UpdateCategory(id, _oCategoryUpdate);
+                return RedirectToAction("Index");
             }
-            return View(_oCategoryRead);
+            catch
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         // DELETE category
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            using (httpClient)
+            try
             {
-                using (var response = await httpClient.DeleteAsync(baseAddress + "/Categories/" + id))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                }
+                await categoriesService.DeleteCategory(id);
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            catch
+            {
+                return RedirectToAction("Error");
+            }
         }
+
+        // Error 
+        public ViewResult Error() => View();
     }
 }
