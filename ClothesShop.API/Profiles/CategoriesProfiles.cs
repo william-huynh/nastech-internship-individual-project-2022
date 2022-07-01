@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ClothesShop.API.Models;
-using ClothesShop.SharedVMs.Categories;
+using ClothesShop.SharedVMs;
 
 namespace ClothesShop.API.Profiles
 {
@@ -11,13 +11,12 @@ namespace ClothesShop.API.Profiles
             // Source => Destination
 
             // Use for read data (GET, GET single)
-            CreateMap<Category, CategoriesReadDto>();
+            CreateMap<Category, CategoryDto>();
 
-            // Use for write data (POST)
-            CreateMap<CategoriesCreateDto, Category>();
-
-            // Use for update data (PUT)
-            CreateMap<CategoriesUpdateDto, Category>();
+            // Use for write data (POST, PUT)
+            CreateMap<CategoryDto, Category>()
+                .ForMember(dest => dest.Id, o => o.Ignore())
+                .ForMember(dest => dest.IsDeleted, o => o.Ignore());
         }
     }
 }

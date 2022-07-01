@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ClothesShop.SharedVMs.Categories;
+using ClothesShop.SharedVMs;
 using Newtonsoft.Json;
 using System.Net.Http.Formatting;
 using System.Text;
@@ -13,11 +13,11 @@ namespace ClothesShop.CustomerSite.Controllers
         HttpClient httpClient;
 
         // Read category/categories
-        CategoriesReadDto _oCategoryRead = new CategoriesReadDto();
-        List<CategoriesReadDto> _oCategoriesRead = new List<CategoriesReadDto>();
+        CategoryDto _oCategoryRead = new CategoryDto();
+        List<CategoryDto> _oCategoriesRead = new List<CategoryDto>();
 
         // Create category
-        CategoriesCreateDto _oCategoryCreate = new CategoriesCreateDto();
+        CategoryDto _oCategoryCreate = new CategoryDto();
 
         public CategoriesController()
         {
@@ -27,7 +27,7 @@ namespace ClothesShop.CustomerSite.Controllers
         // GET (all) categories
         public async Task<IActionResult> Index()
         {
-            _oCategoriesRead = new List<CategoriesReadDto>();
+            _oCategoriesRead = new List<CategoryDto>();
             using (httpClient)
             {
                 using (var response = await httpClient.GetAsync(baseAddress + "/Categories"))
@@ -35,7 +35,7 @@ namespace ClothesShop.CustomerSite.Controllers
                     string apiResponse = await response.Content.ReadAsStringAsync();
 
                     #pragma warning disable CS8601 // Possible null reference assignment.
-                    _oCategoriesRead = JsonConvert.DeserializeObject<List<CategoriesReadDto>>(apiResponse);
+                    _oCategoriesRead = JsonConvert.DeserializeObject<List<CategoryDto>>(apiResponse);
                     #pragma warning restore CS8601 // Possible null reference assignment.
                 }
             }
@@ -48,7 +48,7 @@ namespace ClothesShop.CustomerSite.Controllers
         [HttpPost]
         public async Task<IActionResult> Single(int id)
         {
-            _oCategoryRead = new CategoriesReadDto();
+            _oCategoryRead = new CategoryDto();
             using (httpClient)
             {
                 using (var response = await httpClient.GetAsync(baseAddress + "/Categories/" + id))
@@ -58,7 +58,7 @@ namespace ClothesShop.CustomerSite.Controllers
                         string apiResponse = await response.Content.ReadAsStringAsync();
 
                         #pragma warning disable CS8601 // Possible null reference assignment.
-                        _oCategoryRead = JsonConvert.DeserializeObject<CategoriesReadDto>(apiResponse);
+                        _oCategoryRead = JsonConvert.DeserializeObject<CategoryDto>(apiResponse);
                         #pragma warning restore CS8601 // Possible null reference assignment.
                     }
                     else
@@ -74,9 +74,9 @@ namespace ClothesShop.CustomerSite.Controllers
         public ViewResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(CategoriesCreateDto _categoryCreate)
+        public async Task<IActionResult> Create(CategoryDto _categoryCreate)
         {
-            _oCategoryRead = new CategoriesReadDto();
+            _oCategoryRead = new CategoryDto();
             using (httpClient)
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(_categoryCreate), Encoding.UTF8, "application/json");
@@ -85,7 +85,7 @@ namespace ClothesShop.CustomerSite.Controllers
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     
                     #pragma warning disable CS8601 // Possible null reference assignment.
-                    _oCategoryRead = JsonConvert.DeserializeObject<CategoriesReadDto>(apiResponse);
+                    _oCategoryRead = JsonConvert.DeserializeObject<CategoryDto>(apiResponse);
                     #pragma warning restore CS8601 // Possible null reference assignment.
                 }
             }
@@ -95,7 +95,7 @@ namespace ClothesShop.CustomerSite.Controllers
         // PUT category
         public async Task<IActionResult> Update(int id)
         {
-            _oCategoryRead = new CategoriesReadDto();
+            _oCategoryRead = new CategoryDto();
             using (httpClient)
             {
                 using (var response = await httpClient.GetAsync(baseAddress + "/Categories/" + id))
@@ -105,7 +105,7 @@ namespace ClothesShop.CustomerSite.Controllers
                         string apiResponse = await response.Content.ReadAsStringAsync();
 
                         #pragma warning disable CS8601 // Possible null reference assignment.
-                        _oCategoryRead = JsonConvert.DeserializeObject<CategoriesReadDto>(apiResponse);
+                        _oCategoryRead = JsonConvert.DeserializeObject<CategoryDto>(apiResponse);
                         #pragma warning restore CS8601 // Possible null reference assignment.
                     }
                     else
@@ -118,9 +118,9 @@ namespace ClothesShop.CustomerSite.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(int id, [FromForm] CategoriesUpdateDto _categoryUpdate)
+        public async Task<IActionResult> Update(int id, [FromForm] CategoryDto _categoryUpdate)
         {
-            _oCategoryRead = new CategoriesReadDto();
+            _oCategoryRead = new CategoryDto();
             using (httpClient)
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(_categoryUpdate), Encoding.UTF8, "application/json");
@@ -130,7 +130,7 @@ namespace ClothesShop.CustomerSite.Controllers
                     ViewBag.Result = "Success";
 
                     #pragma warning disable CS8601 // Possible null reference assignment.
-                    _oCategoryRead = JsonConvert.DeserializeObject<CategoriesReadDto>(apiResponse);
+                    _oCategoryRead = JsonConvert.DeserializeObject<CategoryDto>(apiResponse);
                     #pragma warning restore CS8601 // Possible null reference assignment.
                 }
             }

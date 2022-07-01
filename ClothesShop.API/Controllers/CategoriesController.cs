@@ -2,7 +2,7 @@
 using AutoMapper;
 using ClothesShop.API.Data;
 using ClothesShop.API.Models;
-using ClothesShop.SharedVMs.Categories;
+using ClothesShop.SharedVMs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +25,11 @@ namespace ClothesShop.API.Controllers
 
         // GET (all): api/Categories
         [HttpGet]
-        public List<CategoriesReadDto> GetAllCategories()
+        public List<CategoryDto> GetAllCategories()
         {
             try
             {
-                var allCategories = _mapper.Map<List<CategoriesReadDto>>(
+                var allCategories = _mapper.Map<List<CategoryDto>>(
                     _context.Categories.Where(category => category.IsDeleted == false));    // Map data using Auto Mapper
 
                 /* var allCategories = _context.Categories.Select(c => new CategoriesModel
@@ -46,7 +46,7 @@ namespace ClothesShop.API.Controllers
             {
                 Console.WriteLine($"Something went very wrong in GetAllCategories action: {ex.Message}");
                 StatusCode(500, "Internal server error");
-                return new List<CategoriesReadDto>();
+                return new List<CategoryDto>();
             }
         }
 
@@ -61,7 +61,7 @@ namespace ClothesShop.API.Controllers
                 {
                     return NotFound("Category not found!");
                 }
-                var singleCategory = _mapper.Map<CategoriesReadDto>(checkedCategory);   // Map data using Auto Mapper
+                var singleCategory = _mapper.Map<CategoryDto>(checkedCategory);   // Map data using Auto Mapper
 
                 /* var singleCategory = new CategoriesModel
                 {
@@ -82,7 +82,7 @@ namespace ClothesShop.API.Controllers
 
         // POST: api/Categories
         [HttpPost]
-        public IActionResult PostCategory(CategoriesCreateDto categoryCreate)
+        public IActionResult PostCategory(CategoryDto categoryCreate)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace ClothesShop.API.Controllers
                 newCategory.IsDeleted = false;
                 _context.Categories.Add(newCategory);
                 _context.SaveChanges();
-                return Ok(_mapper.Map<CategoriesReadDto>(newCategory));     // Use Auto Mapper => newCategory to CategoriesReadDto
+                return Ok(_mapper.Map<CategoryDto>(newCategory));     // Use Auto Mapper => newCategory to CategoriesReadDto
 
                 /* var newCategory = new Category
                 {
@@ -116,7 +116,7 @@ namespace ClothesShop.API.Controllers
 
         // PUT: api/Categories/{id}
         [HttpPut("{id}")]
-        public CategoriesReadDto PutCategory(int id, CategoriesUpdateDto categoryUpdate)
+        public CategoryDto PutCategory(int id, CategoryDto categoryUpdate)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace ClothesShop.API.Controllers
                 if (updatedCategory == null || updatedCategory.IsDeleted == true)
                 {
                     NotFound("Category not found!");
-                    return new CategoriesReadDto();
+                    return new CategoryDto();
                 }
                 updatedCategory.Id = id;
                 updatedCategory.Name = categoryUpdate.Name;
@@ -132,13 +132,13 @@ namespace ClothesShop.API.Controllers
                 updatedCategory.ProductQuantity = categoryUpdate.ProductQuantity;
                 updatedCategory.IsDeleted = false;
                 _context.SaveChanges();
-                return _mapper.Map<CategoriesReadDto>(updatedCategory); // Use Auto Mapper => updatedCategory to CategoriesReadDto
+                return _mapper.Map<CategoryDto>(updatedCategory); // Use Auto Mapper => updatedCategory to CategoriesReadDto
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Something went very wrong in PutCategory action: {ex.Message}");
                 StatusCode(500, "Internal server error");
-                return new CategoriesReadDto();
+                return new CategoryDto();
             }
         }
 
@@ -155,7 +155,7 @@ namespace ClothesShop.API.Controllers
                 }
                 deletedCategory.IsDeleted = true;
                 _context.SaveChanges();
-                return Ok(_mapper.Map<CategoriesReadDto>(deletedCategory)); // Use Auto Mapper => deletedCategory to CategoriesReadDto
+                return Ok(_mapper.Map<CategoryDto>(deletedCategory)); // Use Auto Mapper => deletedCategory to CategoriesReadDto
             }
             catch (Exception ex)
             {
