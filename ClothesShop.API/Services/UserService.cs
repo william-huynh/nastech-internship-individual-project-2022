@@ -38,7 +38,7 @@ namespace ClothesShop.API.Services
 
             // Validate
             if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
-                throw new AppException("Username or password is incorrect");
+                return null;
 
             var userDto = _mapper.Map<UserDto>(user);
             // Authentication successful so generate jwt token
