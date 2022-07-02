@@ -17,6 +17,9 @@ var configuration = builder.Configuration;
 
 // Add services to the container.
 {
+    // Add Razor pages runtime compilation
+    services.AddRazorPages().AddRazorRuntimeCompilation();
+
     // Add services to the container.
     services.AddControllersWithViews();
 
@@ -97,7 +100,7 @@ var app = builder.Build();
 
     app.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=Login}");
+        pattern: "{controller=Home}/{action=Index}");
 }
 
 app.Run();

@@ -2,10 +2,60 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <form asp-action="Logout">
-        <button type="submit">Logout</button>
-    </form>
+<header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-0" style="height: 4em">
+        <div class="container-fluid d-flex p-0">
+            <div class="col-2">
+                
+            </div>
+            <div class="col-8">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center" style="font-size: 18px; font-weight: 600">
+                    <li class="nav-item active mx-3">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link" asp-controller="Categories" asp-action="Index">Categories</a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-2 d-flex justify-content-end" style="height: 4em">
+                <div class="col-4 text-center" style="color: white; line-height: 4em; vertical-align: middle">
+                    <i class="fa-solid fa-cart-shopping fa-xl"></i>
+                </div>
+                <div class="col-4 text-center" style="color: white; line-height: 4em; vertical-align: middle">
+                    <span><i class="fa-solid fa-dungeon fa-xl"></i></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+
+    <!-- Background image -->
+    <div
+        class="p-5 text-center bg-image"
+        style="
+            background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');
+            height: 400px;
+        "
+    >
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="text-white">
+                    <h1 class="mb-3">Heading</h1>
+                    <h4 class="mb-3">Subheading</h4>
+                    <a class="btn btn-primary btn-lg" asp-action="Login" asp-controller="Home" role="button">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Background image -->
+</header>
+<div class="container">
 </div>

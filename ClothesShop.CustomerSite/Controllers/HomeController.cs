@@ -22,7 +22,7 @@ namespace ClotheShop.CustomerSite.Controllers
         public IActionResult Login() => View();
 
         [AllowAnonymous]
-        [Route("login")]
+        //[Route("login")]
         [HttpPost]
         public IActionResult Login(AuthenticateRequestDto authenticateRequest)
         {
@@ -32,9 +32,9 @@ namespace ClotheShop.CustomerSite.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize(Role.Customer)]
-        [Route("index")]
-        [HttpGet]
+        //[Authorize(Role.Customer)]
+        //[Route("index")]
+        //[HttpGet]
         public IActionResult Index()
         {
             return View();
@@ -42,6 +42,7 @@ namespace ClotheShop.CustomerSite.Controllers
 
         public IActionResult Logout()
         {
+            HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
 

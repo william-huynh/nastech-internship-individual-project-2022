@@ -1,0 +1,17 @@
+﻿.navigation-bar {
+    height: 4em
+}
+
+.navigation-bar-center {
+    font-weight: 700
+}
+
+.navigation-bar-right {
+    height: 4em
+}
+
+.navigation-user-icon, .navigation-cart-icon {
+    color: white;
+    line-height: 4em;
+    vertical-align: middle
+}
