@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ClothesShop.CustomerSite.styles.css" />
     <link rel="stylesheet" href="~/css/Navbar.css" />
+    <link rel="stylesheet" href="~/css/Homepage.css" />
     <style>
         body {
             font-family: 'Nunito Sans', sans-serif;
@@ -46,7 +47,7 @@
                         <i class="fa-solid fa-cart-shopping fa-xl"></i>
                     </div>
                     <div class="navigation-user-icon col-4 text-center">
-                        <span><i class="fa-solid fa-dungeon fa-xl"></i></span>
+                        <span><i class="fa-solid fa-user fa-xl"></i></span>
                     </div>
                 </div>
             </div>
@@ -54,19 +55,13 @@
         <!-- Navbar -->
 
         <!-- Background image -->
-        <div
-            class="p-5 text-center bg-image"
-            style="
-                background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');
-                height: 400px;
-            "
-        >
-            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+        <div class="homepage-image p-5 text-center bg-image d-flex justify-content-end">
+            <div class="mask">
                 <div class="d-flex justify-content-center align-items-center h-100">
-                    <div class="text-white">
-                        <h1 class="mb-3">Heading</h1>
-                        <h4 class="mb-3">Subheading</h4>
-                        <a class="btn btn-primary btn-lg" asp-action="Login" asp-controller="Home" role="button">Logout</a>
+                    <div class="text-white text-end">
+                        <h4 class="mb-3">Forget the rules</h4>
+                        <h1 class="mb-3">Create your style</h1>
+                        <a class="btn btn-secondary btn-lg" asp-action="" asp-controller="" role="button">CHECK OUT PRODUCTS</a>
                     </div>
                 </div>
             </div>
