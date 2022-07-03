@@ -1,9 +1,10 @@
-﻿.navigation-bar {
+﻿.navigation-bar-container {
     height: 4em
 }
 
 .navigation-bar-center {
-    font-weight: 700
+    font-size: 18px;
+    font-weight: 600
 }
 
 .navigation-bar-right {

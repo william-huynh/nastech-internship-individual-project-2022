@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\css\HomeIndex.css" />
+    <Content Remove="wwwroot\css\Navbar.css" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\HomeIndex.css" />
+    <None Include="wwwroot\css\Navbar.css" />
   </ItemGroup>
 
   <ItemGroup>

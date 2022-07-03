@@ -3,13 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ClotheShop.CustomerSite</title>
+    <title>@ViewData["Title"] - ClothesShop.CustomerSite</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/ClothesShop.CustomerSite.styles.css"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,800;0,900;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/ClothesShop.CustomerSite.styles.css" />
+    <link rel="stylesheet" href="~/css/Navbar.css" />
     <style>
         body {
             font-family: 'Nunito Sans', sans-serif;
@@ -17,11 +15,90 @@
     </style>
 </head>
 <body>
-    @RenderBody()
+
+    <!-- Header -->
+    <header>
+
+        <!-- Navbar -->
+        <nav class="navigation-bar-container navbar navbar-expand-lg navbar-dark bg-dark p-0">
+            <div class="container-fluid d-flex p-0">
+                <div class="col-2">
+                
+                </div>
+                <div class="col-8">
+                    <ul class="navigation-bar-center navbar-nav me-auto mb-2 mb-lg-0 justify-content-center">
+                        <li class="nav-item active mx-3">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" asp-controller="Categories" asp-action="Index">Categories</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="#">Pricing</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navigation-bar-right col-2 d-flex justify-content-end">
+                    <div class="navigation-cart-icon col-4 text-center">
+                        <i class="fa-solid fa-cart-shopping fa-xl"></i>
+                    </div>
+                    <div class="navigation-user-icon col-4 text-center">
+                        <span><i class="fa-solid fa-dungeon fa-xl"></i></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar -->
+
+        <!-- Background image -->
+        <div
+            class="p-5 text-center bg-image"
+            style="
+                background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');
+                height: 400px;
+            "
+        >
+            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    <div class="text-white">
+                        <h1 class="mb-3">Heading</h1>
+                        <h4 class="mb-3">Subheading</h4>
+                        <a class="btn btn-primary btn-lg" asp-action="Login" asp-controller="Home" role="button">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Background image -->
+
+    </header>
+    <!-- Header -->
+
+    <!-- Container -->
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <!-- Container -->
+
+    <!-- Footer -->
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - ClotheShop.CustomerSite - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <!-- Footer -->
+
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://kit.fontawesome.com/9a82700792.js" crossorigin="anonymous"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <!-- Scripts -->
+
 </body>
 </html>
