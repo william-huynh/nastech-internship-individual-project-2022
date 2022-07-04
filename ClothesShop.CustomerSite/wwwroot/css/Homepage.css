@@ -1,0 +1,38 @@
+﻿.homepage-image {
+    background-image: url('https://wallpapercave.com/wp/wp3130193.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90vh;
+}
+
+.homepage-image-heading {
+    font-weight: 800;
+}
+
+.homepage-image-btn {
+    font-weight: 700;
+    transition: transform 0.5s;
+}
+
+.homepage-image-btn:hover {
+    transform: scale(1.2);
+}
+
+.categories-menu-title {
+    font-weight: 600;
+}
+
+.category-container {
+    height: 130px;
+    width: 130px;
+    border-radius: 25px;
+    color: white
+}
+
+.product-container {
+    height: 130px;
+    width: 130px;
+    border-radius: 25px;
+    color: black
+}

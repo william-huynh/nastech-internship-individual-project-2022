@@ -1,0 +1,25 @@
+﻿.navigation-bar-container {
+    height: 4em
+}
+
+.navigation-bar-center {
+    font-size: 18px;
+    font-weight: 600
+}
+
+.navigation-bar-right {
+    height: 4em
+}
+
+.navigation-user-icon, .navigation-cart-icon {
+    color: white;
+    line-height: 4em;
+    vertical-align: middle;
+    transition: 0.5s;
+}
+
+.navigation-user-icon:hover {
+    cursor: pointer;
+    background-color: gray;
+    color: black;
+}
