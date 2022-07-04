@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Products Detail";
+}
+
+<div class="product-detail-container container my-5 border">
+    <div class="row">
+
+        <!-- Product image -->
+        <div class="col-6 p-0">
+            <img src="~/images/TestShirt.jpg" class="product-detail-image img-fluid">
+        </div>
+        <!-- Product image -->
+
+        <!-- Product detail -->
+        <div class="col-6 px-4 text-end">
+            <h2 class="mt-3">Shirt</h2>
+            <hr />
+            <p class="text-secondary">Shirt Description</p>
+            <form class="d-inline text-end">
+                <label for="product-quantity">Quantity:</label>
+                <input type="number" name="product-quantity" class="product-detail-quantity-input form-control mx-2"/>
+                <button class="btn btn-dark">Add to cart</button>
+            </form>
+        </div>
+        <!-- Product detail -->
+
+    </div>
+</div>
