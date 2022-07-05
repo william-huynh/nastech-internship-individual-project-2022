@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ClothesShop.CustomerSite</title>
+
+    <!-- Css import -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ClothesShop.CustomerSite.styles.css" />
@@ -11,6 +13,9 @@
     <link rel="stylesheet" href="~/css/Homepage.css" />
     <link rel="stylesheet" href="~/css/Footer.css" />
     <link rel="stylesheet" href="~/css/Products.css" />
+    <link rel="stylesheet" href="~/css/Cart.css" />
+    <!-- Css import -->
+
 </head>
 <body>
 
@@ -37,11 +42,11 @@
                     </ul>
                 </div>
                 <div class="navigation-bar-right col-2 d-flex justify-content-end">
-                    <div class="navigation-cart-icon col-4 text-center">
-                        <i class="fa-solid fa-cart-shopping fa-xl"></i>
+                    <div class="navigation-icon-container col-4 text-center">
+                        <a asp-controller="Cart" asp-action="Index" class="navigation-cart-icon align-middle"><i class="fa-solid fa-cart-shopping fa-xl"></i></a>
                     </div>
-                    <div class="navigation-user-icon col-4 text-center">
-                        <a asp-controller="Home" asp-action="Logout" style="color: white"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
+                    <div class="navigation-icon-container col-4 text-center">
+                        <a asp-controller="Home" asp-action="Logout" class="navigation-user-icon align-middle"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,7 @@
+﻿.cart-order-btn {
+    transition: 0.5s;
+}
+
+.cart-order-btn:hover {
+    transform: scale(1.1);
+}
