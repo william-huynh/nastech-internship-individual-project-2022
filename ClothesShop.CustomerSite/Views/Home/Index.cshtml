@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<ClothesShop.SharedVMs.CategoryDto>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 <div>
@@ -16,9 +18,84 @@
     </div>
     <!-- Background image -->
 
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+    <!-- Categories menu -->
+    <div class="bg-light d-flex flex-column p-5 align-items-center">
+        <h2 class="categories-menu-title text-center mb-3">Featured Categories</h2>
+        <div class="d-flex flex-wrap">
+            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
+                <i class="fa-solid fa-shirt fa-xl"></i>
+                <h5 class="pt-3">Shirt</h5>
+            </div>
+            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
+                <i class="fa-solid fa-shirt fa-xl"></i>
+                <h5 class="pt-3">Shirt</h5>
+            </div>
+            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
+                <i class="fa-solid fa-shirt fa-xl"></i>
+                <h5 class="pt-3">Shirt</h5>
+            </div>
+            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
+                <i class="fa-solid fa-shirt fa-xl"></i>
+                <h5 class="pt-3">Shirt</h5>
+            </div>
+            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
+                <i class="fa-solid fa-shirt fa-xl"></i>
+                <h5 class="pt-3">Shirt</h5>
+            </div>
+            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
+                <i class="fa-solid fa-shirt fa-xl"></i>
+                <h5 class="pt-3">Shirt</h5>
+            </div>
+            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
+                <i class="fa-solid fa-shirt fa-xl"></i>
+                <h5 class="pt-3">Shirt</h5>
+            </div>
+            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
+                <i class="fa-solid fa-shirt fa-xl"></i>
+                <h5 class="pt-3">Shirt</h5>
+            </div>
+=======
     <!-- Categories -->
     <div class="bg-light">
         <div class="container py-5">
+
+            <!-- Categories menu title -->
+            <h2 class="text-center fw-bold">CATEGORIES</h2>
+            <p class="text-center text-secondary fst-italic mb-0">Categories that is featured!?</p>
+            <hr class="title-line mx-auto" />
+            <!-- Categories menu title -->
+            
+            @if (Model != null)
+            {
+                <!-- Categories list -->
+                <div class="d-flex flex-wrap justify-content-between">
+                    @foreach (var category in Model)
+                    {
+                        <div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
+                            <i class="fa-solid fa-shirt fa-xl"></i>
+                            <h5 class="pt-3">@category.Name</h5>
+                        </div>
+                    }
+                </div>
+                <!-- Categories list -->
+            }
+            else 
+            {
+                <!-- Categories list not found warning -->
+                <h3 class="text-center fw-bold text-danger mb-0"><i class="fa-solid fa-biohazard"></i>&nbsp; Oh no! There aren't any categories. Please contact your admin to add some!! &nbsp;<i class="fa-solid fa-biohazard"></i></h3>
+                <!-- Categories list not found warning -->
+            }
+>>>>>>> Stashed changes
+        </div>
+    </div>
+    <!-- Categories menu -->
+=======
+    <!-- Categories -->
+    <div class="bg-light">
+        <div class="container py-5">
+>>>>>>> aa7f21e5aa6c63780277a69f337c6cce04ebc9fa
 
             <!-- Categories menu title -->
             <h2 class="text-center fw-bold">CATEGORIES</h2>

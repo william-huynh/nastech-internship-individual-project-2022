@@ -1,0 +1,9 @@
+﻿.login-container {
+    background-color: lightgray;
+}
+
+.login-container-box {
+    height: 400px;
+    width: 400px;
+    border-radius: 25px;
+}

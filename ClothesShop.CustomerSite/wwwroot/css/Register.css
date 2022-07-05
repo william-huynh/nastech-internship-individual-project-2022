@@ -1,0 +1,13 @@
+﻿body {
+    transition: 1s;
+}
+
+.register-container {
+    background-color: lightgray;
+}
+
+.register-container-box {
+    height: 600px;
+    width: 400px;
+    border-radius: 25px;
+}
