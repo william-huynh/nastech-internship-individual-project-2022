@@ -11,15 +11,17 @@
     height: 4em
 }
 
-.navigation-user-icon, .navigation-cart-icon {
-    color: white;
+.navigation-icon-container {
     line-height: 4em;
-    vertical-align: middle;
     transition: 0.5s;
 }
 
-.navigation-user-icon:hover {
+.navigation-icon-container:hover {
     cursor: pointer;
     background-color: gray;
-    color: black;
+    color: white;
+}
+
+.navigation-user-icon, .navigation-cart-icon, .navigation-user-icon:hover, .navigation-cart-icon:hover {
+    color: white;
 }

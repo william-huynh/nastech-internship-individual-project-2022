@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Cart";
+}
+
+<div class="container py-3">
+
+    <!-- Cart title -->
+    <h2 class="fw-bold text-center">CART</h2>
+    <hr class="title-line mx-auto" />
+    <!-- Cart title -->
+
+    <!-- Cart table -->
+    <table class="table table-bordered table-striped mb-0 text-center">
+        <thead>
+            <tr>
+                <th width="20%">Image</th>
+                <th width="20%">Name</th>
+                <th>Price</th>
+                <th width="20%">Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+            <tr>
+                <td><img src="~/images/TestShirt.jpg" class="img-thumbnail" /></td>
+                <td>Shirt</td>
+                <td>100,000 VND</td>
+                <td><input type="number" class="form-control w-50 d-inline" value="1" /></td>
+                <td>100,000 VND</td>
+            </tr>
+            <tr>
+                <th colspan="4">Total price</th>
+                <td>100,000 VND</td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Cart table -->
+
+    <!-- Order button -->
+    <div class="text-end mt-3">
+        <button class="cart-order-btn btn btn-lg btn-dark">Order the order</button>
+    </div>
+    <!-- Order button -->
+
+</div>
