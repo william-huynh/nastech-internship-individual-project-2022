@@ -5,7 +5,7 @@
 <div>
 
     <!-- Background image -->
-    <div class="product-image p-5 bg-image">
+    <div class="product-image pb-5 bg-image">
         <div class="container d-flex justify-content-start h-100">
             <div class="d-flex align-items-center">
                 <div class="text-dark text-start">
@@ -18,23 +18,25 @@
     <!-- Background image -->
 
     <!-- Products -->
-    <div class="container p-3">
+    <div class="container py-4">
         
         <!-- Product header -->
-        <div class="row pt-2">
-            <h2 class="text-primary col-6">Product List</h2>
-            <form class="col-6 d-inline text-end">
-                <label for="category-filter">Filter by category:</label>
-                <select class="product-filter-select form-select mx-2" name="category-filter">
-                    <option value="Shirt">Shirt</option>
-                </select>
-                <button class="btn btn-primary" type="submit">Filter</button>
-            </form>
-        </div>
+        <h2 class="fw-bold text-center">CLOTHES</h2>
+        <hr class="title-line mx-auto" />
         <!-- Product header -->
 
+        <!-- Product filter -->
+        <form class="col-6 d-inline text-end">
+            <label for="category-filter">Filter by category:</label>
+            <select class="product-filter-select form-select mx-2" name="category-filter">
+                <option value="Shirt">Shirt</option>
+            </select>
+            <button class="btn btn-dark" type="submit">Filter</button>
+        </form>
+        <!-- Product filter -->
+
         <!-- Products list -->
-        <div class="d-flex flex-wrap justify-content-between">
+        <div class="d-flex flex-wrap justify-content-between pt-2">
             <div class="d-flex flex-column">
                 <div class="products-container text-center pb-2">
                     <a asp-action="Single"><img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail"></a>
