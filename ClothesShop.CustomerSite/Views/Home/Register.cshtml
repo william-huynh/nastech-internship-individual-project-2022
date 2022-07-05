@@ -1,0 +1,114 @@
+﻿@model ClothesShop.SharedVMs.Authenticate.RegisterRequestDto;
+
+@{
+    Layout = "";
+    ViewData["Title"] = "Register";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ClothesShop.CustomerSite</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Register.css" />
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- Google Fonts -->
+
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css" rel="stylesheet" />
+    <!-- MDB -->
+
+</head>
+<body>
+
+    <!-- Main -->
+    <div class="register-container vh-100 d-flex justify-content-center align-items-center">
+        <div class="register-container-box border d-flex justify-content-center align-items-center bg-dark">
+            <form asp-action="Register">
+                <div class="text-center mb-3">
+                    <i class="fa-solid fa-book-journal-whills fa-2xl text-danger mb-4"></i>
+                    <h3 class="fw-bold text-light">REGISTER</h3>
+                </div>
+
+                <!-- Username input -->
+                <div class="form-outline mb-4">
+                    <input asp-for="Username" type="text" class="text-light form-control" />
+                    <label asp-for="Username" class="text-light form-label">Username</label>
+                </div>
+                <!-- Username input -->
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <input asp-for="Password" type="password" class="text-light form-control" />
+                    <label asp-for="Password" class="text-light form-label">Password</label>
+                </div>
+                <!-- Password input -->
+                
+                <hr class="border border-light text-light"/>
+
+                <!-- Name input -->
+                <div class="form-outline mb-4">
+                    <input asp-for="Name" type="text" class="text-light form-control" />
+                    <label asp-for="Name" class="text-light form-label">Name</label>
+                </div>
+                <!-- Name input -->
+
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    <input asp-for="Email" type="text" class="text-light form-control" />
+                    <label asp-for="Email" class="text-light form-label">Email</label>
+                </div>
+                <!-- Email input -->
+                
+                <!-- Phone input -->
+                <div class="form-outline mb-4">
+                    <input asp-for="Phone" type="number" class="text-light form-control" />
+                    <label asp-for="Phone" class="text-light form-label">Phone</label>
+                </div>
+                <!-- Phone input -->
+
+                <!-- Address input -->
+                <div class="form-outline mb-4">
+                    <input asp-for="Address" type="text" class="text-light form-control" />
+                    <label asp-for="Address" class="text-light form-label">Address</label>
+                </div>
+                <!-- Address input -->
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-danger btn-block mb-4">Register</button>
+                <!-- Submit button -->
+
+                <!-- Login redirect -->
+                <div class="text-center">
+                    <p class="m-0 text-light">Already a member? <a asp-action="Login" class="text-danger">Login</a></p>
+                </div>
+                <!-- Login redirect -->
+
+            </form>
+        </div>
+    </div>
+    <!-- Main -->
+
+    <!-- Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/9a82700792.js" crossorigin="anonymous"></script>
+
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"></script>
+    <!-- MDB -->
+
+    <!-- Scripts -->
+
+</body>
+</html>

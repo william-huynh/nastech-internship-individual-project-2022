@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <None Include="wwwroot\css\Navbar.css" />
+    <None Include="wwwroot\css\Register.css" />
   </ItemGroup>
 
   <ItemGroup>

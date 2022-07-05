@@ -35,6 +35,15 @@ namespace ClotheShop.CustomerSite.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Register() => View();
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult Register(RegisterRequestDto registerRequest)
+        {
+            return RedirectToAction("Index");
+        }
+
         //[Authorize(Role.Customer)]
         //[Route("index")]
         [HttpGet]
