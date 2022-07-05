@@ -29,10 +29,17 @@ namespace ClotheShop.CustomerSite.Controllers
         [HttpPost]
         public IActionResult Login(AuthenticateRequestDto authenticateRequest)
         {
-            var response = _userService.Authenticate(authenticateRequest);
-            if (response == null) return RedirectToAction("Error");
-            HttpContext.Session.SetString("Token", response.Token);
-            return RedirectToAction("Index");
+            try 
+            { 
+                var response = _userService.Authenticate(authenticateRequest);
+                if (response == null) return RedirectToAction("Error");
+                HttpContext.Session.SetString("Token", response.Token);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         public IActionResult Register() => View();
@@ -41,11 +48,20 @@ namespace ClotheShop.CustomerSite.Controllers
         [HttpPost]
         public IActionResult Register(RegisterRequestDto registerRequest)
         {
-            return RedirectToAction("Index");
+            try
+            {
+                var response = _userService.Register(registerRequest);
+                if (response == null) return RedirectToAction("Error");
+                return RedirectToAction("Login");
+            }
+            catch
+            {
+                return RedirectToAction("Error");
+            }
         }
 
-        //[Authorize(Role.Customer)]
-        //[Route("index")]
+        [ClothesShop.API.Authorization.Authorize(Role.Customer)]
+        [Route("index")]
         [HttpGet]
         public async Task<IActionResult> Index()
         {

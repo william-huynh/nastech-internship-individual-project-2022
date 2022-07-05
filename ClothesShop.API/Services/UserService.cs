@@ -7,12 +7,15 @@ using ClothesShop.API.Helpers;
 using AutoMapper;
 using ClothesShop.Helpers;
 using Microsoft.Extensions.Options;
+using ClothesShop.SharedVMs.Enum;
+using ClothesShop.API.Models;
 
 namespace ClothesShop.API.Services
 {
     public interface IUserService
     {
         AuthenticateResponseDto Authenticate(AuthenticateRequestDto model);
+        UserDto Register(RegisterRequestDto model);
         IEnumerable<UserDto> GetAll();
         UserDto GetById(int id);
     }
@@ -34,17 +37,48 @@ namespace ClothesShop.API.Services
 
         public AuthenticateResponseDto Authenticate(AuthenticateRequestDto model)
         {
-            var user = _context.Users.SingleOrDefault(x => x.Username == model.Username);
+            try
+            {
+                var user = _context.Users.SingleOrDefault(x => x.Username == model.Username);
 
-            // Validate
-            if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
+                // Validate
+                if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
+                    return null;
+
+                var userDto = _mapper.Map<UserDto>(user);
+
+                // Authentication successful so generate jwt token
+                var jwtToken = _jwtUtils.GenerateJwtToken(userDto);
+
+                return new AuthenticateResponseDto(userDto, jwtToken);
+            }
+            catch
+            {
                 return null;
+            }
+        }
 
-            var userDto = _mapper.Map<UserDto>(user);
-            // Authentication successful so generate jwt token
-            var jwtToken = _jwtUtils.GenerateJwtToken(userDto);
+        public UserDto Register (RegisterRequestDto model)
+        {
+            try
+            {
+                var userDto = _mapper.Map<UserDto>(model);
+                userDto.IsDeleted = false;
+                userDto.Role = Role.Customer;
+                userDto.PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password);
 
-            return new AuthenticateResponseDto(userDto, jwtToken);
+                _context.Users.Add(_mapper.Map<User>(userDto));
+                _context.SaveChanges();
+
+                // Authentication successful so generate jwt token
+                var jwtToken = _jwtUtils.GenerateJwtToken(userDto);
+
+                return userDto;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public IEnumerable<UserDto> GetAll()
