@@ -19,20 +19,28 @@
     transform: scale(1.2);
 }
 
-.categories-menu-title {
-    font-weight: 600;
-}
-
-.category-container {
+.homepage-category-container {
     height: 130px;
     width: 130px;
     border-radius: 25px;
-    color: white
+    color: white;
+    cursor: pointer;
+    transition: 0.5s;
 }
 
-.product-container {
+.homepage-category-container:hover {
+    transform: scale(1.1);
+}
+
+.homepage-product-container {
     height: 130px;
     width: 130px;
     border-radius: 25px;
-    color: black
+    color: black;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.homepage-product-container:hover {
+    transform: scale(1.1);
 }

@@ -5,19 +5,20 @@
 }
 <div>
     <!-- Background image -->
-    <div class="homepage-image p-5 text-center bg-image d-flex justify-content-end">
-        <div class="mask">
-            <div class="d-flex justify-content-center align-items-center h-100">
+    <div class="homepage-image p-5 bg-image">
+        <div class="container d-flex justify-content-end h-100">
+            <div class="d-flex align-items-center">
                 <div class="text-white text-end">
                     <h4 class="homepage-image-subheading mb-3">Forget the rules</h4>
                     <h1 class="homepage-image-heading mb-3 text-capitalize">Create your style</h1>
-                    <button class="homepage-image-btn btn bg-light" asp-action="" asp-controller="">CHECK OUT PRODUCTS</button>
+                    <a class="homepage-image-btn btn bg-light" asp-controller="Clothes" asp-action="Index">CHECK OUT PRODUCTS</a>
                 </div>
             </div>
         </div>
     </div>
     <!-- Background image -->
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     <!-- Categories menu -->
     <div class="bg-light d-flex flex-column p-5 align-items-center">
@@ -90,45 +91,116 @@
         </div>
     </div>
     <!-- Categories menu -->
+=======
+    <!-- Categories -->
+    <div class="bg-light">
+        <div class="container py-5">
+>>>>>>> aa7f21e5aa6c63780277a69f337c6cce04ebc9fa
 
-    <!-- Featured products -->
-    <div class="bg-dark d-flex flex-column p-5 align-items-center">
-        <h2 class="categories-menu-title text-center mb-3 text-white">Popular Products</h2>
-        <div class="d-flex flex-wrap">
-            <div class="product-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-light">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
+            <!-- Categories menu title -->
+            <h2 class="text-center fw-bold">CATEGORIES</h2>
+            <p class="text-center text-secondary fst-italic mb-0">Categories that is featured!?</p>
+            <hr class="title-line mx-auto" />
+            <!-- Categories menu title -->
+
+            <!-- Categories list -->
+            <div class="d-flex flex-wrap justify-content-between">
+                <div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
+                    <i class="fa-solid fa-shirt fa-xl"></i>
+                    <h5 class="pt-3">Shirt</h5>
+                </div>
+                <div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
+                    <i class="fa-solid fa-shirt fa-xl"></i>
+                    <h5 class="pt-3">Shirt</h5>
+                </div>
+                <div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
+                    <i class="fa-solid fa-shirt fa-xl"></i>
+                    <h5 class="pt-3">Shirt</h5>
+                </div>
+                <div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
+                    <i class="fa-solid fa-shirt fa-xl"></i>
+                    <h5 class="pt-3">Shirt</h5>
+                </div>
+                <div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
+                    <i class="fa-solid fa-shirt fa-xl"></i>
+                    <h5 class="pt-3">Shirt</h5>
+                </div>
+                <div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
+                    <i class="fa-solid fa-shirt fa-xl"></i>
+                    <h5 class="pt-3">Shirt</h5>
+                </div>
             </div>
-            <div class="product-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-light">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
-            </div>
-            <div class="product-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-light">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
-            </div>
-            <div class="product-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-light">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
-            </div>
-            <div class="product-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-light">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
-            </div>
-            <div class="product-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-light">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
-            </div>
-            <div class="product-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-light">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
-            </div>
-            <div class="product-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-light">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
-            </div>
+            <!-- Categories list -->
+
         </div>
     </div>
-    <!-- Featured products -->
+    <!-- Categories -->
+
+    <!-- Products -->
+    <div class="bg-dark">
+        <div class="container py-5">
+
+            <!-- Products featured title -->
+            <h2 class="text-center fw-bold text-light">PRODUCTS</h2>
+            <p class="text-center text-white-50 fst-italic mb-0">Featured that of the products?!</p>
+            <hr class="title-line mx-auto" style="color: lightgray" />
+            <!-- Products featured title -->
+
+            <!-- Products list -->
+            <div class="d-flex flex-wrap justify-content-between">
+                <div class="d-flex flex-column">
+                    <div class="products-container border-light text-center pb-2">
+                        <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
+                        <h5 class="mt-2 text-white">Shirt</h5>
+                        <p class="text-white-50">Shirt Description</p>
+                        <button class="btn btn-light">Add to cart</button>
+                    </div>
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="products-container border-light text-center pb-2">
+                        <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
+                        <h5 class="mt-2 text-white">Shirt</h5>
+                        <p class="text-white-50">Shirt Description</p>
+                        <button class="btn btn-light">Add to cart</button>
+                    </div>
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="products-container border-light text-center pb-2">
+                        <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
+                        <h5 class="mt-2 text-white">Shirt</h5>
+                        <p class="text-white-50">Shirt Description</p>
+                        <button class="btn btn-light">Add to cart</button>
+                    </div>
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="products-container border-light text-center pb-2">
+                        <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
+                        <h5 class="mt-2 text-white">Shirt</h5>
+                        <p class="text-white-50">Shirt Description</p>
+                        <button class="btn btn-light">Add to cart</button>
+                    </div>
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="products-container border-light text-center pb-2">
+                        <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
+                        <h5 class="mt-2 text-white">Shirt</h5>
+                        <p class="text-white-50">Shirt Description</p>
+                        <button class="btn btn-light">Add to cart</button>
+                    </div>
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="products-container border-light text-center pb-2">
+                        <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
+                        <h5 class="mt-2 text-white">Shirt</h5>
+                        <p class="text-white-50">Shirt Description</p>
+                        <button class="btn btn-light">Add to cart</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Products list -->
+
+        </div>
+    </div>
+    <!-- Products -->
 
 </div>

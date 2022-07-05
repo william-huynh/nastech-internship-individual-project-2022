@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Products";
+}
+
+<div>
+
+    <!-- Background image -->
+    <div class="product-image pb-5 bg-image">
+        <div class="container d-flex justify-content-start h-100">
+            <div class="d-flex align-items-center">
+                <div class="text-dark text-start">
+                    <h4 class="product-image-subheading mb-3">Enjoy the moment</h4>
+                    <h1 class="product-image-heading text-capitalize">Dress to your liking</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Background image -->
+
+    <!-- Products -->
+    <div class="container py-4">
+        
+        <!-- Product header -->
+        <h2 class="fw-bold text-center">CLOTHES</h2>
+        <hr class="title-line mx-auto" />
+        <!-- Product header -->
+
+        <!-- Product filter -->
+        <form class="col-6 d-inline text-end">
+            <label for="category-filter">Filter by category:</label>
+            <select class="product-filter-select form-select mx-2" name="category-filter">
+                <option value="Shirt">Shirt</option>
+            </select>
+            <button class="btn btn-dark" type="submit">Filter</button>
+        </form>
+        <!-- Product filter -->
+
+        <!-- Products list -->
+        <div class="d-flex flex-wrap justify-content-between pt-2">
+            <div class="d-flex flex-column">
+                <div class="products-container text-center pb-2">
+                    <a asp-action="Single"><img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail"></a>
+                    <h5 class="mt-2">Shirt</h5>
+                    <p class="text-secondary">Shirt Description</p>
+                    <button class="btn btn-dark">Add to cart</button>
+                </div>
+            </div>
+            <div class="d-flex flex-column">
+                <div class="products-container text-center pb-2">
+                    <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
+                    <h5 class="mt-2">Shirt</h5>
+                    <p class="text-secondary">Shirt Description</p>
+                    <button class="btn btn-dark">Add to cart</button>
+                </div>
+            </div>
+            <div class="d-flex flex-column">
+                <div class="products-container text-center pb-2">
+                    <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
+                    <h5 class="mt-2">Shirt</h5>
+                    <p class="text-secondary">Shirt Description</p>
+                    <button class="btn btn-dark">Add to cart</button>
+                </div>
+            </div>
+            <div class="d-flex flex-column">
+                <div class="products-container text-center pb-2">
+                    <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
+                    <h5 class="mt-2">Shirt</h5>
+                    <p class="text-secondary">Shirt Description</p>
+                    <button class="btn btn-dark">Add to cart</button>
+                </div>
+            </div>
+            <div class="d-flex flex-column">
+                <div class="products-container text-center pb-2">
+                    <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
+                    <h5 class="mt-2">Shirt</h5>
+                    <p class="text-secondary">Shirt Description</p>
+                    <button class="btn btn-dark">Add to cart</button>
+                </div>
+            </div>
+            <div class="d-flex flex-column">
+                <div class="products-container text-center pb-2">
+                    <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
+                    <h5 class="mt-2">Shirt</h5>
+                    <p class="text-secondary">Shirt Description</p>
+                    <button class="btn btn-dark">Add to cart</button>
+                </div>
+            </div>
+        </div>
+        <!-- Products list -->
+
+    </div>
+    <!-- Products -->
+
+</div>
