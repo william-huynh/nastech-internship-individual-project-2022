@@ -8,5 +8,10 @@ namespace ClothesShop.CustomerSite.Controllers
         {
             return View();
         }
+
+        public IActionResult Single()
+        {
+            return View();
+        }
     }
 }
