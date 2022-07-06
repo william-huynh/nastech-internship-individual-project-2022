@@ -13,6 +13,8 @@ namespace ClothesShop.API.Profiles
 
             // Use for read data (GET, GET single)
             CreateMap<User, UserDto>();
+
+            // Use for register
             CreateMap<RegisterRequestDto, UserDto>();
             CreateMap<UserDto, User>();
         }

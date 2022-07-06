@@ -70,9 +70,6 @@ namespace ClothesShop.API.Services
                 _context.Users.Add(_mapper.Map<User>(userDto));
                 _context.SaveChanges();
 
-                // Authentication successful so generate jwt token
-                var jwtToken = _jwtUtils.GenerateJwtToken(userDto);
-
                 return userDto;
             }
             catch
