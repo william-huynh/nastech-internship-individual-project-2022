@@ -24,21 +24,21 @@ namespace ClothesShop.CustomerSite.Controllers
             httpClient = new HttpClient();
         }
 
-        public ViewResult Index() => View();
+        //public ViewResult Index() => View();
 
         // GET (all) categories
-        //public async Task<IActionResult> Index()
-        //{
-        //    try
-        //    {
-        //        categories = await categoriesService.GetCategories();
-        //        return View(categories);
-        //    }
-        //    catch
-        //    {
-        //        return RedirectToAction("Error");
-        //    }
-        //}
+        public async Task<IActionResult> Index()
+        {
+            try
+            {
+                categories = await categoriesService.GetCategories();
+                return View(categories);
+            }
+            catch
+            {
+                return RedirectToAction("Error");
+            }
+        }
 
         // GET (single) category
         public ViewResult Single() => View();
