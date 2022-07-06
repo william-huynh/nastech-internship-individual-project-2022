@@ -79,6 +79,7 @@ namespace ClothesShop.API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -87,9 +88,6 @@ namespace ClothesShop.API.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductQuantity")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -111,6 +109,7 @@ namespace ClothesShop.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -123,8 +122,8 @@ namespace ClothesShop.API.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int>("Stock")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ID");
 
@@ -231,9 +230,6 @@ namespace ClothesShop.API.Migrations
                     b.Property<int>("ClothesID")
                         .HasColumnType("int");
 
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
@@ -243,8 +239,6 @@ namespace ClothesShop.API.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClothesID");
-
-                    b.HasIndex("CustomerID");
 
                     b.ToTable("Ratings");
                 });
@@ -377,15 +371,7 @@ namespace ClothesShop.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ClothesShop.API.Models.User", "Customer")
-                        .WithMany("Ratings")
-                        .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Clothes");
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("ClothesShop.API.Models.User", b =>
@@ -427,8 +413,6 @@ namespace ClothesShop.API.Migrations
             modelBuilder.Entity("ClothesShop.API.Models.User", b =>
                 {
                     b.Navigation("Orders");
-
-                    b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618
         }

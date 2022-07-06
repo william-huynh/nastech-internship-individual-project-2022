@@ -31,7 +31,6 @@ namespace ClothesShop.API.Controllers
                     Name = clothes.Name,
                     Description = clothes.Description,
                     Price = clothes.Price,
-                    Stock = clothes.Stock,
                     AddedDate = clothes.AddedDate,
                     CategoryId = clothes.CategoryId, 
                     IsDeleted = clothes.IsDeleted,
