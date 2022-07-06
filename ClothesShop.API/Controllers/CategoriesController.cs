@@ -129,7 +129,6 @@ namespace ClothesShop.API.Controllers
                 updatedCategory.Id = id;
                 updatedCategory.Name = categoryUpdate.Name;
                 updatedCategory.Description = categoryUpdate.Description;
-                updatedCategory.ProductQuantity = categoryUpdate.ProductQuantity;
                 updatedCategory.IsDeleted = false;
                 _context.SaveChanges();
                 return _mapper.Map<CategoryDto>(updatedCategory); // Use Auto Mapper => updatedCategory to CategoriesReadDto

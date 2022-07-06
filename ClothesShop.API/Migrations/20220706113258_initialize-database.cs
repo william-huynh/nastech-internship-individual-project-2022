@@ -29,9 +29,8 @@ namespace ClothesShop.API.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    ProductQuantity = table.Column<int>(type: "int", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,10 +70,10 @@ namespace ClothesShop.API.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    Stock = table.Column<int>(type: "int", nullable: false),
                     AddedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -170,8 +169,7 @@ namespace ClothesShop.API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RatingNumber = table.Column<int>(type: "int", nullable: false),
                     IsDelete = table.Column<bool>(type: "bit", nullable: false),
-                    ClothesID = table.Column<int>(type: "int", nullable: false),
-                    CustomerID = table.Column<int>(type: "int", nullable: false)
+                    ClothesID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -181,12 +179,6 @@ namespace ClothesShop.API.Migrations
                         column: x => x.ClothesID,
                         principalTable: "Clothes",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Ratings_Users_CustomerID",
-                        column: x => x.CustomerID,
-                        principalTable: "Users",
-                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -258,11 +250,6 @@ namespace ClothesShop.API.Migrations
                 name: "IX_Ratings_ClothesID",
                 table: "Ratings",
                 column: "ClothesID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ratings_CustomerID",
-                table: "Ratings",
-                column: "CustomerID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_CartId",
