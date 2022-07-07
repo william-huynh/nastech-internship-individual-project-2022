@@ -100,7 +100,7 @@ var app = builder.Build();
 
     app.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=Login}");
+        pattern: "{controller=Clothes}/{action=Index}");
 }
 
 app.Run();

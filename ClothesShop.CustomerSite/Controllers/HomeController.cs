@@ -60,8 +60,8 @@ namespace ClotheShop.CustomerSite.Controllers
             }
         }
 
-        [ClothesShop.API.Authorization.Authorize(Role.Customer)]
-        [Route("index")]
+        //[ClothesShop.API.Authorization.Authorize(Role.Customer)]
+        //[Route("index")]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
