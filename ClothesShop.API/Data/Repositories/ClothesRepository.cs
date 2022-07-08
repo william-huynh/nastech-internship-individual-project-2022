@@ -15,12 +15,17 @@ namespace ClothesShop.API.Data.Repositories
 
         public async Task<List<Clothes>> GetAsync()
         {
-            return await _context.Clothes.ToListAsync();
+            return await _context.Clothes.Where(clothes => clothes.IsDeleted.Equals(false)).ToListAsync();
+        }
+
+        public async Task<List<Clothes>> GetByCategoryId(int id)
+        {
+            return await _context.Clothes.Where(clothes => clothes.CategoryId.Equals(id) && clothes.IsDeleted.Equals(false)).ToListAsync();
         }
 
         public async Task<Clothes> GetByIdAsync(int id)
         {
-            return await _context.Clothes.AsNoTracking().FirstOrDefaultAsync(clothes => clothes.ID.Equals(id));
+            return await _context.Clothes.AsNoTracking().FirstOrDefaultAsync(clothes => clothes.ID.Equals(id) && clothes.IsDeleted.Equals(false));
         }
 
         public async Task<Clothes> PostAsync(Clothes clothes)

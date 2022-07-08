@@ -15,12 +15,12 @@ namespace ClothesShop.API.Data.Repositories
 
         public async Task<List<Rating>> GetAsync()
         {
-            return await _context.Ratings.ToListAsync();
+            return await _context.Ratings.Where(rating => rating.IsDelete.Equals(false)).ToListAsync();
         }
 
         public async Task<Rating> GetByIdAsync(int id)
         {
-            return await _context.Ratings.AsNoTracking().FirstOrDefaultAsync(rating => rating.Id.Equals(id));
+            return await _context.Ratings.AsNoTracking().FirstOrDefaultAsync(rating => rating.Id.Equals(id) && rating.IsDelete.Equals(false));
         }
 
         public async Task<Rating> PostAsync(Rating rating)

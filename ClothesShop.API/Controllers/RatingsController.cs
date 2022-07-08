@@ -29,7 +29,7 @@ namespace ClothesShop.API.Controllers
                 var ratings = await _rating.GetAsync();
                 if (!ratings.Any()) 
                     return NotFound("Ratings empty!");
-                var ratingsDto = _mapper.Map<List<RatingDto>>(ratings.Where(r => r.IsDelete.Equals(false)));
+                var ratingsDto = _mapper.Map<List<RatingDto>>(ratings);
                 return Ok(ratingsDto);
             }
             catch (Exception ex)
@@ -45,7 +45,7 @@ namespace ClothesShop.API.Controllers
             try
             {
                 var rating = await _rating.GetByIdAsync(id);
-                if (rating == null || rating.IsDelete.Equals(true)) 
+                if (rating == null) 
                     return NotFound("Rating not found!");
                 var ratingDto = _mapper.Map<RatingDto>(rating);
                 return Ok(ratingDto);
@@ -79,7 +79,7 @@ namespace ClothesShop.API.Controllers
             try
             {
                 var ratingChecked = await _rating.GetByIdAsync(ratingUpdate.Id);
-                if (ratingChecked == null || ratingChecked.IsDelete.Equals(true))
+                if (ratingChecked == null)
                     return NotFound("Rating not found!");
                 var rating = _mapper.Map<Rating>(ratingUpdate);
                 var ratingUpdated = await _rating.PutAsync(rating);
