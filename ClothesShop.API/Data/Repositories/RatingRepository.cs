@@ -20,7 +20,7 @@ namespace ClothesShop.API.Data.Repositories
 
         public async Task<Rating> GetByIdAsync(int id)
         {
-            return await _context.Ratings.FirstOrDefaultAsync(r => r.Id == id);
+            return await _context.Ratings.AsNoTracking().FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task<Rating> PostAsync(Rating rating)
@@ -30,9 +30,11 @@ namespace ClothesShop.API.Data.Repositories
             return rating;
         }
 
-        public async Task<Rating> PutAsync(int id, Rating rating)
+        public async Task<Rating> PutAsync(Rating rating)
         {
-            throw new NotImplementedException();
+            _context.Ratings.Update(rating);
+            await _context.SaveChangesAsync();
+            return rating;
         }
 
         public async Task DeleteAsync(int id)

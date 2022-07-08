@@ -14,7 +14,7 @@ namespace ClothesShop.API.Interfaces
         Task<Rating> PostAsync(Rating rating);
 
         // Put rating
-        Task<Rating> PutAsync(int id, Rating rating);
+        Task<Rating> PutAsync(Rating rating);
 
         // Delete rating
         Task DeleteAsync(int id);

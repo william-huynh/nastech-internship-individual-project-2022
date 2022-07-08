@@ -72,24 +72,24 @@ namespace ClothesShop.API.Controllers
             }
         }
 
-        // Put: api/Ratings/{id}
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutRating(int id, RatingDto ratingUpdate)
-        //{
-        //    try
-        //    {
-        //        var ratingChecked = await _rating.GetByIdAsync(id);
-        //        if (ratingChecked == null || ratingChecked.IsDelete == true)
-        //            return NotFound("Rating not found!");
-        //        var rating = _mapper.Map<Rating>(ratingUpdate);
-        //        var ratingUpdated = await _rating.PutAsync(id, rating);
-        //        return Ok(_mapper.Map<RatingDto>(ratingUpdated));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest("Something went wrong! Error: " + ex.Message);
-        //    }
-        //}
+        // Put: api/Ratings
+        [HttpPut]
+        public async Task<IActionResult> PutRating(RatingDto ratingUpdate)
+        {
+            try
+            {
+                var ratingChecked = await _rating.GetByIdAsync(ratingUpdate.Id);
+                if (ratingChecked == null || ratingChecked.IsDelete == true)
+                    return NotFound("Rating not found!");
+                var rating = _mapper.Map<Rating>(ratingUpdate);
+                var ratingUpdated = await _rating.PutAsync(rating);
+                return Ok(_mapper.Map<RatingDto>(ratingUpdated));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong! Error: " + ex.Message);
+            }
+        }
 
         // Delete: api/Ratings/{id}
         [HttpDelete("{id}")]
