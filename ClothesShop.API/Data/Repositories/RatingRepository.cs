@@ -20,7 +20,7 @@ namespace ClothesShop.API.Data.Repositories
 
         public async Task<Rating> GetByIdAsync(int id)
         {
-            return await _context.Ratings.AsNoTracking().FirstOrDefaultAsync(r => r.Id == id);
+            return await _context.Ratings.AsNoTracking().FirstOrDefaultAsync(rating => rating.Id.Equals(id));
         }
 
         public async Task<Rating> PostAsync(Rating rating)
@@ -39,7 +39,7 @@ namespace ClothesShop.API.Data.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var rating = await _context.Ratings.FirstOrDefaultAsync(r => r.Id == id);
+            var rating = await _context.Ratings.FirstOrDefaultAsync(rating => rating.Id.Equals(id));
             rating.IsDelete = true;
             await _context.SaveChangesAsync();
         }
