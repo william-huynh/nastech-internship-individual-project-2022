@@ -15,7 +15,6 @@ namespace ClothesShop.API.Profiles
 
             // Use for write data (POST, PUT)
             CreateMap<CategoryDto, Category>()
-                .ForMember(dest => dest.Id, o => o.Ignore())
                 .ForMember(dest => dest.IsDeleted, o => o.Ignore());
         }
     }
