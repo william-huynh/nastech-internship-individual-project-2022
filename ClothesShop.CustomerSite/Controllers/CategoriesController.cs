@@ -11,18 +11,10 @@ namespace ClothesShop.CustomerSite.Controllers
 {
     public class CategoriesController : Controller
     {
-        Uri baseAddress = new Uri("https://localhost:7167/api");
-        HttpClient httpClient;
-
         // Category & List of categories
         CategoryDto category = new CategoryDto();
         List<CategoryDto> categories = new List<CategoryDto>();
         ICategoriesService categoriesService = RestService.For<ICategoriesService>("https://localhost:7167/api");
-
-        public CategoriesController()
-        {
-            httpClient = new HttpClient();
-        }
 
         //public ViewResult Index() => View();
 
@@ -61,11 +53,11 @@ namespace ClothesShop.CustomerSite.Controllers
         public ViewResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(CategoryDto _oCategoryCreate)
+        public async Task<IActionResult> Create(CategoryDto categoryCreate)
         {
             try
             {
-                await categoriesService.CreateCategory(_oCategoryCreate);
+                await categoriesService.CreateCategory(categoryCreate);
                 return RedirectToAction("Index");
             }
             catch
@@ -89,11 +81,11 @@ namespace ClothesShop.CustomerSite.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(int id, [FromForm] CategoryDto _oCategoryUpdate)
+        public async Task<IActionResult> Update(int id, [FromForm] CategoryDto categoryUpdate)
         {
             try
             {
-                await categoriesService.UpdateCategory(id, _oCategoryUpdate);
+                await categoriesService.UpdateCategory(id, categoryUpdate);
                 return RedirectToAction("Index");
             }
             catch

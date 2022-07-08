@@ -29,7 +29,7 @@ namespace ClothesShop.CustomerSite.Controllers
         // Get (single) clothes
         public async Task<IActionResult> Single(int id)
         {
-            ClothesDto clothes = await clothesService.GetClothes(id);
+            /* ClothesDto clothes = await clothesService.GetClothes(id);
             ViewBag.ClothesId = id;
             var ratings = _context.Ratings.Where(r => r.ClothesID.Equals(id)).ToList();
             if (ratings.Count() > 0)
@@ -45,7 +45,8 @@ namespace ClothesShop.CustomerSite.Controllers
                 ViewBag.RatingCount = 0;
             }
 
-            return View(clothes);
+            return View(clothes); */
+            return View();
         }
     }
 }

@@ -72,7 +72,7 @@ namespace ClothesShop.API.Controllers
             }
         }
 
-        // Put: api/Ratings
+        // Put: api/Ratings/{id}
         [HttpPut]
         public async Task<IActionResult> PutRating(RatingDto ratingUpdate)
         {
