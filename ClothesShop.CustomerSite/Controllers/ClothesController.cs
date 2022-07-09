@@ -15,21 +15,38 @@ namespace ClothesShop.CustomerSite.Controllers
         List<ClothesDto> clothesList = new List<ClothesDto>();
         IClothesService clothesService = RestService.For<IClothesService>("https://localhost:7167/api");
 
+        // Category & List of categories
+        CategoryDto category = new CategoryDto();
+        List<CategoryDto> categories = new List<CategoryDto>();
+        ICategoriesService categoriesService = RestService.For<ICategoriesService>("https://localhost:7167/api");
+
         public ClothesController(ClothesDbContext context)
         {
             _context = context;
         }
 
         // GET (all) clothes
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            categories = await categoriesService.GetCategories();
+            ViewBag.Categories = categories;
+            clothesList = await clothesService.GetAllClothes();
+            return View(clothesList);
+        }
+
+        // GET (all) clothes by category Id
+        public async Task<IActionResult> Category(int id)
+        {
+            categories = await categoriesService.GetCategories();
+            ViewBag.Categories = categories;
+            clothesList = await clothesService.GetByCategoryId(id);
+            return View(clothesList);
         }
 
         // Get (single) clothes
         public async Task<IActionResult> Single(int id)
         {
-            /* ClothesDto clothes = await clothesService.GetClothes(id);
+            ClothesDto clothes = await clothesService.GetClothes(id);
             ViewBag.ClothesId = id;
             var ratings = _context.Ratings.Where(r => r.ClothesID.Equals(id)).ToList();
             if (ratings.Count() > 0)
@@ -45,8 +62,7 @@ namespace ClothesShop.CustomerSite.Controllers
                 ViewBag.RatingCount = 0;
             }
 
-            return View(clothes); */
-            return View();
+            return View(clothes);
         }
     }
 }
