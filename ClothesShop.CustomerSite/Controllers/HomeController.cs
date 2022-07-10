@@ -5,8 +5,10 @@ using ClothesShop.CustomerSite.Services;
 using ClothesShop.SharedVMs;
 using ClothesShop.SharedVMs.Authenticate;
 using ClothesShop.SharedVMs.Enum;
+using ClothesShop.SharedVMs.Models;
 using Microsoft.AspNetCore.Mvc;
 using Refit;
+using System.Dynamic;
 
 namespace ClotheShop.CustomerSite.Controllers
 {
@@ -14,7 +16,13 @@ namespace ClotheShop.CustomerSite.Controllers
     {
         private IUserService _userService;
 
+        // Clothes & List of Clothes
+        ClothesDto clothes = new ClothesDto();
+        List<ClothesDto> clothesList = new List<ClothesDto>();
+        IClothesService clothesService = RestService.For<IClothesService>("https://localhost:7167/api");
+
         // Category & List of categories
+        CategoryDto category = new CategoryDto();
         List<CategoryDto> categories = new List<CategoryDto>();
         ICategoriesService categoriesService = RestService.For<ICategoriesService>("https://localhost:7167/api");
 
@@ -67,8 +75,12 @@ namespace ClotheShop.CustomerSite.Controllers
         {
             try
             {
+                HomepageVMs homepageVMs = new HomepageVMs();
                 categories = await categoriesService.GetCategories();
-                return View(categories);
+                homepageVMs.Categories = categories;
+                clothesList = await clothesService.GetAllClothes();
+                homepageVMs.Clothes = clothesList;
+                return View(homepageVMs);
             }
             catch
             {

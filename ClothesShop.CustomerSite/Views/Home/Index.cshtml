@@ -1,8 +1,10 @@
-﻿@model IEnumerable<ClothesShop.SharedVMs.CategoryDto>
+﻿@using ClothesShop.SharedVMs.Models;
+@model HomepageVMs;
 
 @{
     ViewData["Title"] = "Home Page";
 }
+
 <div>
     <!-- Background image -->
     <div class="homepage-image p-5 bg-image">
@@ -18,45 +20,6 @@
     </div>
     <!-- Background image -->
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    <!-- Categories menu -->
-    <div class="bg-light d-flex flex-column p-5 align-items-center">
-        <h2 class="categories-menu-title text-center mb-3">Featured Categories</h2>
-        <div class="d-flex flex-wrap">
-            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
-            </div>
-            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
-            </div>
-            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
-            </div>
-            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
-            </div>
-            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
-            </div>
-            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
-            </div>
-            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
-            </div>
-            <div class="category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
-                <i class="fa-solid fa-shirt fa-xl"></i>
-                <h5 class="pt-3">Shirt</h5>
-            </div>
-=======
     <!-- Categories -->
     <div class="bg-light">
         <div class="container py-5">
@@ -67,11 +30,11 @@
             <hr class="title-line mx-auto" />
             <!-- Categories menu title -->
             
-            @if (Model != null)
+            @if (Model.Categories != null)
             {
                 <!-- Categories list -->
-                <div class="d-flex flex-wrap justify-content-between">
-                    @foreach (var category in Model)
+                <div class="d-flex flex-wrap justify-content-around">
+                    @foreach (var category in Model.Categories)
                     {
                         <div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
                             <i class="fa-solid fa-shirt fa-xl"></i>
@@ -84,54 +47,9 @@
             else 
             {
                 <!-- Categories list not found warning -->
-                <h3 class="text-center fw-bold text-danger mb-0"><i class="fa-solid fa-biohazard"></i>&nbsp; Oh no! There aren't any categories. Please contact your admin to add some!! &nbsp;<i class="fa-solid fa-biohazard"></i></h3>
+                <h3 class="text-center fw-bold text-warning mb-0"><i class="fa-solid fa-biohazard"></i>&nbsp; Oh no! There aren't any categories. Please contact your admin to add some!! &nbsp;<i class="fa-solid fa-biohazard"></i></h3>
                 <!-- Categories list not found warning -->
             }
->>>>>>> Stashed changes
-        </div>
-    </div>
-    <!-- Categories menu -->
-=======
-    <!-- Categories -->
-    <div class="bg-light">
-        <div class="container py-5">
->>>>>>> aa7f21e5aa6c63780277a69f337c6cce04ebc9fa
-
-            <!-- Categories menu title -->
-            <h2 class="text-center fw-bold">CATEGORIES</h2>
-            <p class="text-center text-secondary fst-italic mb-0">Categories that is featured!?</p>
-            <hr class="title-line mx-auto" />
-            <!-- Categories menu title -->
-
-            <!-- Categories list -->
-            <div class="d-flex flex-wrap justify-content-between">
-                <div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
-                    <i class="fa-solid fa-shirt fa-xl"></i>
-                    <h5 class="pt-3">Shirt</h5>
-                </div>
-                <div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
-                    <i class="fa-solid fa-shirt fa-xl"></i>
-                    <h5 class="pt-3">Shirt</h5>
-                </div>
-                <div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
-                    <i class="fa-solid fa-shirt fa-xl"></i>
-                    <h5 class="pt-3">Shirt</h5>
-                </div>
-                <div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
-                    <i class="fa-solid fa-shirt fa-xl"></i>
-                    <h5 class="pt-3">Shirt</h5>
-                </div>
-                <div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
-                    <i class="fa-solid fa-shirt fa-xl"></i>
-                    <h5 class="pt-3">Shirt</h5>
-                </div>
-                <div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
-                    <i class="fa-solid fa-shirt fa-xl"></i>
-                    <h5 class="pt-3">Shirt</h5>
-                </div>
-            </div>
-            <!-- Categories list -->
-
         </div>
     </div>
     <!-- Categories -->
@@ -146,59 +64,31 @@
             <hr class="title-line mx-auto" style="color: lightgray" />
             <!-- Products featured title -->
 
-            <!-- Products list -->
-            <div class="d-flex flex-wrap justify-content-between">
-                <div class="d-flex flex-column">
-                    <div class="products-container border-light text-center pb-2">
-                        <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
-                        <h5 class="mt-2 text-white">Shirt</h5>
-                        <p class="text-white-50">Shirt Description</p>
-                        <button class="btn btn-light">Add to cart</button>
-                    </div>
+            @if (Model.Clothes != null) 
+            {
+                <!-- Products list -->
+                <div class="d-flex flex-wrap justify-content-around">
+                    @foreach (var clothes in Model.Clothes)
+                    {
+                        <div class="d-flex flex-column">
+                            <div class="products-container border-light text-center pb-2 m-3">
+                                <a asp-action="Single" asp-route-id="@clothes.ID"><img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail"></a>
+                                <h5 class="mt-2 text-white">@clothes.Name</h5>
+                                <p class="mb-2 text-white-50">@clothes.Description</p>
+                                <p class="mb-2 text-white-50">@clothes.Price VND</p>
+                                <button class="btn btn-light">Add to cart</button>
+                            </div>
+                        </div>
+                    }
                 </div>
-                <div class="d-flex flex-column">
-                    <div class="products-container border-light text-center pb-2">
-                        <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
-                        <h5 class="mt-2 text-white">Shirt</h5>
-                        <p class="text-white-50">Shirt Description</p>
-                        <button class="btn btn-light">Add to cart</button>
-                    </div>
-                </div>
-                <div class="d-flex flex-column">
-                    <div class="products-container border-light text-center pb-2">
-                        <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
-                        <h5 class="mt-2 text-white">Shirt</h5>
-                        <p class="text-white-50">Shirt Description</p>
-                        <button class="btn btn-light">Add to cart</button>
-                    </div>
-                </div>
-                <div class="d-flex flex-column">
-                    <div class="products-container border-light text-center pb-2">
-                        <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
-                        <h5 class="mt-2 text-white">Shirt</h5>
-                        <p class="text-white-50">Shirt Description</p>
-                        <button class="btn btn-light">Add to cart</button>
-                    </div>
-                </div>
-                <div class="d-flex flex-column">
-                    <div class="products-container border-light text-center pb-2">
-                        <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
-                        <h5 class="mt-2 text-white">Shirt</h5>
-                        <p class="text-white-50">Shirt Description</p>
-                        <button class="btn btn-light">Add to cart</button>
-                    </div>
-                </div>
-                <div class="d-flex flex-column">
-                    <div class="products-container border-light text-center pb-2">
-                        <img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail">
-                        <h5 class="mt-2 text-white">Shirt</h5>
-                        <p class="text-white-50">Shirt Description</p>
-                        <button class="btn btn-light">Add to cart</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Products list -->
-
+                <!-- Products list -->
+            }
+            else
+            {
+                <!-- Clothes list not found warning -->
+                <h3 class="text-center fw-bold text-warning mb-0"><i class="fa-solid fa-bolt"></i>&nbsp; Oh no! There aren't any clothes. Please contact your admin to add some!! &nbsp;<i class="fa-solid fa-bolt"></i></h3>
+                <!-- Clothes list not found warning -->
+            }
         </div>
     </div>
     <!-- Products -->

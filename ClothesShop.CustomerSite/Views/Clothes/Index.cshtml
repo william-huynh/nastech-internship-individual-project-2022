@@ -22,43 +22,60 @@
 
     <!-- Products -->
     <div class="container py-4">
-        
-        <!-- Product header -->
-        <h2 class="fw-bold text-center">CLOTHES</h2>
-        <hr class="title-line mx-auto" />
-        <!-- Product header -->
-
         <div class="row">
-
-            <!-- Product filter -->
-            <div class="col-3">
-                <h5 class="fw-bold">Filter by category:</h5>
-                <ul>
-                    @foreach (var category in getList)
-                    {
-                        <li><a asp-action="Category" asp-route-id="@category.Id">@category.Name</a></li>
-                    }
-                </ul>
+            <div class="col-2 mt-5 pt-4">
+                @if (getList != null)
+                {
+                    <!-- Product filter -->
+                    <h5 class="fw-bold">Filter by category:</h5>
+                    <ul>
+                        @foreach (var category in getList)
+                        {
+                            <li><a asp-action="Category" asp-route-id="@category.Id" class="text-decoration-none">@category.Name</a></li>
+                        }
+                        <li><a asp-action="Index" class="text-decoration-none">None</a></li>
+                    </ul>
+                    <!-- Product filter -->
+                }
+                else
+                {
+                    <!-- Categories list not found warning -->
+                    <h3 class="text-center fw-bold text-warning mb-0">There aren't any categories to filter!!</h3>
+                    <!-- Categories list not found warning -->
+                }
             </div>
 
-            <!-- Product filter -->
-
             <!-- Products list -->
-            <div class="col-9">
-                <div class="d-flex flex-wrap justify-content-between pt-2">
-                    @foreach (var clothes in Model)
-                    {
-                        <div class="d-flex flex-column">
-                            <div class="products-container text-center pb-2">
-                                <a asp-action="Single" asp-route-id="@clothes.ID"><img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail"></a>
-                                <h5 class="mt-2">@clothes.Name</h5>
-                                <p class="mb-2 text-secondary">@clothes.Description</p>
-                                <p class="mb-2">@clothes.Price VND</p>
-                                <button class="btn btn-dark">Add to cart</button>
+            <div class="col-10">
+
+                <!-- Product header -->
+                <h2 class="fw-bold text-center">CLOTHES</h2>
+                <hr class="title-line mx-auto" />
+                <!-- Product header -->
+
+                @if (Model != null)
+                {
+                    <div class="d-flex flex-wrap justify-content-around">
+                        @foreach (var clothes in Model)
+                        {
+                            <div class="d-flex flex-column">
+                                <div class="products-container text-center pb-2 m-2">
+                                    <a asp-action="Single" asp-route-id="@clothes.ID"><img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail"></a>
+                                    <h5 class="mt-2">@clothes.Name</h5>
+                                    <p class="mb-2 text-secondary">@clothes.Description</p>
+                                    <p class="mb-2">@clothes.Price VND</p>
+                                    <button class="btn btn-dark">Add to cart</button>
+                                </div>
                             </div>
-                        </div>
-                    }
-                </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <!-- Clothes list not found warning -->
+                    <h3 class="text-center fw-bold text-warning mb-0"><i class="fa-solid fa-bolt"></i>&nbsp; Oh no! There aren't any categories. Please contact your admin to add some!! &nbsp;<i class="fa-solid fa-bolt"></i></h3>
+                    <!-- Clothes list not found warning -->
+                }
             </div>
             <!-- Products list -->
 
