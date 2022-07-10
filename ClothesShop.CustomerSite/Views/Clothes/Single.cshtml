@@ -1,5 +1,16 @@
-﻿@{
+﻿@model ClothesShop.SharedVMs.ClothesDto
+
+@{
     ViewData["Title"] = "Products Detail";
+    var ratingSum = ViewBag.RatingSum;
+    var ratingCount = ViewBag.RatingCount;
+
+    decimal rating = 0;
+    if (ratingCount > 0)
+    {
+        rating = (ratingSum / ratingCount);
+    }
+    var totalRating = decimal.Parse(rating.ToString());
 }
 
 <div class="product-detail-container container my-5 border">
@@ -11,25 +22,114 @@
         </div>
         <!-- Product image -->
 
-        <!-- Product detail -->
-        <div class="col-6 px-4 text-end">
-            <h2 class="mt-3">Shirt</h2>
-            <hr />
-            <p class="text-secondary">Shirt Description</p>
-            <div class="mb-3">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
+        <!-- Product info & rating -->
+        <div class="col-6 p-0 text-end">
+
+            <!-- Product detail -->
+            <div class="product-detail-box px-4">
+                @*<h3 class="fw-bold pt-3">Shirt</h3>*@
+                <h2 class="pt-3">@Model.Name</h2>
+                <hr />
+                <div class="mb-3">
+                    <span class="product-star-fade-n" id="sRate1"></span>
+                    <span class="product-star-fade-n" id="sRate2"></span>
+                    <span class="product-star-fade-n" id="sRate3"></span>
+                    <span class="product-star-fade-n" id="sRate4"></span>
+                    <span class="product-star-fade-n" id="sRate5"></span>
+                </div>
+                @*<p class="text-secondary">Shirt description</p>*@
+                <p class="text-secondary">@Model.Description</p>
+                @*<p>200,000VND</p>*@
+                <p>@Model.Price</p>
+                <form class="d-inline text-end">
+                    <label for="product-quantity">Quantity:</label>
+                    <input type="number" name="product-quantity" class="product-detail-quantity-input form-control mx-2"/>
+                    <button class="btn btn-dark">Add to cart</button>
+                </form>
             </div>
-            <form class="d-inline text-end">
-                <label for="product-quantity">Quantity:</label>
-                <input type="number" name="product-quantity" class="product-detail-quantity-input form-control mx-2"/>
-                <button class="btn btn-dark">Add to cart</button>
-            </form>
+            <!-- Product detail -->
+
+            <!-- Rating box -->
+            <div class="product-rating-box d-flex justify-content-end align-items-center">
+                <form asp-controller="Ratings" asp-action="Create" class="px-4">
+                @*<form class="px-4">*@
+                    <div>
+                        <p class="product-rating-box-title m-0">Your rating</p>
+                        <p class="product-rating-box-description text-secondary m-0">(1 start is bad, 5 star is good)</p>
+                        <div onmouseout="CRateSelected()">
+                            <span class="product-star-fade" id="Rate1" onclick="CRate(1)" onmouseover="CRateOver(1)" onmouseout="CRateOut(1)"></span>
+                            <span class="product-star-fade" id="Rate2" onclick="CRate(2)" onmouseover="CRateOver(2)" onmouseout="CRateOut(2)"></span>
+                            <span class="product-star-fade" id="Rate3" onclick="CRate(3)" onmouseover="CRateOver(3)" onmouseout="CRateOut(3)"></span>
+                            <span class="product-star-fade" id="Rate4" onclick="CRate(4)" onmouseover="CRateOver(4)" onmouseout="CRateOut(4)"></span>
+                            <span class="product-star-fade" id="Rate5" onclick="CRate(5)" onmouseover="CRateOver(5)" onmouseout="CRateOut(5)"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <input type="hidden" name="ClothesId" value="@Model.ID" />
+                            <input type="hidden" name="RatingNumber" id="Rating" value="0" />
+                            <input type="submit" id="btnRegister" name="btnRegister" value="Submit Rating" class="btn btn-warning" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Rating box -->
+
         </div>
-        <!-- Product detail -->
+        <!-- Product info & rating -->
 
     </div>
 </div>
+
+<script src="@Url.Content("~/lib/jquery/dist/jquery.min.js")" type="text/javascript"></script>
+<script>
+    function SCRate() {
+        for (var i = 1; i <= @totalRating; i++) {
+            $("#sRate" + i).attr('class', 'product-star-glow-n');
+        }
+    }
+
+    function SubmitComment() {
+        if ($("#Rating").val() == "0") {
+            alert("Please rate this service provider.");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function CRate(r) {
+        $("#Rating").val(r);
+        for (var i = 1; i <= r; i++) {
+            $("#Rate" + i).attr('class', 'product-star-glow');
+        }
+        // unselect remaining
+        for (var i = r + 1; i <= 5; i++) {
+            $("#Rate" + i).attr('class', 'product-star-fade');
+        }
+    }
+
+    function CRateOver(r) {
+        for (var i = 1; i <= r; i++) {
+            $("#Rate" + i).attr('class', 'product-star-glow');
+        }
+    }
+
+    function CRateOut(r) {
+        for (var i = 1; i <= r; i++) {
+            $("#Rate" + i).attr('class', 'product-star-fade');
+        }
+    }
+
+    function CRateSelected() {
+        var setRating = $("#Rating").val();
+        for (var i = 1; i <= setRating; i++) {
+            $("#Rate" + i).attr('class', 'product-star-glow');
+        }
+    }
+
+    $(function(){
+        SCRate();
+    });
+</script>

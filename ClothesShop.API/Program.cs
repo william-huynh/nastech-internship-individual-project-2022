@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
+using ClothesShop.API.Interfaces;
+using ClothesShop.API.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +41,10 @@ var builder = WebApplication.CreateBuilder(args);
     // Configure DI for application services
     services.AddScoped<IJwtUtils, JwtUtils>();
     services.AddScoped<IUserService, UserService>();
+
+    services.AddScoped<IRatingRepository, RatingRepository>();
+    services.AddScoped<IClothesRepository, ClothesRepository>();
+    services.AddScoped<ICategoryRepository, CategoryRepository>();
 }
 
 var app = builder.Build();

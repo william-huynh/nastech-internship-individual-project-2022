@@ -4,18 +4,18 @@ using ClothesShop.SharedVMs;
 
 namespace ClothesShop.API.Profiles
 {
-    public class CategoriesProfiles : Profile
+    public class RatingsProfiles : Profile
     {
-        public CategoriesProfiles()
+        public RatingsProfiles()
         {
             // Source => Destination
 
             // Use for read data (GET, GET single)
-            CreateMap<Category, CategoryDto>();
+            CreateMap<Rating, RatingDto>();
 
             // Use for write data (POST, PUT)
-            CreateMap<CategoryDto, Category>()
-                .ForMember(dest => dest.IsDeleted, o => o.Ignore());
+            CreateMap<RatingDto, Rating>()
+                .ForMember(dest => dest.IsDelete, o => o.Ignore());
         }
     }
 }

@@ -5,6 +5,7 @@ using static ClothesShop.API.Controllers.ImagesController;
 using AutoMapper;
 using ClothesShop.SharedVMs;
 using ClothesShop.API.Models;
+using ClothesShop.API.Interfaces;
 
 namespace ClothesShop.API.Controllers
 {
@@ -12,142 +13,123 @@ namespace ClothesShop.API.Controllers
     [ApiController]
     public class ClothesController : ControllerBase
     {
-        private readonly ClothesDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IClothesRepository _clothes;
 
-        public ClothesController(ClothesDbContext context, IMapper mapper)
+        public ClothesController(IMapper mapper, IClothesRepository clothes)
         {
-            _context = context;
             _mapper = mapper;
+            _clothes = clothes;
         }
 
         // GET (all): api/Clothes
         [HttpGet]
-        public List<ClothesDto> GetAllClothes()
+        public async Task<IActionResult> GetAllClothes()
         {
             try
             {
-                var allClothes = _mapper.Map<List<ClothesDto>>(
-                    _context.Clothes.Where(clothe => clothe.IsDeleted == false));
-
-                /* var allClothes = _context.Clothes.Include(clothes => clothes.Images).Select(clothes => new ClothesModel
-                {
-                    Id = clothes.ID,
-                    Name = clothes.Name,
-                    Description = clothes.Description,
-                    Price = clothes.Price,
-                    AddedDate = clothes.AddedDate,
-                    CategoryId = clothes.CategoryId, 
-                    IsDeleted = clothes.IsDeleted,
-                    Images = clothes.Images.Select(images => new ImagesModel
-                    {
-                        Id = images.Id,
-                        URL = images.URL,
-                        ClothesId = images.ClothesID,
-                    }).ToList()
-                }).ToList(); */
-
-                return allClothes;
+                var clothes = await _clothes.GetAsync();
+                if (!clothes.Any())
+                    return NotFound("Clothes empty!");
+                var clothesDto = _mapper.Map<List<ClothesDto>>(clothes);
+                return Ok(clothesDto);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Something went very wrong in GetAllClothes action: {ex.Message}");
-                StatusCode(500, "Internal server error");
-                return new List<ClothesDto>();
+                return BadRequest("Something went wrong! Error: " + ex.Message);
+            }
+        }
+
+        // Get (all) with same category id: api/Clothes/Categories/{id}
+        [HttpGet("Categories/{id}")]
+        public async Task<IActionResult> GetAllClothesCategoryId(int id)
+        {
+            try
+            {
+                var clothes = await _clothes.GetByCategoryId(id);
+                if (!clothes.Any())
+                    return NotFound("Category empty!");
+                var clothesDto = _mapper.Map<List<ClothesDto>>(clothes);
+                return Ok(clothesDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong! Error: " + ex.Message);
             }
         }
 
         // GET (single): api/Clothes/{id}
         [HttpGet("{id}")]
-        public ClothesDto GetClothes(int id)
+        public async Task<IActionResult> GetClothes(int id)
         {
             try
             {
-                var checkedClothes = _context.Clothes.Find(id);
-                if (checkedClothes == null || checkedClothes.IsDeleted == true)
-                {
-                    StatusCode(404, "Clothes not found");
-                    return new ClothesDto();
-                }
-                var singleClothes = _mapper.Map<ClothesDto>(checkedClothes);
-                return singleClothes;
+                var clothes = await _clothes.GetByIdAsync(id);
+                if (clothes == null)
+                    return NotFound("Clothes not found!");
+                var clothesDto = _mapper.Map<ClothesDto>(clothes);
+                return Ok(clothesDto);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Something went very wrong in GetSingleClothes action: {ex.Message}");
-                StatusCode(500, "Internal server error");
-                return new ClothesDto();
+                return BadRequest("Something went wrong! Error: " + ex.Message);
             }
         }
 
         // POST: api/Clothes
         [HttpPost]
-        public IActionResult PostClothes(ClothesDto clothesCreate)
+        public async Task<IActionResult> PostClothes(ClothesDto clothesCreate)
         {
             try
             {
-                var newClothes = _mapper.Map<Clothes>(clothesCreate);
-                newClothes.IsDeleted = false;
-                newClothes.AddedDate = DateTime.UtcNow;
-                newClothes.UpdatedDate = DateTime.UtcNow;
-                _context.Clothes.Add(newClothes);
-                _context.SaveChanges();
-                return Ok(_mapper.Map<ClothesDto>(newClothes));
+                var clothes = _mapper.Map<Clothes>(clothesCreate);
+                clothes.AddedDate = DateTime.UtcNow;
+                clothes.UpdatedDate = DateTime.UtcNow;
+                var clothesCreated = await _clothes.PostAsync(clothes);
+                return Ok(_mapper.Map<ClothesDto>(clothesCreated));
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Something went very wrong in PostClothes action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                return BadRequest("Something went wrong! Error: " + ex.Message);
             }
         }
 
         // PUT: api/Clothes/{id}
-        [HttpPut("{id}")]
-        public ClothesDto PutClothes(int id, ClothesDto clothesUpdate)
+        [HttpPut]
+        public async Task<IActionResult> PutClothes(ClothesDto clothesUpdate)
         {
             try
             {
-                var updatedClothes = _context.Clothes.Find(id);
-                if (updatedClothes == null || updatedClothes.IsDeleted == true)
-                {
-                    StatusCode(404, "Clothes not found");
-                    return new ClothesDto();
-                }
-                updatedClothes.Name = clothesUpdate.Name;
-                updatedClothes.Description = clothesUpdate.Description;
-                updatedClothes.Price = clothesUpdate.Price;
-                updatedClothes.UpdatedDate = DateTime.UtcNow;
-                updatedClothes.CategoryId = clothesUpdate.CategoryId;
-                _context.SaveChanges();
-                return _mapper.Map<ClothesDto>(updatedClothes);
+                var clothesChecked = await _clothes.GetByIdAsync(clothesUpdate.ID);
+                if (clothesChecked == null) 
+                    return NotFound("Clothes not found!");
+                var clothes = _mapper.Map<Clothes>(clothesUpdate);
+                clothes.AddedDate = clothesChecked.AddedDate;
+                clothes.UpdatedDate = DateTime.UtcNow;
+                var clothesUpdated = await _clothes.PutAsync(clothes);
+                return Ok(_mapper.Map<ClothesDto>(clothesUpdated));
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Something went very wrong in PutClothes action: {ex.Message}");
-                StatusCode(500, "Internal server error");
-                return new ClothesDto();
+                return BadRequest("Something went wrong! Error: " + ex.Message);
             }
         }
 
         // DELETE: api/Clothes/{id}
         [HttpDelete("{id}")]
-        public IActionResult DeleteClothes(int id)
+        public async Task<IActionResult> DeleteClothes(int id)
         {
             try
             {
-                var deletedClothes = _context.Clothes.Find(id);
-                if (deletedClothes == null)
-                {
-                    return StatusCode(404, "Clothes not found");
-                }
-                deletedClothes.IsDeleted = true;
-                _context.SaveChanges();
-                return Ok(_mapper.Map<ClothesDto>(deletedClothes));
+                var clothesChecked = await _clothes.GetByIdAsync(id);
+                if (clothesChecked == null || clothesChecked.IsDeleted.Equals(true))
+                    return NotFound("Clothes not found!");
+                await _clothes.DeleteAsync(id);
+                return Ok("Clothes deleted!");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Something went very wrong in DeleteClothes action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                return BadRequest("Something went wrong! Error: " + ex.Message);
             }
         }
     }
