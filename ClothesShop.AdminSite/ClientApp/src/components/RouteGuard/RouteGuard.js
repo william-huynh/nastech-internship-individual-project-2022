@@ -1,17 +1,20 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { isExpired, decodeToken } from "react-jwt";
+import { decodeToken } from "react-jwt";
 
 const RouteGuard = ({ component: Component, ...rest }) => {
   function hasJWT() {
     let flag = false;
 
     let token = localStorage.getItem("token");
-    let decodedToken = decodeToken(token).Role;
 
     // Check if user has JWT token and authorize
-    if (token != null && decodedToken == "Administrator") {
-      flag = true;
+    if (token != null) {
+      if (decodeToken(token) === "Administrator") {
+        flag = true;
+      } else {
+        flag = false;
+      }
     } else {
       flag = false;
     }
@@ -26,7 +29,7 @@ const RouteGuard = ({ component: Component, ...rest }) => {
         hasJWT() ? (
           <Component {...props} />
         ) : (
-          <Redirect to={{ pathname: "/error" }} />
+          <Redirect to={{ pathname: "/login" }} />
         )
       }
     />
