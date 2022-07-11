@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect, Switch, Route, Router } from "react-router-dom";
-import RouteGuard from "../components/RouteGuard/RouteGuard";
+// import RouteGuard from "../components/RouteGuard/RouteGuard";
 
 //history
 import { history } from "../helpers/history";
@@ -15,7 +15,8 @@ function Routes() {
   return (
     <Router history={history}>
       <Switch>
-        <RouteGuard exact path="/" component={Home} />
+        <Route path="/" component={Home} />
+        {/* <RouteGuard exact path="/" component={Home} /> */}
         <Route path="/login" component={Login} />
         <Route path="/categories" component={Categories} />
         <Route path="/error" component={Error} />
