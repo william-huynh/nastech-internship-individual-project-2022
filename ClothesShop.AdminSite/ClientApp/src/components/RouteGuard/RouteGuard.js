@@ -10,15 +10,12 @@ const RouteGuard = ({ component: Component, ...rest }) => {
 
     // Check if user has JWT token and authorize
     if (token != null) {
-      if (decodeToken(token) === "Administrator") {
+      if (decodeToken(token).Role === "Administrator") {
         flag = true;
-      } else {
-        flag = false;
       }
     } else {
       flag = false;
     }
-
     return flag;
   }
 

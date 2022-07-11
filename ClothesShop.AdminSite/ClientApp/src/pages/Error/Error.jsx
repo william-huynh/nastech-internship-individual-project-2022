@@ -1,6 +1,6 @@
 import React from "react";
 
-function Error() {
+const Error = () => {
   const backToLogin = () => {
     // Remove token
     localStorage.removeItem("token");
@@ -16,6 +16,6 @@ function Error() {
       </button>
     </div>
   );
-}
+};
 
 export default Error;

@@ -1,6 +1,7 @@
 import React from "react";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
-function Home() {
+const Home = () => {
   const Logout = () => {
     // Remove token
     localStorage.removeItem("token");
@@ -10,6 +11,7 @@ function Home() {
   };
   return (
     <div className="container">
+      <Sidebar />
       <div className="mt-5 d-flex justify-content-center">
         <h2>This is Home page.</h2>
       </div>
@@ -18,6 +20,6 @@ function Home() {
       </button>
     </div>
   );
-}
+};
 
 export default Home;
