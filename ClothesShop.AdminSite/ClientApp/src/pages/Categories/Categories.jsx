@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 import "./Categories.scss";
 import { Button } from "@mui/material";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 
 import CategoriesTable from "../../components/CategoriesTable/CategoriesTable";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -15,16 +14,6 @@ const Categories = () => {
         <h2>CATEGORIES</h2>
         <div className="tableContainer">
           <div className="button-group">
-            <Link to="/categories-single" style={{ textDecoration: "none" }}>
-              <Button
-                variant="contained"
-                color="secondary"
-                className="button"
-                style={{ marginBottom: 10 }}
-              >
-                Find Category
-              </Button>
-            </Link>
             <Link to="/categories-create" style={{ textDecoration: "none" }}>
               <Button
                 variant="contained"

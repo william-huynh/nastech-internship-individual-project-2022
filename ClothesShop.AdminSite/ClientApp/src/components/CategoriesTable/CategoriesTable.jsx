@@ -1,27 +1,30 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import "./CategoriesTable.scss";
 import { Button } from "@mui/material";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 // Base address for api
 const baseAddress = "https://localhost:7167/api/";
 
 // Table column define
 const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 80 },
-  { field: "name", headerName: "Name", width: 150 },
+  { field: "id", headerName: "ID", width: 50 },
+  { field: "name", headerName: "Name", width: 180 },
   { field: "description", headerName: "Description", width: 740 },
   {
     field: "action",
     headerName: "Action",
     width: 210,
-    renderCell: () => {
+    renderCell: (params) => {
       return (
         <>
-          <Link to="/categories-update" style={{ textDecoration: "none" }}>
+          <Link
+            to={"/categories-update/" + params.row.id}
+            style={{ textDecoration: "none" }}
+          >
             <Button variant="contained" color="success" className="button">
               Edit
             </Button>
