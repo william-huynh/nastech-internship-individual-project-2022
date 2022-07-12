@@ -1,105 +1,130 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Mvc;
 using ClothesShop.SharedVMs;
-using ClothesShop.SharedVMs.Enum;
 using ClothesShop.API.Services;
 using ClothesShop.SharedVMs.Authenticate;
-using ClothesShop.API.Authorization;
+using AutoMapper;
+using ClothesShop.API.Interfaces;
+using ClothesShop.API.Models;
 
 namespace ClothesShop.API.Controllers
 {
-    [Authorize]
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly IMapper _mapper;
+        private readonly IUserRepository _user;
         private IUserService _userService;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, IMapper mapper, IUserRepository user)
         {
             _userService = userService;
+            _mapper = mapper;
+            _user = user;
         }
 
-        [AllowAnonymous]
-        [HttpPost("[action]")]
+        // Get (all): api/Users
+        [HttpGet]
+        public async Task<IActionResult> GetUsers()
+        {
+            try
+            {
+                var users = await _user.GetAsync();
+                if (!users.Any())
+                    return NotFound("Users empty!");
+                var usersDto = _mapper.Map<List<UserDto>>(users);
+                return Ok(usersDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong! Error: " + ex.Message);
+            }
+        }
+
+        // Get (single): api/Users/{id}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUser(int id)
+        {
+            try
+            {
+                var user = await _user.GetByIdAsync(id);
+                if (user == null)
+                    return NotFound("User not found!");
+                var userDto = _mapper.Map<UserDto>(user);
+                return Ok(userDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong! Error: " + ex.Message);
+            }
+        }
+
+        // Post: api/Users
+        /* [HttpPost]
+        public async Task<IActionResult> PostUser(UserDto userCreate)
+        {
+            try
+            {
+                var user = _mapper.Map<User>(userCreate);
+                var userCreated = await _user.PostAsync(user);
+                return Ok(_mapper.Map<UserDto>(userCreated));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong! Error: " + ex.Message);
+            }
+        } */
+
+        // Authenticate: api/Users/authenticate
+        [HttpPost("authenticate")]
         public IActionResult Authenticate(AuthenticateRequestDto model)
         {
-            var response = _userService.Authenticate(model);
-            return Ok(response);
-        }
-
-        [HttpGet("Admins")]
-        [Authorize(Role.Administrator)]
-        public IActionResult GetAll()
-        {
-            var users = _userService.GetAll();
-            return Ok(users);
-        }
-
-        [HttpGet("{id:int}")]
-        public IActionResult GetById(int id)
-        {
-            // Only admins can access other user records
-            var currentUser = (UserDto)HttpContext.Items["User"];
-            if (id != currentUser.Id && currentUser.Role != Role.Administrator)
-                return Unauthorized(new { message = "Unauthorized" });
-
-            var user = _userService.GetById(id);
-            return Ok(user); 
-        }
-
-        /* [HttpGet("Admins")]
-        [Authorize(Roles = "Administrator")]
-        public IActionResult AdminsEndpoint()
-        {
-            //var currentUser = GetCurrentUser();
-
-            return Ok("Hi");
-        }
-
-        [HttpGet("Sellers")]
-        [Authorize(Roles = "Seller")]
-        public IActionResult SellersEndpoint()
-        {
-            var currentUser = GetCurrentUser();
-
-            return Ok($"Hi {currentUser.GivenName}, you are a {currentUser.Role}");
-        }
-
-        [HttpGet("AdminsAndSellers")]
-        [Authorize(Roles = "Administrator,Seller")]
-        public IActionResult AdminsAndSellersEndpoint()
-        {
-            var currentUser = GetCurrentUser();
-
-            return Ok($"Hi {currentUser.GivenName}, you are an {currentUser.Role}");
-        }
-
-        [HttpGet("Public")]
-        public IActionResult Public()
-        {
-            return Ok("Hi, you're on public property");
-        }
-
-        private UserModel GetCurrentUser()
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-            if (identity != null)
+            try
             {
-                var userClaims = identity.Claims;
-
-                return new UserModel
-                {
-                    Username = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value,
-                    EmailAddress = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Email)?.Value,
-                    GivenName = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.GivenName)?.Value,
-                    Surname = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Surname)?.Value,
-                    Role = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Role)?.Value
-                };
+                var response = _userService.Authenticate(model);
+                return Ok(response);
             }
-            return null;
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong! Error: " + ex.Message);
+            }
+        }
+
+        // Put: api/Users/{id}
+        /* [HttpPut]
+        public async Task<IActionResult> PutUser(UserDto userUpdate)
+        {
+            try
+            {
+                var userChecked = await _user.GetByIdAsync(userUpdate.Id);
+                if (userChecked == null)
+                    return NotFound("User not found!");
+                var user = _mapper.Map<User>(userUpdate);
+                var userUpdated = await _user.PutAsync(user);
+                return Ok(_mapper.Map<UserDto>(userUpdated));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong! Error: " + ex.Message);
+            }
+        }
+
+        // Delete: api/Users/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            try
+            {
+                var userChecked = await _user.GetByIdAsync(id);
+                if (userChecked == null)
+                    return NotFound("User not found!");
+                await _user.DeleteAsync(id);
+                return Ok("User deleted!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong! Error: " + ex.Message);
+            }
         } */
     }
 }

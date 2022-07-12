@@ -21,8 +21,8 @@ namespace ClothesShop.API.Data
         {
             optionsBuilder.UseSqlServer(
                 "Data Source=.;Initial Catalog=ClothesShop;Integrated Security=True")
-                .UseLazyLoadingProxies()
-                .LogTo(Console.WriteLine, new[]
+                .UseLazyLoadingProxies();
+                /*.LogTo(Console.WriteLine, new[]
                 {
                     DbLoggerCategory.Model.Name,
                     DbLoggerCategory.Database.Command.Name,
@@ -31,20 +31,14 @@ namespace ClothesShop.API.Data
                     DbLoggerCategory.ChangeTracking.Name,
                 },
                     LogLevel.Information)
-                .EnableSensitiveDataLogging();
+                .EnableSensitiveDataLogging(); */
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*modelBuilder.Entity<User>()
-                .HasOne(u => u.Customer)
-                .WithOne(c => c.User)
-                .HasForeignKey<Customer>(c => c.Email);*/
-
-            /*modelBuilder.Entity<Order>()
-                .HasOne(c => c.Customer)
-                .WithMany()
-                .OnDelete(DeleteBehavior.NoAction);*/
+            modelBuilder.Entity<Image>()
+                .HasIndex(image => image.URL)
+                .IsUnique();
         }
     }
 }

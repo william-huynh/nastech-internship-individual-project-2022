@@ -36,10 +36,12 @@
                 <div class="d-flex flex-wrap justify-content-around">
                     @foreach (var category in Model.Categories)
                     {
-                        <div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">
-                            <i class="fa-solid fa-shirt fa-xl"></i>
-                            <h5 class="pt-3">@category.Name</h5>
-                        </div>
+                        @*<div class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark">*@
+                            <a asp-controller="Clothes" asp-action="Category" asp-route-id="@category.Id" class="homepage-category-container d-flex flex-column justify-content-center align-items-center pt-3 m-3 bg-dark text-decoration-none">
+                                <i class="fa-solid fa-shirt fa-xl"></i>
+                                <h5 class="pt-3">@category.Name</h5>
+                            </a>
+                        @*</div>*@
                     }
                 </div>
                 <!-- Categories list -->
@@ -72,7 +74,7 @@
                     {
                         <div class="d-flex flex-column">
                             <div class="products-container border-light text-center pb-2 m-3">
-                                <a asp-action="Single" asp-route-id="@clothes.ID"><img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail"></a>
+                                <a asp-controller="Clothes" asp-action="Single" asp-route-id="@clothes.ID"><img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail"></a>
                                 <h5 class="mt-2 text-white">@clothes.Name</h5>
                                 <p class="mb-2 text-white-50">@clothes.Description</p>
                                 <p class="mb-2 text-white-50">@clothes.Price VND</p>

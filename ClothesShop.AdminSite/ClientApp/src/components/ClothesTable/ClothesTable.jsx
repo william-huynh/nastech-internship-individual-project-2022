@@ -4,20 +4,21 @@ import { Link } from "react-router-dom";
 
 import "./ClothesTable.scss";
 import { Button } from "@mui/material";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 // Base address for api
 const baseAddress = "https://localhost:7167/api/";
 
 // Table column define
 const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 80 },
-  { field: "name", headerName: "Name", width: 100 },
-  { field: "description", headerName: "Description", width: 180 },
-  { field: "price", headerName: "Price", width: 100 },
-  { field: "addedDate", headerName: "Added Date", width: 180 },
-  { field: "updatedDate", headerName: "Updated Date", width: 180 },
-  { field: "categoryId", headerName: "Category ID", width: 150 },
+  { field: "id", headerName: "ID", width: 50 },
+  { field: "name", headerName: "Name", width: 120 },
+  { field: "description", headerName: "Description", width: 200 },
+  { field: "stock", headerName: "Stock", width: 80 },
+  { field: "price", headerName: "Price", width: 80 },
+  { field: "addedDate", headerName: "Added Date", width: 170 },
+  { field: "updatedDate", headerName: "Updated Date", width: 170 },
+  { field: "categoryId", headerName: "Category ID", width: 100 },
   {
     field: "action",
     headerName: "Action",

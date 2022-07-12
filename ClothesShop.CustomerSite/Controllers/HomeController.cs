@@ -40,13 +40,13 @@ namespace ClotheShop.CustomerSite.Controllers
             try 
             { 
                 var response = _userService.Authenticate(authenticateRequest);
-                if (response == null) return RedirectToAction("Error");
+                if (response == null) return RedirectToAction("ErrorLogin");
                 HttpContext.Session.SetString("Token", response.Token);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return RedirectToAction("Error");
+                return RedirectToAction("ErrorLogin");
             }
         }
 
@@ -59,17 +59,17 @@ namespace ClotheShop.CustomerSite.Controllers
             try
             {
                 var response = _userService.Register(registerRequest);
-                if (response == null) return RedirectToAction("Error");
+                if (response == null) return RedirectToAction("ErrorLogin");
                 return RedirectToAction("Login");
             }
             catch
             {
-                return RedirectToAction("Error");
+                return RedirectToAction("ErrorLogin");
             }
         }
 
-        //[ClothesShop.API.Authorization.Authorize(Role.Customer)]
-        //[Route("index")]
+        [ClothesShop.API.Authorization.Authorize(Role.Customer)]
+        [Route("index")]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -100,6 +100,11 @@ namespace ClotheShop.CustomerSite.Controllers
         }
 
         public IActionResult Error()
+        {
+            return View();
+        }
+
+        public IActionResult ErrorLogin()
         {
             return View();
         }

@@ -1,11 +1,13 @@
 ﻿using ClothesShop.API.Data;
 using ClothesShop.CustomerSite.Services;
 using ClothesShop.SharedVMs;
+using ClothesShop.SharedVMs.Enum;
 using Microsoft.AspNetCore.Mvc;
 using Refit;
 
 namespace ClothesShop.CustomerSite.Controllers
 {
+    [ClothesShop.API.Authorization.Authorize(Role.Customer)]
     public class ClothesController : Controller
     {
         private readonly ClothesDbContext _context;
@@ -28,41 +30,62 @@ namespace ClothesShop.CustomerSite.Controllers
         // GET (all) clothes
         public async Task<IActionResult> Index()
         {
-            categories = await categoriesService.GetCategories();
-            ViewBag.Categories = categories;
-            clothesList = await clothesService.GetAllClothes();
-            return View(clothesList);
+            try
+            {
+                categories = await categoriesService.GetCategories();
+                ViewBag.Categories = categories;
+                clothesList = await clothesService.GetAllClothes();
+                return View(clothesList);
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // GET (all) clothes by category Id
         public async Task<IActionResult> Category(int id)
         {
-            categories = await categoriesService.GetCategories();
-            ViewBag.Categories = categories;
-            clothesList = await clothesService.GetByCategoryId(id);
-            return View(clothesList);
+            try
+            {
+                categories = await categoriesService.GetCategories();
+                ViewBag.Categories = categories;
+                clothesList = await clothesService.GetByCategoryId(id);
+                return View(clothesList);
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // Get (single) clothes
         public async Task<IActionResult> Single(int id)
         {
-            ClothesDto clothes = await clothesService.GetClothes(id);
-            ViewBag.ClothesId = id;
-            var ratings = _context.Ratings.Where(r => r.ClothesID.Equals(id)).ToList();
-            if (ratings.Count() > 0)
+            try
             {
-                var ratingSum = ratings.Sum(d => d.RatingNumber);
-                ViewBag.RatingSum = ratingSum;
-                var ratingCount = ratings.Count();
-                ViewBag.RatingCount = ratingCount;
-            }
-            else
-            {
-                ViewBag.RatingSum = 0;
-                ViewBag.RatingCount = 0;
-            }
+                ClothesDto clothes = await clothesService.GetClothes(id);
+                ViewBag.ClothesId = id;
+                var ratings = _context.Ratings.Where(r => r.ClothesID.Equals(id)).ToList();
+                if (ratings.Count() > 0)
+                {
+                    var ratingSum = ratings.Sum(d => d.RatingNumber);
+                    ViewBag.RatingSum = ratingSum;
+                    var ratingCount = ratings.Count();
+                    ViewBag.RatingCount = ratingCount;
+                }
+                else
+                {
+                    ViewBag.RatingSum = 0;
+                    ViewBag.RatingCount = 0;
+                }
 
-            return View(clothes);
+                return View(clothes);
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }
