@@ -3,5 +3,20 @@
 
   .homeContainer {
     flex: 6;
+
+    h2 {
+      margin: 0;
+      height: 100px;
+      text-align: center;
+      font-weight: 700;
+      padding-top: 30px;
+      color: #6439ff;
+    }
+
+    h4 {
+      text-align: center;
+      font-weight: 700;
+      color: #7451f8;
+    }
   }
 }

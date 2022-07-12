@@ -1,7 +1,7 @@
 .sidebar {
   flex: 1;
   min-height: 100vh;
-  border-right: 0.5px solid lightgray;
+  border-right: 0.5px solid rgb(230, 227, 227);
   background-color: white;
 
   .top {
@@ -10,23 +10,47 @@
     justify-content: center;
 
     .logo {
-      font-weight: bold;
-      color: aqua;
+      margin-top: 20px;
+      font-size: 60px;
+      color: #6439ff;
     }
   }
 
   hr {
     height: 0;
-    border: 0.5px solid lightgray;
+    border: 0.5px solid rgb(230, 227, 227);
   }
 
   .center {
-    padding-left: 10px;
-
     ul {
       list-style: none;
       margin: 0;
       padding: 0;
+
+      li {
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+        height: 60px;
+        cursor: pointer;
+
+        .icon {
+          font-size: 21px;
+          color: #7451f8;
+        }
+
+        span {
+          margin-left: 10px;
+          font-size: 16px;
+          font-weight: 600;
+          color: #888;
+        }
+
+        &:hover {
+          transition: 0.5s;
+          background-color: #ece8ff;
+        }
+      }
     }
   }
 }
