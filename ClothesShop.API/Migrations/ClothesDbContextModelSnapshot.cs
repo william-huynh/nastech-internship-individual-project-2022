@@ -119,7 +119,10 @@ namespace ClothesShop.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Price")
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Stock")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -148,11 +151,14 @@ namespace ClothesShop.API.Migrations
 
                     b.Property<string>("URL")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClothesID");
+
+                    b.HasIndex("URL")
+                        .IsUnique();
 
                     b.ToTable("Images");
                 });
@@ -273,8 +279,9 @@ namespace ClothesShop.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Phone")
-                        .HasColumnType("int");
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
