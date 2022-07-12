@@ -3,11 +3,13 @@ using ClothesShop.API.Data;
 using ClothesShop.API.Models;
 using ClothesShop.CustomerSite.Services;
 using ClothesShop.SharedVMs;
+using ClothesShop.SharedVMs.Enum;
 using Microsoft.AspNetCore.Mvc;
 using Refit;
 
 namespace ClothesShop.CustomerSite.Controllers
 {
+    [ClothesShop.API.Authorization.Authorize(Role.Customer)]
     public class RatingsController : Controller
     {
         // Rating service

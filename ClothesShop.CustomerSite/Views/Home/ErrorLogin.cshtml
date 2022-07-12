@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "";
+    ViewData["Title"] = "Login Error";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ClothesShop.CustomerSite</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Error.css" />
+</head>
+<body>
+    <div class="login-error-container text-center vh-100">
+        <h1 class="fw-bold text-danger pt-3">Error</h1>
+        <h5 class="fst-italic text-secondary">Login went wrong! Lets log in again.</h5>
+        <a asp-action="Logout" class="btn btn-primary mt-1">Return to Login</a>
+    </div>
+</body>
+</html>

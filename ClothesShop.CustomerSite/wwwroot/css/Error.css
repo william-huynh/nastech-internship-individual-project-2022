@@ -1,0 +1,11 @@
+﻿.login-error-container {
+    background-image: url('../images/login-error.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.error-container {
+    background-image: url('../images/error.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+}

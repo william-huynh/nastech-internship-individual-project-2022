@@ -45,6 +45,7 @@ var builder = WebApplication.CreateBuilder(args);
     services.AddScoped<IRatingRepository, RatingRepository>();
     services.AddScoped<IClothesRepository, ClothesRepository>();
     services.AddScoped<ICategoryRepository, CategoryRepository>();
+    services.AddScoped<IUserRepository, UserRepository>();
 }
 
 var app = builder.Build();
