@@ -1,0 +1,35 @@
+.mainContainer {
+  display: flex;
+
+  .usersContainer {
+    flex: 6;
+
+    h2 {
+      margin: 0;
+      height: 100px;
+      text-align: center;
+      font-weight: 700;
+      padding-top: 30px;
+      color: #6439ff;
+    }
+
+    .tableContainer {
+      -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+      padding: 20px;
+      margin: 20px;
+      text-align: end;
+
+      .button-group {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .button {
+        font-size: 12px;
+        font-weight: 600;
+      }
+    }
+  }
+}
