@@ -11,11 +11,14 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 const baseAddress = "https://localhost:7167/api/";
 
 const CategoriesUpdate = () => {
-  // Get id params
+  // Variables
   let id = useParams();
-  // Set category state
+
+  // States
   let [category, setCategory] = useState(null);
-  // Input refs
+  let [message, setMessage] = useState(null);
+
+  // Refs
   let categoryId = useRef();
   let categoryName = useRef();
   let categoryDescription = useRef();
@@ -29,6 +32,23 @@ const CategoriesUpdate = () => {
       categoryDescription.current.value = result.data.description;
     });
   }, []);
+
+  const handleUpdate = () => {
+    axios
+      .put(baseAddress + "Categories", {
+        Id: categoryId.current.value,
+        Name: categoryName.current.value,
+        Description: categoryDescription.current.value,
+      })
+      .then((result) => {
+        setMessage(result.data);
+        alert("Update succesfully!");
+      })
+      .catch((error) => {
+        setMessage(error.response.data);
+        alert(message);
+      });
+  };
 
   return (
     <div className="mainContainer">
@@ -65,7 +85,12 @@ const CategoriesUpdate = () => {
                 </div>
               </div>
               <div className="inputGroup">
-                <Button variant="contained" color="success" className="button">
+                <Button
+                  variant="contained"
+                  color="success"
+                  className="button"
+                  onClick={handleUpdate}
+                >
                   Update Categories
                 </Button>
               </div>
