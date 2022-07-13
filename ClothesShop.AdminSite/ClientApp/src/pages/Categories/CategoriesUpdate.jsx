@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { useHistory } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -13,9 +14,9 @@ const baseAddress = "https://localhost:7167/api/";
 const CategoriesUpdate = () => {
   // Variables
   let id = useParams();
+  const history = useHistory();
 
   // States
-  let [category, setCategory] = useState(null);
   let [message, setMessage] = useState(null);
 
   // Refs
@@ -26,13 +27,13 @@ const CategoriesUpdate = () => {
   // Get category
   useEffect(() => {
     axios.get(baseAddress + "Categories/" + id.categoriesId).then((result) => {
-      setCategory(result.data);
       categoryId.current.value = result.data.id;
       categoryName.current.value = result.data.name;
       categoryDescription.current.value = result.data.description;
     });
   }, []);
 
+  // Update category
   const handleUpdate = () => {
     axios
       .put(baseAddress + "Categories", {
@@ -42,7 +43,10 @@ const CategoriesUpdate = () => {
       })
       .then((result) => {
         setMessage(result.data);
-        alert("Update succesfully!");
+        history.push({
+          pathname: "/categories",
+        });
+        alert("Update category succesfully!");
       })
       .catch((error) => {
         setMessage(error.response.data);

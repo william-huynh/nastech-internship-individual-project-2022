@@ -1,12 +1,47 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import "./CategoriesCreate.scss";
 import { Button } from "@mui/material";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 
+// Base address for api
+const baseAddress = "https://localhost:7167/api/";
+
 const CategoriesCreate = () => {
+  // Variables
+  const history = useHistory();
+
+  // States
+  let [message, setMessage] = useState(null);
+
+  // Refs
+  let categoryName = useRef();
+  let categoryDescription = useRef();
+
+  // Create category
+  const handleCreate = () => {
+    axios
+      .post(baseAddress + "Categories", {
+        Name: categoryName.current.value,
+        Description: categoryDescription.current.value,
+      })
+      .then((result) => {
+        setMessage(result.data);
+        history.push({
+          pathname: "/categories",
+        });
+        alert("Create category succesfully!");
+      })
+      .catch((error) => {
+        setMessage(error.response.data);
+        alert(message);
+      });
+  };
+
   return (
     <div className="mainContainer">
       <Sidebar />
@@ -26,23 +61,28 @@ const CategoriesCreate = () => {
               <div className="inputGroup">
                 <span>Id</span>
                 <div>
-                  <input type="number" />
+                  <input type="number" disabled />
                 </div>
               </div>
               <div className="inputGroup">
                 <span>Name</span>
                 <div>
-                  <input type="text" />
+                  <input type="text" ref={categoryName} />
                 </div>
               </div>
               <div className="inputGroup">
                 <span>Description</span>
                 <div>
-                  <input type="text" />
+                  <input type="text" ref={categoryDescription} />
                 </div>
               </div>
               <div className="inputGroup">
-                <Button variant="contained" color="success" className="button">
+                <Button
+                  variant="contained"
+                  color="success"
+                  className="button"
+                  onClick={handleCreate}
+                >
                   Add Categories
                 </Button>
               </div>
