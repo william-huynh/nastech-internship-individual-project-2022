@@ -11,5 +11,6 @@
         public DateTime UpdatedDate { get; set; }
         public bool IsDeleted { get; set; }
         public int CategoryId { get; set; }
+        public string CategoryName { get; set; } = string.Empty;
     }
 }

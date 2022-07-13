@@ -149,14 +149,14 @@ namespace ClothesShop.API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     URL = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    ClothesID = table.Column<int>(type: "int", nullable: false)
+                    ClothesId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Images", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Images_Clothes_ClothesID",
-                        column: x => x.ClothesID,
+                        name: "FK_Images_Clothes_ClothesId",
+                        column: x => x.ClothesId,
                         principalTable: "Clothes",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -228,9 +228,9 @@ namespace ClothesShop.API.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Images_ClothesID",
+                name: "IX_Images_ClothesId",
                 table: "Images",
-                column: "ClothesID");
+                column: "ClothesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Images_URL",

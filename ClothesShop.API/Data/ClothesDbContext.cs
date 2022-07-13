@@ -6,6 +6,13 @@ namespace ClothesShop.API.Data
 {
     public class ClothesDbContext : DbContext
     {
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Image>()
+                .HasIndex(image => image.URL)
+                .IsUnique();
+        }
+
         public ClothesDbContext(DbContextOptions<ClothesDbContext> options) : base (options) { }
         public DbSet<Clothes> Clothes { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -32,13 +39,6 @@ namespace ClothesShop.API.Data
                 },
                     LogLevel.Information)
                 .EnableSensitiveDataLogging(); */
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Image>()
-                .HasIndex(image => image.URL)
-                .IsUnique();
         }
     }
 }
