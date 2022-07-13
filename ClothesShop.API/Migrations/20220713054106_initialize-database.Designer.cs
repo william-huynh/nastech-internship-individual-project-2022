@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClothesShop.API.Migrations
 {
     [DbContext(typeof(ClothesDbContext))]
-    [Migration("20220712173510_initialize-database")]
+    [Migration("20220713054106_initialize-database")]
     partial class initializedatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,7 +145,7 @@ namespace ClothesShop.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("ClothesID")
+                    b.Property<int>("ClothesId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -157,7 +157,7 @@ namespace ClothesShop.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClothesID");
+                    b.HasIndex("ClothesId");
 
                     b.HasIndex("URL")
                         .IsUnique();
@@ -335,7 +335,7 @@ namespace ClothesShop.API.Migrations
                 {
                     b.HasOne("ClothesShop.API.Models.Clothes", "Clothes")
                         .WithMany("Images")
-                        .HasForeignKey("ClothesID")
+                        .HasForeignKey("ClothesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
