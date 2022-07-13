@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { useHistory } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -11,11 +12,14 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 const baseAddress = "https://localhost:7167/api/";
 
 const CategoriesUpdate = () => {
-  // Get id params
+  // Variables
   let id = useParams();
-  // Set category state
-  let [category, setCategory] = useState(null);
-  // Input refs
+  const history = useHistory();
+
+  // States
+  let [message, setMessage] = useState(null);
+
+  // Refs
   let categoryId = useRef();
   let categoryName = useRef();
   let categoryDescription = useRef();
@@ -23,12 +27,32 @@ const CategoriesUpdate = () => {
   // Get category
   useEffect(() => {
     axios.get(baseAddress + "Categories/" + id.categoriesId).then((result) => {
-      setCategory(result.data);
       categoryId.current.value = result.data.id;
       categoryName.current.value = result.data.name;
       categoryDescription.current.value = result.data.description;
     });
   }, []);
+
+  // Update category
+  const handleUpdate = () => {
+    axios
+      .put(baseAddress + "Categories", {
+        Id: categoryId.current.value,
+        Name: categoryName.current.value,
+        Description: categoryDescription.current.value,
+      })
+      .then((result) => {
+        setMessage(result.data);
+        history.push({
+          pathname: "/categories",
+        });
+        alert("Update category succesfully!");
+      })
+      .catch((error) => {
+        setMessage(error.response.data);
+        alert(message);
+      });
+  };
 
   return (
     <div className="mainContainer">
@@ -65,7 +89,12 @@ const CategoriesUpdate = () => {
                 </div>
               </div>
               <div className="inputGroup">
-                <Button variant="contained" color="success" className="button">
+                <Button
+                  variant="contained"
+                  color="success"
+                  className="button"
+                  onClick={handleUpdate}
+                >
                   Update Categories
                 </Button>
               </div>
