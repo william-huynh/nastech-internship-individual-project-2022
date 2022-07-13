@@ -37,8 +37,8 @@ function Routes() {
         {/* Clothes */}
         <Route path="/clothes" component={Clothes} />
         <Route path="/clothes-create" component={ClothesCreate} />
-        <Route path="/clothes-update" component={ClothesUpdate} />
-        {/* <Route path="/clothes-update/:clothesId" component={ClothesUpdate} /> */}
+        <Route path="/clothes-update/:clothesId" component={ClothesUpdate} />
+        {/* <Route path="/clothes-update" component={ClothesUpdate} /> */}
 
         {/* Users */}
         <Route path="/users" component={Users} />
