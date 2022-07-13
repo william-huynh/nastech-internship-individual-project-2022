@@ -151,14 +151,11 @@ namespace ClothesShop.API.Migrations
 
                     b.Property<string>("URL")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClothesId");
-
-                    b.HasIndex("URL")
-                        .IsUnique();
 
                     b.ToTable("Images");
                 });

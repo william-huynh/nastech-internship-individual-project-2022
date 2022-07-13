@@ -28,4 +28,8 @@
     <ProjectReference Include="..\ClothesShop.SharedVMs\ClothesShop.SharedVMs.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\" />
+  </ItemGroup>
+
 </Project>

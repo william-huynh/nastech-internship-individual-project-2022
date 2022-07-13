@@ -10,11 +10,14 @@ namespace ClothesShop.API.Interfaces
         // Get image by id
         Task<Image> GetByIdAsync(int id);
 
+        // Get image by url
+        Task<Image> GetByURLAsync(string url);
+
         // Post image
         Task<Image> PostAsync(Image image);
 
         // Put image
-        Task<Image> PutAsync(Image image);
+        Task<Image> PutAsync(int id, Image image);
 
         // Delete image
         Task DeleteAsync(int id);

@@ -15,6 +15,7 @@ namespace ClothesShop.API.Profiles
 
             // Use for write data (POST, PUT)
             CreateMap<ImageDto, Image>()
+                .ForMember(dest => dest.Id, o => o.Ignore())
                 .ForMember(dest => dest.IsDeleted, o => o.Ignore());
         }
     }
