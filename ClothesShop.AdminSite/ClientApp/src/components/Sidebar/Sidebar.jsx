@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import "./Sidebar.scss";
+import "./sidebar.scss";
 import TokenIcon from "@mui/icons-material/Token";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CategoryIcon from "@mui/icons-material/Category";
@@ -8,9 +8,9 @@ import CheckroomIcon from "@mui/icons-material/Checkroom";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const sidebar = () => {
+const Sidebar = () => {
   // Logout function
-  const logout = () => {
+  const Logout = () => {
     // Remove token
     localStorage.removeItem("token");
 
@@ -50,7 +50,7 @@ const sidebar = () => {
               <span>Users</span>
             </li>
           </Link>
-          <li onClick={logout}>
+          <li onClick={Logout}>
             <LogoutIcon className="icon" />
             <span>Log out</span>
           </li>
@@ -60,4 +60,4 @@ const sidebar = () => {
   );
 };
 
-export default sidebar;
+export default Sidebar;

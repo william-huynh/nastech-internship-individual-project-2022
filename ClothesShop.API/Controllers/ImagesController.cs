@@ -133,7 +133,7 @@ namespace ClothesShop.API.Controllers
         {
             try
             {
-                var imageChecked = _image.GetByIdAsync(id);
+                var imageChecked = await _image.GetByIdAsync(id);
                 if (imageChecked == null)
                     return NotFound("Image not found!");
                 await _image.DeleteAsync(id);

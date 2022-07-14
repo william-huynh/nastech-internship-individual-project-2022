@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import axios from "axios";
 import { setAuthToken } from "../../helpers/setAuthToken";
 
-const login = () => {
+const Login = () => {
   // Base api URL
   const baseAddress = "https://localhost:7167/api/";
   const usernameRef = useRef(null);
@@ -88,4 +88,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;

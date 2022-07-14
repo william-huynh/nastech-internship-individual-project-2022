@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-import "./Categories.scss";
+import "./categories.scss";
 import { Button } from "@mui/material";
 
 import CategoriesTable from "../../components/CategoriesTable/CategoriesTable";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
-const categories = () => {
+const Categories = () => {
   return (
     <div className="mainContainer">
       <Sidebar />
@@ -31,7 +31,7 @@ const categories = () => {
   );
 };
 
-export default categories;
+export default Categories;
 
 // import React, { Component } from "react";
 // import axios from "axios";

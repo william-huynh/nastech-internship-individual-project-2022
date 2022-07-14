@@ -3,21 +3,23 @@ import { useHistory } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-import "./ClothesUpdate.scss";
+import "./clothesUpdate.scss";
 import { Button } from "@mui/material";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 
 // Base address for api
 const baseAddress = "https://localhost:7167/api/";
 
-const clothesUpdate = () => {
+const ClothesUpdate = () => {
   // Variables
   let id = useParams();
   const history = useHistory();
 
   // States
   let [message, setMessage] = useState(null);
+  let [imageURL, setImageURL] = useState("");
 
   // Refs
   let clothesId = useRef();
@@ -42,6 +44,8 @@ const clothesUpdate = () => {
       clothesUpdatedDate.current.value = result.data.updatedDate;
       clothesCategoryId.current.value = result.data.categoryId;
       clothesCategoryName.current.value = result.data.categoryName;
+      setImageURL(baseAddress + "Images/" + result.data.images[0].id);
+      console.log(result.data.images[0].id);
     });
   });
 
@@ -76,7 +80,7 @@ const clothesUpdate = () => {
     <div className="mainContainer">
       <Sidebar />
       <div className="clothesContainer">
-        <h2>CLOTHES UPDATE</h2>
+        <h2>UPDATE</h2>
         <div className="tableContainer">
           <div className="button-group">
             <Link to="/clothes" style={{ textDecoration: "none" }}>
@@ -88,61 +92,108 @@ const clothesUpdate = () => {
           <hr />
           <div className="clothesDetailContainer">
             <div className="clothesInfo">
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Id</span>
                 <div>
-                  <input type="number" ref={clothesId} disabled />
+                  <input
+                    className="inputId"
+                    type="number"
+                    ref={clothesId}
+                    disabled
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Name</span>
                 <div>
                   <input type="text" ref={clothesName} />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Description</span>
                 <div>
-                  <input type="text" ref={clothesDescription} />
+                  <textarea
+                    className="inputTextarea"
+                    ref={clothesDescription}
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Stock</span>
                 <div>
-                  <input type="number" ref={clothesStock} />
+                  <input
+                    className="inputNumber"
+                    type="number"
+                    ref={clothesStock}
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Price</span>
                 <div>
-                  <input type="number" ref={clothesPrice} />
+                  <input
+                    className="inputNumber"
+                    type="number"
+                    ref={clothesPrice}
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Added Date</span>
                 <div>
-                  <input type="text" ref={clothesAddedDate} disabled />
+                  <input
+                    className="inputDate"
+                    type="text"
+                    ref={clothesAddedDate}
+                    disabled
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Updated Date</span>
                 <div>
-                  <input type="text" ref={clothesUpdatedDate} disabled />
+                  <input
+                    className="inputDate"
+                    type="text"
+                    ref={clothesUpdatedDate}
+                    disabled
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Category Id</span>
                 <div>
-                  <input type="number" ref={clothesCategoryId} />
+                  <input
+                    className="inputId"
+                    type="number"
+                    ref={clothesCategoryId}
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Category name</span>
                 <div>
                   <input type="text" ref={clothesCategoryName} disabled />
                 </div>
               </div>
-              <div className="inputGroup">
+            </div>
+            <div className="clothesImageContainer">
+              <div className="clothesImageUpload">
+                <label
+                  for="imageUpload"
+                  style={{
+                    backgroundImage: `url(${
+                      imageURL ? imageURL : "./dummy-image.jpg"
+                    })`,
+                  }}
+                />
+                <input
+                  type="file"
+                  id="imageUpload"
+                  style={{ display: "none" }}
+                />
+              </div>
+              <div className="clothesInputGroup">
                 <Button
                   variant="contained"
                   color="success"
@@ -153,9 +204,6 @@ const clothesUpdate = () => {
                 </Button>
               </div>
             </div>
-            <div className="clothesImage">
-              <img src="" alt="this is clothes" />
-            </div>
           </div>
         </div>
       </div>
@@ -163,4 +211,4 @@ const clothesUpdate = () => {
   );
 };
 
-export default clothesUpdate;
+export default ClothesUpdate;

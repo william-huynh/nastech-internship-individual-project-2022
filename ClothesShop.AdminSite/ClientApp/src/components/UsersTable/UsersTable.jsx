@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import "./UsersTable.scss";
+import "./usersTable.scss";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 // Base address for api
@@ -19,7 +19,7 @@ const columns: GridColDef[] = [
   { field: "email", headerName: "Email", width: 280 },
 ];
 
-const usersTable = () => {
+const UsersTable = () => {
   // Set users list state
   let [users, setUsers] = useState([]);
 
@@ -45,4 +45,4 @@ const usersTable = () => {
   );
 };
 
-export default usersTable;
+export default UsersTable;

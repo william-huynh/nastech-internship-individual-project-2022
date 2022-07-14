@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import "./CategoriesTable.scss";
+import "./categoriesTable.scss";
 import { Button } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 // Base address for api
 const baseAddress = "https://localhost:7167/api/";
 
-const categoriesTable = () => {
+const CategoriesTable = () => {
   // States
   let [categories, setCategories] = useState([]);
   let [message, setMessage] = useState(null);
@@ -86,4 +86,4 @@ const categoriesTable = () => {
   );
 };
 
-export default categoriesTable;
+export default CategoriesTable;

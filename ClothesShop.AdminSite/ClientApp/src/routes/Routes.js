@@ -17,7 +17,7 @@ import ClothesUpdate from "../pages/Clothes/ClothesUpdate";
 import ClothesCreate from "../pages/Clothes/ClothesCreate";
 import Users from "../pages/Users/Users";
 
-function routes() {
+function Routes() {
   return (
     <Router history={history}>
       <Switch>
@@ -50,4 +50,4 @@ function routes() {
   );
 }
 
-export default routes;
+export default Routes;

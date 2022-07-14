@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import "./ClothesCreate.scss";
+import "./clothesCreate.scss";
 import { Button } from "@mui/material";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -11,7 +11,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 // Base address for api
 const baseAddress = "https://localhost:7167/api/";
 
-const clothesCreate = () => {
+const ClothesCreate = () => {
   // Variables
   const history = useHistory();
 
@@ -138,4 +138,4 @@ const clothesCreate = () => {
   );
 };
 
-export default clothesCreate;
+export default ClothesCreate;

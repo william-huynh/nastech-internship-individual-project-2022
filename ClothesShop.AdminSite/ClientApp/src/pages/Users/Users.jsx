@@ -1,9 +1,9 @@
-import "./Users.scss";
+import "./users.scss";
 
 import UsersTable from "../../components/UsersTable/UsersTable";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
-const users = () => {
+const Users = () => {
   return (
     <div className="mainContainer">
       <Sidebar />
@@ -17,4 +17,4 @@ const users = () => {
   );
 };
 
-export default users;
+export default Users;

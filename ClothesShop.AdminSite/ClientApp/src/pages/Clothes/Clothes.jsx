@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-import "./Clothes.scss";
+import "./clothes.scss";
 import { Button } from "@mui/material";
 
 import ClothesTable from "../../components/ClothesTable/ClothesTable";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
-const clothes = () => {
+const Clothes = () => {
   return (
     <div className="mainContainer">
       <Sidebar />
@@ -31,4 +31,4 @@ const clothes = () => {
   );
 };
 
-export default clothes;
+export default Clothes;

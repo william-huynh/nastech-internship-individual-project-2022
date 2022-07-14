@@ -26,9 +26,13 @@ namespace ClothesShop.API.Data.Repositories
 
         public async Task<Clothes> GetByIdAsync(int id)
         {
-            return await _context.Clothes
-                .AsNoTracking()
-                .FirstOrDefaultAsync(clothes => clothes.ID.Equals(id) && clothes.IsDeleted.Equals(false));
+            return await _context.Clothes.FirstOrDefaultAsync(clothes => clothes.ID.Equals(id) && clothes.IsDeleted.Equals(false));
+        }
+
+        public async Task<DateTime> GetAddedDateByIdAsync(int id)
+        {
+            var clothes = await _context.Clothes.AsNoTracking().FirstOrDefaultAsync(clothes => clothes.ID.Equals(id) && clothes.IsDeleted.Equals(false));
+            return clothes.AddedDate;
         }
 
         public async Task<Clothes> PostAsync(Clothes clothes)

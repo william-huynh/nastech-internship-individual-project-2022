@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import "./ClothesTable.scss";
+import "./clothesTable.scss";
 import { Button } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 // Base address for api
 const baseAddress = "https://localhost:7167/api/";
 
-const clothesTable = () => {
+const ClothesTable = () => {
   // States
   let [clothes, setClothes] = useState([]);
   let [message, setMessage] = useState(null);
@@ -92,4 +92,4 @@ const clothesTable = () => {
   );
 };
 
-export default clothesTable;
+export default ClothesTable;

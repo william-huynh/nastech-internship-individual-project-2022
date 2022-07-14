@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { decodeToken } from "react-jwt";
 
-const routeGuard = ({ component: Component, ...rest }) => {
+const RouteGuard = ({ component: Component, ...rest }) => {
   function hasJWT() {
     let flag = false;
 
@@ -33,4 +33,4 @@ const routeGuard = ({ component: Component, ...rest }) => {
   );
 };
 
-export default routeGuard;
+export default RouteGuard;

@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import "./CategoriesCreate.scss";
+import "./categoriesCreate.scss";
 import { Button } from "@mui/material";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -11,7 +11,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 // Base address for api
 const baseAddress = "https://localhost:7167/api/";
 
-const categoriesCreate = () => {
+const CategoriesCreate = () => {
   // Variables
   const history = useHistory();
 
@@ -94,4 +94,4 @@ const categoriesCreate = () => {
   );
 };
 
-export default categoriesCreate;
+export default CategoriesCreate;

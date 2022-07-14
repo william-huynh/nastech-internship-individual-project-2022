@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-import "./CategoriesUpdate.scss";
+import "./categoriesUpdate.scss";
 import { Button } from "@mui/material";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -11,7 +11,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 // Base address for api
 const baseAddress = "https://localhost:7167/api/";
 
-const categoriesUpdate = () => {
+const CategoriesUpdate = () => {
   // Variables
   let id = useParams();
   const history = useHistory();
@@ -31,7 +31,7 @@ const categoriesUpdate = () => {
       categoryName.current.value = result.data.name;
       categoryDescription.current.value = result.data.description;
     });
-  }, []);
+  });
 
   // Update category
   const handleUpdate = () => {
@@ -106,4 +106,4 @@ const categoriesUpdate = () => {
   );
 };
 
-export default categoriesUpdate;
+export default CategoriesUpdate;

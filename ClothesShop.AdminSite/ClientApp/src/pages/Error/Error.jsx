@@ -1,6 +1,6 @@
 import React from "react";
 
-const error = () => {
+const Error = () => {
   const backToLogin = () => {
     // Remove token
     localStorage.removeItem("token");
@@ -18,4 +18,4 @@ const error = () => {
   );
 };
 
-export default error;
+export default Error;
