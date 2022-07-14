@@ -23,6 +23,11 @@ namespace ClothesShop.API.Data.Repositories
             return await _context.Images.AsNoTracking().FirstOrDefaultAsync(image => image.Id.Equals(id) && image.IsDeleted.Equals(false));
         }
 
+        public async Task<Image> GetByURLAsync(string url)
+        {
+            return await _context.Images.AsNoTracking().FirstOrDefaultAsync(image => image.URL.Equals(url) && image.IsDeleted.Equals(false));
+        }
+
         public async Task<Image> PostAsync(Image image)
         {
             _context.Images.Add(image);
@@ -30,9 +35,10 @@ namespace ClothesShop.API.Data.Repositories
             return image;
         }
 
-        public async Task<Image> PutAsync(Image image)
+        public async Task<Image> PutAsync(int id, Image image)
         {
-            _context.Images.Update(image);
+            var imageChecked = await _context.Images.FirstOrDefaultAsync(image => image.Id.Equals(id) && image.IsDeleted.Equals(false));
+            imageChecked.URL = image.URL;
             await _context.SaveChangesAsync();
             return image;
         }

@@ -1,9 +1,8 @@
 import { useRef, useState, useEffect } from "react";
-import { useHistory } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-import "./CategoriesUpdate.scss";
+import "./categoriesUpdate.scss";
 import { Button } from "@mui/material";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -14,7 +13,6 @@ const baseAddress = "https://localhost:7167/api/";
 const CategoriesUpdate = () => {
   // Variables
   let id = useParams();
-  const history = useHistory();
 
   // States
   let [message, setMessage] = useState(null);
@@ -42,11 +40,8 @@ const CategoriesUpdate = () => {
         Description: categoryDescription.current.value,
       })
       .then((result) => {
-        setMessage(result.data);
-        history.push({
-          pathname: "/categories",
-        });
         alert("Update category succesfully!");
+        window.location.reload(false);
       })
       .catch((error) => {
         setMessage(error.response.data);
@@ -58,7 +53,7 @@ const CategoriesUpdate = () => {
     <div className="mainContainer">
       <Sidebar />
       <div className="categoriesContainer">
-        <h2>CATEGORIES UPDATE</h2>
+        <h2>UPDATE</h2>
         <div className="tableContainer">
           <div className="button-group">
             <Link to="/categories" style={{ textDecoration: "none" }}>
@@ -70,32 +65,41 @@ const CategoriesUpdate = () => {
           <hr />
           <div className="categoriesDetailContainer">
             <div className="categoriesInfo">
-              <div className="inputGroup">
+              <div className="categoriesInputGroup">
                 <span>Id</span>
                 <div>
-                  <input type="number" ref={categoryId} disabled />
+                  <input
+                    type="number"
+                    className="inputId"
+                    ref={categoryId}
+                    disabled
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="categoriesInputGroup">
                 <span>Name</span>
                 <div>
                   <input type="text" ref={categoryName} />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="categoriesInputGroup">
                 <span>Description</span>
                 <div>
-                  <input type="text" ref={categoryDescription} />
+                  <textarea
+                    className="inputTextarea"
+                    type="text"
+                    ref={categoryDescription}
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="categoriesInputGroup">
                 <Button
                   variant="contained"
                   color="success"
                   className="button"
                   onClick={handleUpdate}
                 >
-                  Update Categories
+                  Update Category
                 </Button>
               </div>
             </div>

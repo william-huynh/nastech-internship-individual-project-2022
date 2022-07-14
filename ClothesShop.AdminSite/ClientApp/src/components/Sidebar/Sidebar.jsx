@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import "./Sidebar.scss";
+import "./sidebar.scss";
 import TokenIcon from "@mui/icons-material/Token";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CategoryIcon from "@mui/icons-material/Category";

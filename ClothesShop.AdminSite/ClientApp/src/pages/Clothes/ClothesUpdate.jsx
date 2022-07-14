@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-import "./ClothesUpdate.scss";
+import "./clothesUpdate.scss";
 import { Button } from "@mui/material";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -17,7 +17,10 @@ const ClothesUpdate = () => {
   const history = useHistory();
 
   // States
+  let [clothes, setClothes] = useState([]);
   let [message, setMessage] = useState(null);
+  let [imageURL, setImageURL] = useState("");
+  let [imageUploadFile, setImageUploadFile] = useState(null);
 
   // Refs
   let clothesId = useRef();
@@ -33,6 +36,7 @@ const ClothesUpdate = () => {
   // Get clothes
   useEffect(() => {
     axios.get(baseAddress + "Clothes/" + id.clothesId).then((result) => {
+      setClothes(result.data);
       clothesId.current.value = result.data.id;
       clothesName.current.value = result.data.name;
       clothesDescription.current.value = result.data.description;
@@ -42,33 +46,64 @@ const ClothesUpdate = () => {
       clothesUpdatedDate.current.value = result.data.updatedDate;
       clothesCategoryId.current.value = result.data.categoryId;
       clothesCategoryName.current.value = result.data.categoryName;
+      if (result.data.images.length > 0)
+        setImageURL(baseAddress + "Images/" + result.data.images[0].id);
+      else setImageURL("./dummy-image.jpg");
     });
-  });
+  }, []);
+
+  // Upload file
+  const onFileChange = (event) => {
+    setImageUploadFile(event.target.files[0]);
+  };
 
   // Update clothes
   const handleUpdate = () => {
+    const formData = new FormData();
+    formData.append("File", imageUploadFile);
+    formData.append("URL", imageUploadFile.name);
+    formData.append("ClothesId", clothes.id);
+
+    // Update clothes request
     axios
       .put(baseAddress + "Clothes", {
-        ID: clothesId.current.value,
+        Id: clothesId.current.value,
         Name: clothesName.current.value,
         Description: clothesDescription.current.value,
         Stock: clothesStock.current.value,
         Price: clothesPrice.current.value,
-        AddedDate: clothesAddedDate.current.value,
-        UpdatedDate: clothesUpdatedDate.current.value,
         CategoryId: clothesCategoryId.current.value,
-        CategoryName: clothesCategoryName.current.value,
       })
       .then((result) => {
-        setMessage(result.data);
-        history.push({
-          pathname: "/clothes",
-        });
-        alert("Update clothes succesfully!");
-      })
-      .catch((error) => {
-        setMessage(error.response.data);
-        alert(message);
+        if (imageUploadFile) {
+          if (clothes.images.length != 0) {
+            // Update clothes image request
+            axios
+              .put(baseAddress + "Images/" + clothes.images[0].id, formData)
+              .then(() => {
+                alert("Update clothes succesfully!");
+                window.location.reload(false);
+              })
+              .catch((error) => {
+                setMessage(error.response.data);
+                alert(message);
+              });
+          } else {
+            axios
+              .post(baseAddress + "Images", formData)
+              .then(() => {
+                alert("Update clothes succesfully!");
+                window.location.reload(false);
+              })
+              .catch((error) => {
+                setMessage(error.response.data);
+                alert(message);
+              });
+          }
+        } else {
+          alert("Clothes update successfully!");
+          window.location.reload(false);
+        }
       });
   };
 
@@ -76,7 +111,7 @@ const ClothesUpdate = () => {
     <div className="mainContainer">
       <Sidebar />
       <div className="clothesContainer">
-        <h2>CLOTHES UPDATE</h2>
+        <h2>UPDATE</h2>
         <div className="tableContainer">
           <div className="button-group">
             <Link to="/clothes" style={{ textDecoration: "none" }}>
@@ -88,61 +123,107 @@ const ClothesUpdate = () => {
           <hr />
           <div className="clothesDetailContainer">
             <div className="clothesInfo">
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Id</span>
                 <div>
-                  <input type="number" ref={clothesId} disabled />
+                  <input
+                    className="inputId"
+                    type="number"
+                    ref={clothesId}
+                    disabled
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Name</span>
                 <div>
                   <input type="text" ref={clothesName} />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Description</span>
                 <div>
-                  <input type="text" ref={clothesDescription} />
+                  <textarea
+                    className="inputTextarea"
+                    ref={clothesDescription}
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Stock</span>
                 <div>
-                  <input type="number" ref={clothesStock} />
+                  <input
+                    className="inputNumber"
+                    type="number"
+                    ref={clothesStock}
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Price</span>
                 <div>
-                  <input type="number" ref={clothesPrice} />
+                  <input
+                    className="inputNumber"
+                    type="number"
+                    ref={clothesPrice}
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Added Date</span>
                 <div>
-                  <input type="text" ref={clothesAddedDate} disabled />
+                  <input
+                    className="inputDate"
+                    type="text"
+                    ref={clothesAddedDate}
+                    disabled
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Updated Date</span>
                 <div>
-                  <input type="text" ref={clothesUpdatedDate} disabled />
+                  <input
+                    className="inputDate"
+                    type="text"
+                    ref={clothesUpdatedDate}
+                    disabled
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Category Id</span>
                 <div>
-                  <input type="number" ref={clothesCategoryId} />
+                  <input
+                    className="inputId"
+                    type="number"
+                    ref={clothesCategoryId}
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="clothesInputGroup">
                 <span>Category name</span>
                 <div>
                   <input type="text" ref={clothesCategoryName} disabled />
                 </div>
               </div>
-              <div className="inputGroup">
+            </div>
+            <div className="clothesImageContainer">
+              <div className="clothesImageUpload">
+                <label
+                  for="imageUpload"
+                  style={{
+                    backgroundImage: `url(${imageURL})`,
+                  }}
+                />
+                <input
+                  type="file"
+                  id="imageUpload"
+                  onChange={onFileChange}
+                  style={{ display: "none" }}
+                />
+              </div>
+              <div className="clothesInputGroup">
                 <Button
                   variant="contained"
                   color="success"
@@ -152,9 +233,6 @@ const ClothesUpdate = () => {
                   Update Clothes
                 </Button>
               </div>
-            </div>
-            <div className="clothesImage">
-              <img src="" alt="this is clothes" />
             </div>
           </div>
         </div>

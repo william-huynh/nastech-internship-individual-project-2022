@@ -147,7 +147,7 @@ namespace ClothesShop.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    URL = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    URL = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     ClothesId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -231,12 +231,6 @@ namespace ClothesShop.API.Migrations
                 name: "IX_Images_ClothesId",
                 table: "Images",
                 column: "ClothesId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Images_URL",
-                table: "Images",
-                column: "URL",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_ClothesId",

@@ -1,4 +1,4 @@
-import "./Home.scss";
+import "./home.scss";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
 const Home = () => {

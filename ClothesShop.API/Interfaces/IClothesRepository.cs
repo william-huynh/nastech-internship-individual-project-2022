@@ -13,6 +13,9 @@ namespace ClothesShop.API.Interfaces
         // Get clothes by id
         Task<Clothes> GetByIdAsync(int id);
 
+        // Get clothes added date by id
+        Task<DateTime> GetAddedDateByIdAsync(int id);
+
         // Post clothes
         Task<Clothes> PostAsync(Clothes clothes);
 

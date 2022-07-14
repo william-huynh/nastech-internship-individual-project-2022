@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClothesShop.API.Migrations
 {
     [DbContext(typeof(ClothesDbContext))]
-    [Migration("20220713054106_initialize-database")]
+    [Migration("20220713150713_initialize-database")]
     partial class initializedatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -153,14 +153,11 @@ namespace ClothesShop.API.Migrations
 
                     b.Property<string>("URL")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClothesId");
-
-                    b.HasIndex("URL")
-                        .IsUnique();
 
                     b.ToTable("Images");
                 });

@@ -100,11 +100,8 @@ namespace ClothesShop.API.Controllers
         {
             try
             {
-                var clothesChecked = await _clothes.GetByIdAsync(clothesUpdate.ID);
-                if (clothesChecked == null) 
-                    return NotFound("Clothes not found!");
                 var clothes = _mapper.Map<Clothes>(clothesUpdate);
-                clothes.AddedDate = clothesChecked.AddedDate;
+                clothes.AddedDate = await _clothes.GetAddedDateByIdAsync(clothesUpdate.ID);
                 clothes.UpdatedDate = DateTime.UtcNow;
                 var clothesUpdated = await _clothes.PutAsync(clothes);
                 return Ok(_mapper.Map<ClothesDto>(clothesUpdated));

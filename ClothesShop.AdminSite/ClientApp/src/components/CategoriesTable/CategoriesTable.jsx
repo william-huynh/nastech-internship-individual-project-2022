@@ -2,24 +2,16 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import "./CategoriesTable.scss";
+import "./categoriesTable.scss";
 import { Button } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 // Base address for api
 const baseAddress = "https://localhost:7167/api/";
 
-const CategoriesTable = () => {
+const CategoriesTable = (categoriesList) => {
   // States
-  let [categories, setCategories] = useState([]);
   let [message, setMessage] = useState(null);
-
-  // Get categories list
-  useEffect(() => {
-    axios.get(baseAddress + "Categories").then((result) => {
-      setCategories(result.data);
-    });
-  }, []);
 
   // Delete category
   const handleDelete = (id) => {
@@ -39,12 +31,12 @@ const CategoriesTable = () => {
   // Table column define
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 50 },
-    { field: "name", headerName: "Name", width: 180 },
+    { field: "name", headerName: "Name", width: 260 },
     { field: "description", headerName: "Description", width: 740 },
     {
       field: "action",
       headerName: "Action",
-      width: 210,
+      width: 180,
       renderCell: (params) => {
         return (
           <>
@@ -75,12 +67,10 @@ const CategoriesTable = () => {
     <div className="datatable">
       <DataGrid
         sx={{ fontSize: 16 }}
-        rows={categories}
+        rows={categoriesList.categoriesList}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableSelectionOnClick
       />
     </div>
   );

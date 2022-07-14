@@ -12,5 +12,6 @@
         public bool IsDeleted { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; } = string.Empty;
+        public List<ImageDto>? Images { get; set; }
     }
 }

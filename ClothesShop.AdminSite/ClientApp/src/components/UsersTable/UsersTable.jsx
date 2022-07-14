@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import "./UsersTable.scss";
+import "./usersTable.scss";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 // Base address for api
@@ -38,8 +38,6 @@ const UsersTable = () => {
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableSelectionOnClick
       />
     </div>
   );

@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import "./CategoriesCreate.scss";
+import "./categoriesCreate.scss";
 import { Button } from "@mui/material";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -11,16 +11,23 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 // Base address for api
 const baseAddress = "https://localhost:7167/api/";
 
-const CategoriesCreate = () => {
+const CategoriesCreate = (props) => {
   // Variables
   const history = useHistory();
+  const nextCategoriesId = props.location.state.id + 1;
 
   // States
   let [message, setMessage] = useState(null);
 
   // Refs
+  let categoryId = useRef();
   let categoryName = useRef();
   let categoryDescription = useRef();
+
+  useEffect(() => {
+    // Set next category Id
+    categoryId.current.value = nextCategoriesId;
+  }, []);
 
   // Create category
   const handleCreate = () => {
@@ -46,7 +53,7 @@ const CategoriesCreate = () => {
     <div className="mainContainer">
       <Sidebar />
       <div className="categoriesContainer">
-        <h2>CATEGORIES CREATE</h2>
+        <h2>CREATE</h2>
         <div className="tableContainer">
           <div className="button-group">
             <Link to="/categories" style={{ textDecoration: "none" }}>
@@ -58,32 +65,41 @@ const CategoriesCreate = () => {
           <hr />
           <div className="categoriesDetailContainer">
             <div className="categoriesInfo">
-              <div className="inputGroup">
+              <div className="categoriesInputGroup">
                 <span>Id</span>
                 <div>
-                  <input type="number" disabled />
+                  <input
+                    type="number"
+                    className="inputId"
+                    ref={categoryId}
+                    disabled
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="categoriesInputGroup">
                 <span>Name</span>
                 <div>
                   <input type="text" ref={categoryName} />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="categoriesInputGroup">
                 <span>Description</span>
                 <div>
-                  <input type="text" ref={categoryDescription} />
+                  <textarea
+                    className="inputTextarea"
+                    type="text"
+                    ref={categoryDescription}
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="categoriesInputGroup">
                 <Button
                   variant="contained"
                   color="success"
                   className="button"
                   onClick={handleCreate}
                 >
-                  Add Categories
+                  Add Category
                 </Button>
               </div>
             </div>

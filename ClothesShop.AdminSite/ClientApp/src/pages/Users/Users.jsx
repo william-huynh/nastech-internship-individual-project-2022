@@ -1,6 +1,4 @@
-import "./Users.scss";
-import { Button } from "@mui/material";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import "./users.scss";
 
 import UsersTable from "../../components/UsersTable/UsersTable";
 import Sidebar from "../../components/Sidebar/Sidebar";
