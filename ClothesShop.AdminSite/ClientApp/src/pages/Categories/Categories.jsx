@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 import CategoriesTable from "../../components/CategoriesTable/CategoriesTable";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
-const Categories = () => {
+const categories = () => {
   return (
     <div className="mainContainer">
       <Sidebar />
@@ -31,7 +31,7 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default categories;
 
 // import React, { Component } from "react";
 // import axios from "axios";

@@ -19,7 +19,7 @@ const columns: GridColDef[] = [
   { field: "email", headerName: "Email", width: 280 },
 ];
 
-const UsersTable = () => {
+const usersTable = () => {
   // Set users list state
   let [users, setUsers] = useState([]);
 
@@ -45,4 +45,4 @@ const UsersTable = () => {
   );
 };
 
-export default UsersTable;
+export default usersTable;

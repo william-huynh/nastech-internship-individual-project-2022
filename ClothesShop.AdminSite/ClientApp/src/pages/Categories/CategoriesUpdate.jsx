@@ -11,7 +11,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 // Base address for api
 const baseAddress = "https://localhost:7167/api/";
 
-const CategoriesUpdate = () => {
+const categoriesUpdate = () => {
   // Variables
   let id = useParams();
   const history = useHistory();
@@ -106,4 +106,4 @@ const CategoriesUpdate = () => {
   );
 };
 
-export default CategoriesUpdate;
+export default categoriesUpdate;

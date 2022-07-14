@@ -1,11 +1,9 @@
 import "./Users.scss";
-import { Button } from "@mui/material";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 
 import UsersTable from "../../components/UsersTable/UsersTable";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
-const Users = () => {
+const users = () => {
   return (
     <div className="mainContainer">
       <Sidebar />
@@ -19,4 +17,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default users;

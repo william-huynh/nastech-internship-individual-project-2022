@@ -9,7 +9,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 // Base address for api
 const baseAddress = "https://localhost:7167/api/";
 
-const CategoriesTable = () => {
+const categoriesTable = () => {
   // States
   let [categories, setCategories] = useState([]);
   let [message, setMessage] = useState(null);
@@ -86,4 +86,4 @@ const CategoriesTable = () => {
   );
 };
 
-export default CategoriesTable;
+export default categoriesTable;

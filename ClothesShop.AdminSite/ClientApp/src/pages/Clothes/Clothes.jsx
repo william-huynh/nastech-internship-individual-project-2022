@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 import ClothesTable from "../../components/ClothesTable/ClothesTable";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
-const Clothes = () => {
+const clothes = () => {
   return (
     <div className="mainContainer">
       <Sidebar />
@@ -31,4 +31,4 @@ const Clothes = () => {
   );
 };
 
-export default Clothes;
+export default clothes;

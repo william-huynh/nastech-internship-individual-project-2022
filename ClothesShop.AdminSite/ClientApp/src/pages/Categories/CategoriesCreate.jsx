@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -11,7 +11,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 // Base address for api
 const baseAddress = "https://localhost:7167/api/";
 
-const CategoriesCreate = () => {
+const categoriesCreate = () => {
   // Variables
   const history = useHistory();
 
@@ -94,4 +94,4 @@ const CategoriesCreate = () => {
   );
 };
 
-export default CategoriesCreate;
+export default categoriesCreate;

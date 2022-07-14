@@ -8,9 +8,9 @@ import CheckroomIcon from "@mui/icons-material/Checkroom";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const Sidebar = () => {
+const sidebar = () => {
   // Logout function
-  const Logout = () => {
+  const logout = () => {
     // Remove token
     localStorage.removeItem("token");
 
@@ -50,7 +50,7 @@ const Sidebar = () => {
               <span>Users</span>
             </li>
           </Link>
-          <li onClick={Logout}>
+          <li onClick={logout}>
             <LogoutIcon className="icon" />
             <span>Log out</span>
           </li>
@@ -60,4 +60,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default sidebar;
