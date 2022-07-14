@@ -18,6 +18,11 @@ namespace ClothesShop.API.Data.Repositories
             return await _context.Categories.Where(category => category.IsDeleted.Equals(false)).ToListAsync();
         }
 
+        public async Task<List<Category>> Get5Async()
+        {
+            return await _context.Categories.Where(category => category.IsDeleted.Equals(false)).Take(5).ToListAsync();
+        }
+
         public async Task<Category> GetByIdAsync(int id)
         {
             return await _context.Categories.AsNoTracking().FirstOrDefaultAsync(category => category.Id.Equals(id) && category.IsDeleted.Equals(false));

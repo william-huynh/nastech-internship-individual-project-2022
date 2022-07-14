@@ -16,17 +16,108 @@ namespace ClothesShop.API.Data.Repositories
         public async Task<List<Clothes>> GetAsync()
         {
             return await _context.Clothes
-                .Where(clothes => clothes.IsDeleted.Equals(false)).ToListAsync();
+                                    .Where(clothes => clothes.IsDeleted.Equals(false))
+                                    .Select(clothes => new Clothes()
+                                    {
+                                        ID = clothes.ID,
+                                        Name = clothes.Name,
+                                        Description = clothes.Description,
+                                        Stock = clothes.Stock,
+                                        Price = clothes.Price,
+                                        AddedDate = clothes.AddedDate,
+                                        UpdatedDate = clothes.UpdatedDate,
+                                        IsDeleted = clothes.IsDeleted,
+                                        CategoryId = clothes.CategoryId,
+                                        Category = clothes.Category,
+                                        Ratings = clothes.Ratings,
+                                        Images = clothes.Images
+                                                            .Where(images => images.IsDeleted.Equals(false))
+                                                            .ToList(),
+                                    })
+                                    .ToListAsync();
+        }
+
+        public async Task<List<Clothes>> GetAllAsync()
+        {
+            return await _context.Clothes
+                                    .Select(clothes => new Clothes()
+                                    {
+                                        ID = clothes.ID,
+                                    })
+                                    .ToListAsync();
         }
 
         public async Task<List<Clothes>> GetByCategoryId(int id)
         {
-            return await _context.Clothes.Where(clothes => clothes.CategoryId.Equals(id) && clothes.IsDeleted.Equals(false)).ToListAsync();
+            return await _context.Clothes
+                                    .Where(clothes => clothes.CategoryId.Equals(id) && clothes.IsDeleted.Equals(false))
+                                    .Select(clothes => new Clothes()
+                                    {
+                                        ID = clothes.ID,
+                                        Name = clothes.Name,
+                                        Description = clothes.Description,
+                                        Stock = clothes.Stock,
+                                        Price = clothes.Price,
+                                        AddedDate = clothes.AddedDate,
+                                        UpdatedDate = clothes.UpdatedDate,
+                                        IsDeleted = clothes.IsDeleted,
+                                        CategoryId = clothes.CategoryId,
+                                        Category = clothes.Category,
+                                        Ratings = clothes.Ratings,
+                                        Images = clothes.Images
+                                                            .Where(images => images.IsDeleted.Equals(false))
+                                                            .ToList()
+                                    })
+                                    .ToListAsync();
         }
 
-        public async Task<Clothes> GetByIdAsync(int id)
+        public async Task<List<Clothes>> Get5ClothesAsync()
         {
-            return await _context.Clothes.FirstOrDefaultAsync(clothes => clothes.ID.Equals(id) && clothes.IsDeleted.Equals(false));
+            return await _context.Clothes
+                                    .Where(clothes => clothes.IsDeleted.Equals(false))
+                                    .Select(clothes => new Clothes()
+                                    {
+                                        ID = clothes.ID,
+                                        Name = clothes.Name,
+                                        Description = clothes.Description,
+                                        Stock = clothes.Stock,
+                                        Price = clothes.Price,
+                                        AddedDate = clothes.AddedDate,
+                                        UpdatedDate = clothes.UpdatedDate,
+                                        IsDeleted = clothes.IsDeleted,
+                                        CategoryId = clothes.CategoryId,
+                                        Category = clothes.Category,
+                                        Ratings = clothes.Ratings,
+                                        Images = clothes.Images
+                                                            .Where(images => images.IsDeleted.Equals(false))
+                                                            .ToList()
+                                    })
+                                    .Take(5)
+                                    .ToListAsync();
+        }
+
+        public async Task<List<Clothes>> GetByIdAsync(int id)
+        {
+            return await _context.Clothes
+                                    .Where(clothes => clothes.ID.Equals(id) && clothes.IsDeleted.Equals(false))
+                                    .Select(clothes => new Clothes()
+                                    {
+                                        ID = clothes.ID,
+                                        Name = clothes.Name,
+                                        Description = clothes.Description,
+                                        Stock = clothes.Stock,
+                                        Price = clothes.Price,
+                                        AddedDate = clothes.AddedDate,
+                                        UpdatedDate = clothes.UpdatedDate,
+                                        IsDeleted = clothes.IsDeleted,
+                                        CategoryId = clothes.CategoryId,
+                                        Category = clothes.Category,
+                                        Ratings = clothes.Ratings,
+                                        Images = clothes.Images
+                                                            .Where(images => images.IsDeleted.Equals(false))
+                                                            .ToList()
+                                    })
+                                    .ToListAsync();
         }
 
         public async Task<DateTime> GetAddedDateByIdAsync(int id)

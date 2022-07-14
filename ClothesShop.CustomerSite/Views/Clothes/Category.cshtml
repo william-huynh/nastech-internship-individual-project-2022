@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Products";
     var getList = ViewBag.Categories as List<ClothesShop.SharedVMs.CategoryDto>;
+    string baseAddress = "https://localhost:7167/api/Images";
 }
 
 <div>
@@ -60,7 +61,16 @@
                         {
                             <div class="d-flex flex-column">
                                 <div class="products-container text-center pb-2 m-2">
-                                    <a asp-action="Single" asp-route-id="@clothes.ID"><img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail"></a>
+                                    <a asp-action="Single" asp-route-id="@clothes.ID">
+                                        @if (@clothes.Images != null)
+                                        {
+                                            <img src="@baseAddress/@clothes.Images[0].Id" class="product-thumbnail img-thumbnail">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/images/dummy-image.jpg" class="product-thumbnail img-thumbnail">    
+                                        }
+                                    </a>
                                     <h5 class="mt-2">@clothes.Name</h5>
                                     <p class="mb-2 text-secondary">@clothes.Description</p>
                                     <p class="mb-2">@clothes.Price VND</p>

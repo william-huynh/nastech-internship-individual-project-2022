@@ -37,17 +37,17 @@ const ClothesUpdate = () => {
   useEffect(() => {
     axios.get(baseAddress + "Clothes/" + id.clothesId).then((result) => {
       setClothes(result.data);
-      clothesId.current.value = result.data.id;
-      clothesName.current.value = result.data.name;
-      clothesDescription.current.value = result.data.description;
-      clothesStock.current.value = result.data.stock;
-      clothesPrice.current.value = result.data.price;
-      clothesAddedDate.current.value = result.data.addedDate;
-      clothesUpdatedDate.current.value = result.data.updatedDate;
-      clothesCategoryId.current.value = result.data.categoryId;
-      clothesCategoryName.current.value = result.data.categoryName;
-      if (result.data.images.length > 0)
-        setImageURL(baseAddress + "Images/" + result.data.images[0].id);
+      clothesId.current.value = result.data[0].id;
+      clothesName.current.value = result.data[0].name;
+      clothesDescription.current.value = result.data[0].description;
+      clothesStock.current.value = result.data[0].stock;
+      clothesPrice.current.value = result.data[0].price;
+      clothesAddedDate.current.value = result.data[0].addedDate;
+      clothesUpdatedDate.current.value = result.data[0].updatedDate;
+      clothesCategoryId.current.value = result.data[0].categoryId;
+      clothesCategoryName.current.value = result.data[0].categoryName;
+      if (result.data[0].images.length > 0)
+        setImageURL(baseAddress + "Images/" + result.data[0].images[0].id);
       else setImageURL("./dummy-image.jpg");
     });
   }, []);

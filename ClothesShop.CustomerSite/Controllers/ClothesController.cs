@@ -64,7 +64,7 @@ namespace ClothesShop.CustomerSite.Controllers
         {
             try
             {
-                ClothesDto clothes = await clothesService.GetClothes(id);
+                List<ClothesDto> clothes = await clothesService.GetClothes(id);
                 ViewBag.ClothesId = id;
                 var ratings = _context.Ratings.Where(r => r.ClothesID.Equals(id)).ToList();
                 if (ratings.Count() > 0)

@@ -76,9 +76,9 @@ namespace ClotheShop.CustomerSite.Controllers
             try
             {
                 HomepageVMs homepageVMs = new HomepageVMs();
-                categories = await categoriesService.GetCategories();
+                categories = await categoriesService.Get5Categories();
                 homepageVMs.Categories = categories;
-                clothesList = await clothesService.GetAllClothes();
+                clothesList = await clothesService.Get5Clothes();
                 homepageVMs.Clothes = clothesList;
                 return View(homepageVMs);
             }

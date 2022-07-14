@@ -38,6 +38,24 @@ namespace ClothesShop.API.Controllers
             }
         }
 
+        // GET (all): api/Categories/Quantity
+        [HttpGet("Quantity")]
+        public async Task<IActionResult> Get3Categories()
+        {
+            try
+            {
+                var categories = await _category.Get5Async();
+                if (!categories.Any())
+                    return NotFound("Categories empty!");
+                var categoriesDto = _mapper.Map<List<CategoryDto>>(categories);
+                return Ok(categoriesDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong! Error: " + ex.Message);
+            }
+        }
+
         // GET (single): api/Categories/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategory(int id)

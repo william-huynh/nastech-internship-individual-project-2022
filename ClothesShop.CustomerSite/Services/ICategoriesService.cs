@@ -9,6 +9,10 @@ namespace ClothesShop.CustomerSite.Services
         [Get("/Categories")]
         Task<List<CategoryDto>> GetCategories();
 
+        // Get 3 categories
+        [Get("/Categories/Quantity")]
+        Task<List<CategoryDto>> Get5Categories();
+
         // Get category by Id
         [Get("/Categories/{id}")]
         Task<CategoryDto> GetCategory(int id);
