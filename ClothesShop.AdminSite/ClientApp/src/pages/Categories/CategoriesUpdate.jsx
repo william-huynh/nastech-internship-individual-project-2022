@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from "react";
-import { useHistory } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -14,7 +13,6 @@ const baseAddress = "https://localhost:7167/api/";
 const CategoriesUpdate = () => {
   // Variables
   let id = useParams();
-  const history = useHistory();
 
   // States
   let [message, setMessage] = useState(null);

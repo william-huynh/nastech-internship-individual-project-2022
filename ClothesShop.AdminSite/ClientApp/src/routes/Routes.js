@@ -1,6 +1,6 @@
 import React from "react";
-import { Switch, Route, Router } from "react-router-dom";
-// import RouteGuard from "../components/RouteGuard/RouteGuard";
+import { Switch, Route, Router, Redirect } from "react-router-dom";
+import RouteGuard from "../components/RouteGuard/RouteGuard";
 
 //history
 import { history } from "../helpers/history";
@@ -22,8 +22,8 @@ function Routes() {
     <Router history={history}>
       <Switch>
         <Route path="/login" component={Login} />
-        <Route exact path="/" component={Home} />
-        {/* <RouteGuard exact path="/" component={Home} /> */}
+        {/* <Route exact path="/" component={Home} /> */}
+        <RouteGuard exact path="/" component={Home} />
 
         {/* Categories */}
         <Route path="/categories" component={Categories} />
@@ -44,7 +44,7 @@ function Routes() {
         <Route path="/users" component={Users} />
 
         <Route path="/error" component={Error} />
-        {/* <Redirect to="/" /> */}
+        <Redirect to="/" />
       </Switch>
     </Router>
   );
