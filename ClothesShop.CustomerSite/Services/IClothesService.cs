@@ -13,9 +13,13 @@ namespace ClothesShop.CustomerSite.Services
         [Get("/Clothes/Categories/{id}")]
         Task<List<ClothesDto>> GetByCategoryId(int id);
 
+        // Get 5 clothes
+        [Get("/Clothes/Quantity")]
+        Task<List<ClothesDto>> Get5Clothes();
+
         // Get clothes by Id
         [Get("/Clothes/{id}")]
-        Task<ClothesDto> GetClothes(int id);
+        Task<List<ClothesDto>> GetClothes(int id);
 
         // Add clothes
         [Post("/Clothes")]

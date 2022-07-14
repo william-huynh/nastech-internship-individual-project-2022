@@ -7,11 +7,17 @@ namespace ClothesShop.API.Interfaces
         // Get all clothes
         Task<List<Clothes>> GetAsync();
 
+        // Get all clothes (include deleted)
+        Task<List<Clothes>> GetAllAsync();
+
         // Get all clothes with same category id
         Task<List<Clothes>> GetByCategoryId(int id);
 
+        // Get 5 clothes
+        Task<List<Clothes>> Get5ClothesAsync();
+
         // Get clothes by id
-        Task<Clothes> GetByIdAsync(int id);
+        Task<List<Clothes>> GetByIdAsync(int id);
 
         // Get clothes added date by id
         Task<DateTime> GetAddedDateByIdAsync(int id);

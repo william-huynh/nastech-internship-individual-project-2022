@@ -7,6 +7,9 @@ namespace ClothesShop.API.Interfaces
         // Get all categories
         Task<List<Category>> GetAsync();
 
+        // Get 5 categories
+        Task<List<Category>> Get5Async();
+
         // Get category by id
         Task<Category> GetByIdAsync(int id);
 

@@ -40,6 +40,24 @@ namespace ClothesShop.API.Controllers
             }
         }
 
+        // GET (all) include deleted: api/Clothes/Deleted
+        [HttpGet("Deleted")]
+        public async Task<IActionResult> GetAllClothesDeleted()
+        {
+            try
+            {
+                var clothes = await _clothes.GetAllAsync();
+                if (!clothes.Any())
+                    return NotFound("Clothes empty!");
+                var clothesDto = _mapper.Map<List<ClothesDto>>(clothes);
+                return Ok(clothesDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong! Error: " + ex.Message);
+            }
+        }
+
         // Get (all) with same category id: api/Clothes/Categories/{id}
         [HttpGet("Categories/{id}")]
         public async Task<IActionResult> GetAllClothesCategoryId(int id)
@@ -48,7 +66,25 @@ namespace ClothesShop.API.Controllers
             {
                 var clothes = await _clothes.GetByCategoryId(id);
                 if (!clothes.Any())
-                    return NotFound("Category empty!");
+                    return NotFound("There aren't any clothes in this category!");
+                var clothesDto = _mapper.Map<List<ClothesDto>>(clothes);
+                return Ok(clothesDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong! Error: " + ex.Message);
+            }
+        }
+
+        // GET 5 clothes: api/Clothes/Quantity
+        [HttpGet("Quantity")]
+        public async Task<IActionResult> Get5Clothes()
+        {
+            try
+            {
+                var clothes = await _clothes.Get5ClothesAsync();
+                if (!clothes.Any())
+                    return NotFound("Clothes empty!");
                 var clothesDto = _mapper.Map<List<ClothesDto>>(clothes);
                 return Ok(clothesDto);
             }
@@ -65,9 +101,9 @@ namespace ClothesShop.API.Controllers
             try
             {
                 var clothes = await _clothes.GetByIdAsync(id);
-                if (clothes == null)
+                if (!clothes.Any())
                     return NotFound("Clothes not found!");
-                var clothesDto = _mapper.Map<ClothesDto>(clothes);
+                var clothesDto = _mapper.Map<List<ClothesDto>>(clothes);
                 return Ok(clothesDto);
             }
             catch (Exception ex)
@@ -119,7 +155,7 @@ namespace ClothesShop.API.Controllers
             try
             {
                 var clothesChecked = await _clothes.GetByIdAsync(id);
-                if (clothesChecked == null || clothesChecked.IsDeleted.Equals(true))
+                if (clothesChecked == null || clothesChecked[0].IsDeleted.Equals(true))
                     return NotFound("Clothes not found!");
                 await _clothes.DeleteAsync(id);
                 return Ok("Clothes deleted!");

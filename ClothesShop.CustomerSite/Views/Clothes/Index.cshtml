@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Products";
     var getList = ViewBag.Categories as List<ClothesShop.SharedVMs.CategoryDto>;
+    string baseAddress = "https://localhost:7167/api/Images";
 }
 
 <div>
@@ -27,13 +28,19 @@
                 @if (getList != null)
                 {
                     <!-- Product filter -->
-                    <h5 class="fw-bold">Filter by category:</h5>
-                    <ul>
+                    <h5 class="fw-bold">Categories</h5>
+                    <ul class="p-0 pt-3 mx-5" style="list-style: none; border-left: 1px dashed">
                         @foreach (var category in getList)
                         {
-                            <li><a asp-action="Category" asp-route-id="@category.Id" class="text-decoration-none">@category.Name</a></li>
+                            <li class="d-flex flex-row mb-3">
+                                <div style="flex: 1; border-bottom: 1px dashed"></div>
+                                <a asp-action="Category" asp-route-id="@category.Id" class="text-decoration-none fw-bold" style="flex: 3">@category.Name</a>
+                            </li>
                         }
-                        <li><a asp-action="Index" class="text-decoration-none">None</a></li>
+                        <li class="d-flex flex-row">
+                            <div style="flex: 1; border-bottom: 1px dashed"></div>
+                            <a asp-action="Index" class="text-decoration-none fw-bold" style="flex: 3">None</a>
+                        </li>
                     </ul>
                     <!-- Product filter -->
                 }
@@ -60,7 +67,16 @@
                         {
                             <div class="d-flex flex-column">
                                 <div class="products-container text-center pb-2 m-2">
-                                    <a asp-action="Single" asp-route-id="@clothes.ID"><img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail"></a>
+                                    <a asp-action="Single" asp-route-id="@clothes.ID">
+                                        @if (@clothes.Images != null)
+                                        {
+                                            <img src="@baseAddress/@clothes.Images[0].Id" class="product-thumbnail img-thumbnail">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/images/dummy-image.jpg" class="product-thumbnail img-thumbnail">    
+                                        }
+                                    </a>
                                     <h5 class="mt-2">@clothes.Name</h5>
                                     <p class="mb-2 text-secondary">@clothes.Description</p>
                                     <p class="mb-2">@clothes.Price VND</p>

@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    string baseAddress = "https://localhost:7167/api/Images";
 }
 
 <div>
@@ -74,7 +75,16 @@
                     {
                         <div class="d-flex flex-column">
                             <div class="products-container border-light text-center pb-2 m-3">
-                                <a asp-controller="Clothes" asp-action="Single" asp-route-id="@clothes.ID"><img src="~/images/TestShirt.jpg" class="product-thumbnail img-thumbnail"></a>
+                                <a asp-controller="Clothes" asp-action="Single" asp-route-id="@clothes.ID">
+                                    @if (@clothes.Images != null)
+                                    {
+                                        <img src="@baseAddress/@clothes.Images[0].Id" class="product-thumbnail img-thumbnail">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/images/dummy-image.jpg" class="product-thumbnail img-thumbnail">    
+                                    }
+                                </a>
                                 <h5 class="mt-2 text-white">@clothes.Name</h5>
                                 <p class="mb-2 text-white-50">@clothes.Description</p>
                                 <p class="mb-2 text-white-50">@clothes.Price VND</p>
