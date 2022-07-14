@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import "./clothesTable.scss";
 import { Button } from "@mui/material";
@@ -9,17 +9,9 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 // Base address for api
 const baseAddress = "https://localhost:7167/api/";
 
-const ClothesTable = () => {
+const ClothesTable = (clothesList) => {
   // States
-  let [clothes, setClothes] = useState([]);
   let [message, setMessage] = useState(null);
-
-  // Get clothes list
-  useEffect(() => {
-    axios.get(baseAddress + "Clothes").then((result) => {
-      setClothes(result.data);
-    });
-  }, []);
 
   // Delete clothes
   const handleDelete = (id) => {
@@ -40,17 +32,17 @@ const ClothesTable = () => {
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 50 },
     { field: "name", headerName: "Name", width: 120 },
-    { field: "description", headerName: "Description", width: 170 },
+    { field: "description", headerName: "Description", width: 210 },
     { field: "stock", headerName: "Stock", width: 70 },
     { field: "price", headerName: "Price", width: 70 },
-    { field: "addedDate", headerName: "Added Date", width: 130 },
-    { field: "updatedDate", headerName: "Updated Date", width: 130 },
-    { field: "categoryId", headerName: "Category ID", width: 100 },
-    { field: "categoryName", headerName: "Category Name", width: 130 },
+    { field: "addedDate", headerName: "Added Date", width: 140 },
+    { field: "updatedDate", headerName: "Updated Date", width: 140 },
+    { field: "categoryId", headerName: "Category ID", width: 110 },
+    { field: "categoryName", headerName: "Category Name", width: 140 },
     {
       field: "action",
       headerName: "Action",
-      width: 210,
+      width: 180,
       renderCell: (params) => {
         return (
           <>
@@ -81,12 +73,10 @@ const ClothesTable = () => {
     <div className="datatable">
       <DataGrid
         sx={{ fontSize: 16 }}
-        rows={clothes}
+        rows={clothesList.clothesList}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableSelectionOnClick
       />
     </div>
   );

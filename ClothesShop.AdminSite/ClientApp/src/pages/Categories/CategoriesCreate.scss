@@ -49,10 +49,10 @@
 }
 
 .categoriesInfo {
-  padding-right: 20px;
+  width: 40%;
 }
 
-.inputGroup {
+.categoriesInputGroup {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -66,19 +66,25 @@
   }
 
   div {
-    flex: 1;
+    flex: 2;
     text-align: start;
 
     input {
       padding-left: 10px;
-      height: 30px;
       border: 0.5px solid lightgray;
       border-radius: 5px;
       margin-right: 10px;
     }
+
+    .inputTextarea {
+      width: 100%;
+      padding-left: 10px;
+      border: 0.5px solid lightgray;
+      border-radius: 5px;
+    }
   }
 }
 
-.categoriesImage {
-  width: 50%;
+.inputId {
+  width: 20%;
 }

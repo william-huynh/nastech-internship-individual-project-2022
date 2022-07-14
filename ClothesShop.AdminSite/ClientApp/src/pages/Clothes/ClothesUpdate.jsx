@@ -5,7 +5,6 @@ import axios from "axios";
 
 import "./clothesUpdate.scss";
 import { Button } from "@mui/material";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 
@@ -18,8 +17,10 @@ const ClothesUpdate = () => {
   const history = useHistory();
 
   // States
+  let [clothes, setClothes] = useState([]);
   let [message, setMessage] = useState(null);
   let [imageURL, setImageURL] = useState("");
+  let [imageUploadFile, setImageUploadFile] = useState(null);
 
   // Refs
   let clothesId = useRef();
@@ -35,6 +36,7 @@ const ClothesUpdate = () => {
   // Get clothes
   useEffect(() => {
     axios.get(baseAddress + "Clothes/" + id.clothesId).then((result) => {
+      setClothes(result.data);
       clothesId.current.value = result.data.id;
       clothesName.current.value = result.data.name;
       clothesDescription.current.value = result.data.description;
@@ -44,35 +46,64 @@ const ClothesUpdate = () => {
       clothesUpdatedDate.current.value = result.data.updatedDate;
       clothesCategoryId.current.value = result.data.categoryId;
       clothesCategoryName.current.value = result.data.categoryName;
-      setImageURL(baseAddress + "Images/" + result.data.images[0].id);
-      console.log(result.data.images[0].id);
+      if (result.data.images.length > 0)
+        setImageURL(baseAddress + "Images/" + result.data.images[0].id);
+      else setImageURL("./dummy-image.jpg");
     });
-  });
+  }, []);
+
+  // Upload file
+  const onFileChange = (event) => {
+    setImageUploadFile(event.target.files[0]);
+  };
 
   // Update clothes
   const handleUpdate = () => {
+    const formData = new FormData();
+    formData.append("File", imageUploadFile);
+    formData.append("URL", imageUploadFile.name);
+    formData.append("ClothesId", clothes.id);
+
+    // Update clothes request
     axios
       .put(baseAddress + "Clothes", {
-        ID: clothesId.current.value,
+        Id: clothesId.current.value,
         Name: clothesName.current.value,
         Description: clothesDescription.current.value,
         Stock: clothesStock.current.value,
         Price: clothesPrice.current.value,
-        AddedDate: clothesAddedDate.current.value,
-        UpdatedDate: clothesUpdatedDate.current.value,
         CategoryId: clothesCategoryId.current.value,
-        CategoryName: clothesCategoryName.current.value,
       })
       .then((result) => {
-        setMessage(result.data);
-        history.push({
-          pathname: "/clothes",
-        });
-        alert("Update clothes succesfully!");
-      })
-      .catch((error) => {
-        setMessage(error.response.data);
-        alert(message);
+        if (imageUploadFile) {
+          if (clothes.images.length != 0) {
+            // Update clothes image request
+            axios
+              .put(baseAddress + "Images/" + clothes.images[0].id, formData)
+              .then(() => {
+                alert("Update clothes succesfully!");
+                window.location.reload(false);
+              })
+              .catch((error) => {
+                setMessage(error.response.data);
+                alert(message);
+              });
+          } else {
+            axios
+              .post(baseAddress + "Images", formData)
+              .then(() => {
+                alert("Update clothes succesfully!");
+                window.location.reload(false);
+              })
+              .catch((error) => {
+                setMessage(error.response.data);
+                alert(message);
+              });
+          }
+        } else {
+          alert("Clothes update successfully!");
+          window.location.reload(false);
+        }
       });
   };
 
@@ -182,14 +213,13 @@ const ClothesUpdate = () => {
                 <label
                   for="imageUpload"
                   style={{
-                    backgroundImage: `url(${
-                      imageURL ? imageURL : "./dummy-image.jpg"
-                    })`,
+                    backgroundImage: `url(${imageURL})`,
                   }}
                 />
                 <input
                   type="file"
                   id="imageUpload"
+                  onChange={onFileChange}
                   style={{ display: "none" }}
                 />
               </div>

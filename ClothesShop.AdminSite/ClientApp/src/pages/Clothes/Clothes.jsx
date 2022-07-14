@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import "./clothes.scss";
 import { Button } from "@mui/material";
@@ -6,7 +8,20 @@ import { Button } from "@mui/material";
 import ClothesTable from "../../components/ClothesTable/ClothesTable";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
+// Base address for api
+const baseAddress = "https://localhost:7167/api/";
+
 const Clothes = () => {
+  // States
+  let [clothes, setClothes] = useState([]);
+
+  // Get clothes list
+  useEffect(() => {
+    axios.get(baseAddress + "Clothes").then((result) => {
+      setClothes(result.data);
+    });
+  }, []);
+
   return (
     <div className="mainContainer">
       <Sidebar />
@@ -14,7 +29,13 @@ const Clothes = () => {
         <h2>CLOTHES</h2>
         <div className="tableContainer">
           <div className="button-group">
-            <Link to="/clothes-create" style={{ textDecoration: "none" }}>
+            <Link
+              to={{
+                pathname: "/clothes-create",
+                state: clothes.at(-1),
+              }}
+              style={{ textDecoration: "none" }}
+            >
               <Button
                 variant="contained"
                 className="button"
@@ -24,7 +45,7 @@ const Clothes = () => {
               </Button>
             </Link>
           </div>
-          <ClothesTable />
+          <ClothesTable clothesList={clothes} />
         </div>
       </div>
     </div>

@@ -31,7 +31,7 @@ const CategoriesUpdate = () => {
       categoryName.current.value = result.data.name;
       categoryDescription.current.value = result.data.description;
     });
-  });
+  }, []);
 
   // Update category
   const handleUpdate = () => {
@@ -42,11 +42,8 @@ const CategoriesUpdate = () => {
         Description: categoryDescription.current.value,
       })
       .then((result) => {
-        setMessage(result.data);
-        history.push({
-          pathname: "/categories",
-        });
         alert("Update category succesfully!");
+        window.location.reload(false);
       })
       .catch((error) => {
         setMessage(error.response.data);
@@ -58,7 +55,7 @@ const CategoriesUpdate = () => {
     <div className="mainContainer">
       <Sidebar />
       <div className="categoriesContainer">
-        <h2>CATEGORIES UPDATE</h2>
+        <h2>UPDATE</h2>
         <div className="tableContainer">
           <div className="button-group">
             <Link to="/categories" style={{ textDecoration: "none" }}>
@@ -70,32 +67,41 @@ const CategoriesUpdate = () => {
           <hr />
           <div className="categoriesDetailContainer">
             <div className="categoriesInfo">
-              <div className="inputGroup">
+              <div className="categoriesInputGroup">
                 <span>Id</span>
                 <div>
-                  <input type="number" ref={categoryId} disabled />
+                  <input
+                    type="number"
+                    className="inputId"
+                    ref={categoryId}
+                    disabled
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="categoriesInputGroup">
                 <span>Name</span>
                 <div>
                   <input type="text" ref={categoryName} />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="categoriesInputGroup">
                 <span>Description</span>
                 <div>
-                  <input type="text" ref={categoryDescription} />
+                  <textarea
+                    className="inputTextarea"
+                    type="text"
+                    ref={categoryDescription}
+                  />
                 </div>
               </div>
-              <div className="inputGroup">
+              <div className="categoriesInputGroup">
                 <Button
                   variant="contained"
                   color="success"
                   className="button"
                   onClick={handleUpdate}
                 >
-                  Update Categories
+                  Update Category
                 </Button>
               </div>
             </div>

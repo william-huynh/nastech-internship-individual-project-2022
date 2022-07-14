@@ -77,11 +77,11 @@ namespace ClothesShop.API.Controllers
                     {
                         Directory.CreateDirectory(path);
                     }
-                    using (FileStream fileStream = System.IO.File.Create(path + imageCreate.File.FileName))
+                    using (FileStream fileStream = System.IO.File.Create(path + imageCreate.FileName))
                     {
                         imageCreate.File.CopyTo(fileStream);
                         fileStream.Flush();
-                        imageCreate.URL = imageCreate.File.FileName;
+                        imageCreate.URL = imageCreate.FileName;
                         Console.WriteLine(imageCreate);
                         var image = _mapper.Map<Image>(imageCreate);
                         Console.WriteLine(image);
@@ -111,11 +111,11 @@ namespace ClothesShop.API.Controllers
                 {
                     Directory.CreateDirectory(path);
                 }
-                using (FileStream fileStream = System.IO.File.Create(path + imageUpdate.File.FileName))
+                using (FileStream fileStream = System.IO.File.Create(path + imageUpdate.FileName))
                 {
                     imageUpdate.File.CopyTo(fileStream);
                     fileStream.Flush();
-                    imageUpdate.URL = imageUpdate.File.FileName;
+                    imageUpdate.URL = imageUpdate.FileName;
                     var image = _mapper.Map<Image>(imageUpdate);
                     var imageUpdated = await _image.PutAsync(id, image);
                     return Ok("Put finished! Successfully updated image!");
