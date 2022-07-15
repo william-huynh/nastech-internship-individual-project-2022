@@ -40,7 +40,7 @@ namespace ClothesShop.API.Controllers
 
         // GET (all): api/Categories/Quantity
         [HttpGet("Quantity")]
-        public async Task<IActionResult> Get3Categories()
+        public async Task<IActionResult> Get5Categories()
         {
             try
             {
