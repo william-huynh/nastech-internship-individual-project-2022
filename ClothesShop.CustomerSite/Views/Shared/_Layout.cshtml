@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var isLogin = ViewBag.Login;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -44,7 +48,7 @@
                         <a asp-controller="Cart" asp-action="Index" class="navigation-cart-icon align-middle"><i class="fa-solid fa-cart-shopping fa-xl"></i></a>
                     </div>
                     <div class="navigation-icon-container col-4 text-center">
-                        <a asp-controller="Home" asp-action="Logout" class="navigation-user-icon align-middle"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
+                        <a asp-controller="Home" asp-action="Logout" class="navigation-user-icon align-middle"><i class="fa-solid fa-right-to-bracket fa-xl"></i></a>
                     </div>
                 </div>
             </div>

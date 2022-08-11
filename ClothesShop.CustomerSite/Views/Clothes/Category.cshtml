@@ -9,7 +9,7 @@
 <div>
 
     <!-- Background image -->
-    <div class="product-image pb-5 bg-image">
+    <div class="product-image bg-image">
         <div class="container d-flex justify-content-start h-100">
             <div class="d-flex align-items-center">
                 <div class="text-dark text-start">
@@ -28,13 +28,17 @@
                 @if (getList != null)
                 {
                     <!-- Product filter -->
-                    <h5 class="fw-bold">Filter by category:</h5>
-                    <ul>
+                    <h5 class="fw-bold px-2" style="border-left: 3px solid blue;">Categories</h5>
+                    <ul class="p-0 pt-2 mx-4" style="list-style: none">
                         @foreach (var category in getList)
                         {
-                            <li><a asp-action="Category" asp-route-id="@category.Id" class="text-decoration-none">@category.Name</a></li>
+                            <li class="d-flex flex-row mb-3">
+                                <a asp-action="Category" asp-route-id="@category.Id" class="text-decoration-none fw-bold">@category.Name</a>
+                            </li>
                         }
-                        <li><a asp-action="Index" class="text-decoration-none">None</a></li>
+                        <li class="d-flex flex-row">
+                            <a asp-action="Index" class="text-decoration-none fw-bold">None</a>
+                        </li>
                     </ul>
                     <!-- Product filter -->
                 }

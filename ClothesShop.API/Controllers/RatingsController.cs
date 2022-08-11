@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using ClothesShop.API.Authorization;
 using ClothesShop.API.Interfaces;
 using ClothesShop.API.Models;
 using ClothesShop.SharedVMs;
+using ClothesShop.SharedVMs.Enum;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -57,6 +59,7 @@ namespace ClothesShop.API.Controllers
         }
 
         // Post: api/Ratings
+        [Authorize(Role.Customer)]
         [HttpPost]
         public async Task<IActionResult> PostRating(RatingDto ratingCreate)
         {
