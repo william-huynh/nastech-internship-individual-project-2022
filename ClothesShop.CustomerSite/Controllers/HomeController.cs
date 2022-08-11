@@ -1,5 +1,4 @@
-﻿using ClotheShop.CustomerSite.Models;
-using ClothesShop.API.Authorization;
+﻿using ClothesShop.API.Authorization;
 using ClothesShop.API.Services;
 using ClothesShop.CustomerSite.Services;
 using ClothesShop.SharedVMs;
@@ -8,7 +7,6 @@ using ClothesShop.SharedVMs.Enum;
 using ClothesShop.SharedVMs.Models;
 using Microsoft.AspNetCore.Mvc;
 using Refit;
-using System.Dynamic;
 
 namespace ClotheShop.CustomerSite.Controllers
 {
@@ -68,8 +66,6 @@ namespace ClotheShop.CustomerSite.Controllers
             }
         }
 
-        [ClothesShop.API.Authorization.Authorize(Role.Customer)]
-        [Route("index")]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -92,11 +88,6 @@ namespace ClotheShop.CustomerSite.Controllers
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         public IActionResult Error()

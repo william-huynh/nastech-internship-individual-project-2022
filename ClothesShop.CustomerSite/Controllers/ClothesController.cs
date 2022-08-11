@@ -7,7 +7,6 @@ using Refit;
 
 namespace ClothesShop.CustomerSite.Controllers
 {
-    [ClothesShop.API.Authorization.Authorize(Role.Customer)]
     public class ClothesController : Controller
     {
         private readonly ClothesDbContext _context;

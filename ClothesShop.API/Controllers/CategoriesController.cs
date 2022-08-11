@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using ClothesShop.API.Authorization;
 using ClothesShop.API.Data;
 using ClothesShop.API.Interfaces;
 using ClothesShop.API.Models;
 using ClothesShop.SharedVMs;
+using ClothesShop.SharedVMs.Enum;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClothesShop.API.Controllers
@@ -75,6 +77,7 @@ namespace ClothesShop.API.Controllers
         }
 
         // POST: api/Categories
+        [Authorize(Role.Administrator)]
         [HttpPost]
         public async Task<IActionResult> PostCategory(CategoryDto categoryCreate)
         {
@@ -91,6 +94,7 @@ namespace ClothesShop.API.Controllers
         }
 
         // PUT: api/Categories/{id}
+        [Authorize(Role.Administrator)]
         [HttpPut]
         public async Task<IActionResult> PutCategory(CategoryDto categoryUpdate)
         {
@@ -110,6 +114,7 @@ namespace ClothesShop.API.Controllers
         }
 
         // DELETE: api/Categories/{id}
+        [Authorize(Role.Administrator)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {

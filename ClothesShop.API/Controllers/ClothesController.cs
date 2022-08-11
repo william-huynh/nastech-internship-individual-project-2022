@@ -1,11 +1,10 @@
-﻿using ClothesShop.API.Data;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using static ClothesShop.API.Controllers.ImagesController;
+﻿using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using ClothesShop.SharedVMs;
 using ClothesShop.API.Models;
 using ClothesShop.API.Interfaces;
+using ClothesShop.SharedVMs.Enum;
+using ClothesShop.API.Authorization;
 
 namespace ClothesShop.API.Controllers
 {
@@ -41,6 +40,7 @@ namespace ClothesShop.API.Controllers
         }
 
         // GET (all) include deleted: api/Clothes/Deleted
+        [Authorize(Role.Administrator)]
         [HttpGet("Deleted")]
         public async Task<IActionResult> GetAllClothesDeleted()
         {
@@ -66,7 +66,7 @@ namespace ClothesShop.API.Controllers
             {
                 var clothes = await _clothes.GetByCategoryId(id);
                 if (!clothes.Any())
-                    return NotFound("There aren't any clothes in this category!");
+                    return Ok("There aren't any clothes in this category!");
                 var clothesDto = _mapper.Map<List<ClothesDto>>(clothes);
                 return Ok(clothesDto);
             }
@@ -113,6 +113,7 @@ namespace ClothesShop.API.Controllers
         }
 
         // POST: api/Clothes
+        [Authorize(Role.Administrator)]
         [HttpPost]
         public async Task<IActionResult> PostClothes(ClothesDto clothesCreate)
         {
@@ -131,6 +132,7 @@ namespace ClothesShop.API.Controllers
         }
 
         // PUT: api/Clothes/{id}
+        [Authorize(Role.Administrator)]
         [HttpPut]
         public async Task<IActionResult> PutClothes(ClothesDto clothesUpdate)
         {
@@ -149,6 +151,7 @@ namespace ClothesShop.API.Controllers
         }
 
         // DELETE: api/Clothes/{id}
+        [Authorize(Role.Administrator)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClothes(int id)
         {
