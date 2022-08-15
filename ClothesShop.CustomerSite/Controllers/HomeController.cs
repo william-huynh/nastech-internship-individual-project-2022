@@ -66,7 +66,6 @@ namespace ClotheShop.CustomerSite.Controllers
             }
         }
 
-        [HttpGet]
         public async Task<IActionResult> Index()
         {
             try
@@ -88,6 +87,11 @@ namespace ClotheShop.CustomerSite.Controllers
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
         }
 
         public IActionResult Error()

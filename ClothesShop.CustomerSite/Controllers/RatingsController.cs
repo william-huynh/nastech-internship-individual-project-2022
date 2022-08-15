@@ -9,13 +9,13 @@ using Refit;
 
 namespace ClothesShop.CustomerSite.Controllers
 {
-    [ClothesShop.API.Authorization.Authorize(Role.Customer)]
     public class RatingsController : Controller
     {
         // Rating service
         IRatingsService ratingsService = RestService.For<IRatingsService>("https://localhost:7167/api");
 
         // POST rating
+        [API.Authorization.Authorize(Role.Customer)]
         [HttpPost]
         public async Task<IActionResult> Create(RatingDto ratingCreate)
         {
