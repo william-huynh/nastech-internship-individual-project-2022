@@ -44,7 +44,7 @@
                     </div>                        
                 } else {
                     <div class="navigation-icon-container col-4 text-center">
-                        <a asp-controller="Home" asp-action="Logout" class="navigation-user-icon align-middle"><i class="fa-solid fa-right-to-bracket fa-xl"></i></a>
+                        <a asp-controller="Home" asp-action="Login" class="navigation-user-icon align-middle"><i class="fa-solid fa-right-to-bracket fa-xl"></i></a>
                     </div> 
                 }
             </div>
@@ -104,45 +104,60 @@
                 <div class="product-rating-box d-flex justify-content-end align-items-center">
                     <form asp-controller="Ratings" asp-action="Create" class="px-4">
                     @*<form class="px-4">*@
-                        <div>
-                            <p class="product-rating-box-title m-0">Your rating</p>
-                            <p class="product-rating-box-description text-secondary m-0">(1 start is bad, 5 star is good)</p>
-                            @if (ViewBag.UserRating != 0)
-                            {
-                                <div class="mb-3">
+                        @if (ViewBag.UserRating != 0 && ViewBag.UserRating != null)
+                        {
+                            <div>
+                                <p class="product-rating-box-title m-0">Your rating</p>
+                                <p class="product-rating-box-description text-secondary m-0">(1 start is bad, 5 star is good)</p>
+                                <div>
                                     <span class="product-star-fade-n" id="sUserRate1"></span>
                                     <span class="product-star-fade-n" id="sUserRate2"></span>
                                     <span class="product-star-fade-n" id="sUserRate3"></span>
                                     <span class="product-star-fade-n" id="sUserRate4"></span>
                                     <span class="product-star-fade-n" id="sUserRate5"></span>
                                 </div>
-                            }
-                            else
-                            {
+                            </div>
+                            <div>
+                                <div>
+                                    <input id="btnRegister" name="btnRegister" value="Thank you for your rating" class="btn btn-warning" disabled />
+                                </div>
+                            </div>
+                        } else if (ViewBag.UserId != null)
+                        {
+                            <div>
+                                <p class="product-rating-box-title m-0">Your rating</p>
+                                <p class="product-rating-box-description text-secondary m-0">(1 start is bad, 5 star is good)</p>
                                 <div onmouseout="CRateSelected()">
                                     <span class="product-star-fade" id="Rate1" onclick="CRate(1)" onmouseover="CRateOver(1)" onmouseout="CRateOut(1)"></span>
                                     <span class="product-star-fade" id="Rate2" onclick="CRate(2)" onmouseover="CRateOver(2)" onmouseout="CRateOut(2)"></span>
                                     <span class="product-star-fade" id="Rate3" onclick="CRate(3)" onmouseover="CRateOver(3)" onmouseout="CRateOut(3)"></span>
                                     <span class="product-star-fade" id="Rate4" onclick="CRate(4)" onmouseover="CRateOver(4)" onmouseout="CRateOut(4)"></span>
                                     <span class="product-star-fade" id="Rate5" onclick="CRate(5)" onmouseover="CRateOver(5)" onmouseout="CRateOut(5)"></span>
-                                </div>                                
-                            }
-                        </div>
-                        <div>
-                            @if (ViewBag.UserRating != 0)
-                            {
-                                <div>
-                                    <input id="btnRegister" name="btnRegister" value="Thank you for your rating" class="btn btn-warning" disabled />
                                 </div>
-                            } else
-                            {
+                            </div>
+                            <div>
+                                <input type="hidden" name="UsersId" value="@ViewBag.UserId" />
+                                <input type="hidden" name="ClothesId" value="@clothes.ID" />
+                                <input type="hidden" name="RatingNumber" id="Rating" value="0" />
+                                <input type="submit" id="btnRegister" name="btnRegister" value="Submit Rating" class="btn btn-warning" />
+                            </div>
+                        } else
+                        {
+                            <div>
+                                <p class="product-rating-box-title m-0">Your rating</p>
+                                <p class="product-rating-box-description text-secondary m-0">(1 start is bad, 5 star is good)</p>
                                 <div>
-                                    <input type="hidden" name="ClothesId" value="@clothes.ID" />
-                                    <input type="hidden" name="RatingNumber" id="Rating" value="0" />
-                                    <input type="submit" id="btnRegister" name="btnRegister" value="Submit Rating" class="btn btn-warning" />
-                                </div>                                
-                            }
-                        </div>
+                                    <span class="product-star-fade"></span>
+                                    <span class="product-star-fade"></span>
+                                    <span class="product-star-fade"></span>
+                                    <span class="product-star-fade"></span>
+                                    <span class="product-star-fade"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="submit" id="btnRegister" name="btnRegister" value="Submit Rating" class="btn btn-warning" disabled/>
+                            </div>
+                        }
                     </form>
                 </div>
                 <!-- Rating box -->

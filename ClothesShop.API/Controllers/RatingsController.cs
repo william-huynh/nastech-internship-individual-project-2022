@@ -77,7 +77,6 @@ namespace ClothesShop.API.Controllers
         }
 
         // Post: api/Ratings
-        [Authorize(Role.Customer)]
         [HttpPost]
         public async Task<IActionResult> PostRating(RatingDto ratingCreate)
         {

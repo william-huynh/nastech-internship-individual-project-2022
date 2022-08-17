@@ -66,7 +66,6 @@ namespace ClothesShop.API.Controllers
         }
 
         // POST: api/Images
-        [Authorize(Role.Administrator)]
         [HttpPost]
         public async Task<IActionResult> PostImage([FromForm]ImageDto imageCreate)
         {
@@ -104,7 +103,6 @@ namespace ClothesShop.API.Controllers
         }
 
         // PUT: api/Images/{id}
-        [Authorize(Role.Administrator)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutImage(int id, [FromForm]ImageDto imageUpdate)
         {
@@ -132,7 +130,6 @@ namespace ClothesShop.API.Controllers
         }
 
         // DELETE: api/Images/{id}
-        [Authorize(Role.Administrator)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteImage(int id)
         {

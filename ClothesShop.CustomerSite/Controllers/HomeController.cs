@@ -97,7 +97,7 @@ namespace ClotheShop.CustomerSite.Controllers
         {
             HttpContext.Session.Clear();
             ViewBag.Username = null;
-            return RedirectToAction("Login");
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()
