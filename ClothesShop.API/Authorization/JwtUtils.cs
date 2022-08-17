@@ -32,8 +32,9 @@ namespace ClothesShop.API.Authorization
             var key = Encoding.UTF8.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { 
+                Subject = new ClaimsIdentity(new[] {
                     new Claim("Id", user.Id.ToString()),
+                    new Claim("Username", user.Username),
                     new Claim("Role", user.Role.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(15),

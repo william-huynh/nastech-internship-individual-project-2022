@@ -13,6 +13,10 @@ namespace ClothesShop.CustomerSite.Services
         [Get("/Ratings/{id}")]
         Task<RatingDto> GetRating(int id); */
 
+        // Get rating by user Id
+        [Get("/Ratings/User/{id}")]
+        Task<RatingDto> GetRatingByUser(int id, int userId);
+
         // Add rating
         [Post("/Ratings")]
         Task CreateRating([Body] RatingDto rating);

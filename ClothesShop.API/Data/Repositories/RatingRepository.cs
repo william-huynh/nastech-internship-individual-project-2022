@@ -23,6 +23,11 @@ namespace ClothesShop.API.Data.Repositories
             return await _context.Ratings.AsNoTracking().FirstOrDefaultAsync(rating => rating.Id.Equals(id) && rating.IsDelete.Equals(false));
         }
 
+        public async Task<Rating> GetByUserIdAsync(int id, int userId)
+        {
+            return await _context.Ratings.AsNoTracking().FirstOrDefaultAsync(rating => rating.ClothesID.Equals(id) && rating.UsersId.Equals(userId) && rating.IsDelete.Equals(false));
+        }
+
         public async Task<Rating> PostAsync(Rating rating)
         {
             _context.Ratings.Add(rating);

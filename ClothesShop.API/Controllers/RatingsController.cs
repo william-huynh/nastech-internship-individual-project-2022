@@ -58,6 +58,24 @@ namespace ClothesShop.API.Controllers
             }
         }
 
+        // Get (single): api/Ratings/User/{id}
+        [HttpGet("User/{id}")]
+        public async Task<IActionResult> GetUserRating(int id, int userId)
+        {
+            try
+            {
+                var rating = await _rating.GetByUserIdAsync(id, userId);
+                if (rating == null)
+                    return Ok(new RatingDto());
+                var ratingDto = _mapper.Map<RatingDto>(rating);
+                return Ok(ratingDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong! Error: " + ex.Message);
+            }
+        }
+
         // Post: api/Ratings
         [Authorize(Role.Customer)]
         [HttpPost]

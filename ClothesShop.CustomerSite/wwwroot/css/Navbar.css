@@ -24,4 +24,5 @@
 
 .navigation-user-icon, .navigation-cart-icon, .navigation-user-icon:hover, .navigation-cart-icon:hover {
     color: white;
+    text-decoration: none;
 }

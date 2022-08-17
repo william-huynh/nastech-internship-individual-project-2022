@@ -6,6 +6,7 @@ using ClothesShop.SharedVMs;
 using ClothesShop.SharedVMs.Enum;
 using Microsoft.AspNetCore.Mvc;
 using Refit;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ClothesShop.CustomerSite.Controllers
 {
@@ -21,6 +22,12 @@ namespace ClothesShop.CustomerSite.Controllers
         {
             try
             {
+                var token = HttpContext.Session.GetString("Token");
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(token);
+                var tokenS = jsonToken as JwtSecurityToken;
+                var userId = tokenS.Claims.First(claim => claim.Type == "Username").Value;
+                ratingCreate.UsersId = int.Parse(userId);
                 await ratingsService.CreateRating(ratingCreate);
                 return RedirectToAction("Single", "Clothes", new { id = ratingCreate.ClothesID });
             }

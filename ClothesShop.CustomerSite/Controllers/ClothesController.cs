@@ -4,6 +4,7 @@ using ClothesShop.SharedVMs;
 using ClothesShop.SharedVMs.Enum;
 using Microsoft.AspNetCore.Mvc;
 using Refit;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ClothesShop.CustomerSite.Controllers
 {
@@ -21,6 +22,8 @@ namespace ClothesShop.CustomerSite.Controllers
         List<CategoryDto> categories = new List<CategoryDto>();
         ICategoriesService categoriesService = RestService.For<ICategoriesService>("https://localhost:7167/api");
 
+        IRatingsService ratingsService = RestService.For<IRatingsService>("https://localhost:7167/api");
+
         public ClothesController(ClothesDbContext context)
         {
             _context = context;
@@ -34,6 +37,15 @@ namespace ClothesShop.CustomerSite.Controllers
                 categories = await categoriesService.GetCategories();
                 ViewBag.Categories = categories;
                 clothesList = await clothesService.GetAllClothes();
+                var token = HttpContext.Session.GetString("Token");
+                var handler = new JwtSecurityTokenHandler();
+                if (token != null)
+                {
+                    var jsonToken = handler.ReadToken(token);
+                    var tokenS = jsonToken as JwtSecurityToken;
+                    var userId = tokenS.Claims.First(claim => claim.Type == "Username").Value;
+                    ViewBag.Username = userId;
+                }
                 return View(clothesList);
             }
             catch
@@ -50,6 +62,15 @@ namespace ClothesShop.CustomerSite.Controllers
                 categories = await categoriesService.GetCategories();
                 ViewBag.Categories = categories;
                 clothesList = await clothesService.GetByCategoryId(id);
+                var token = HttpContext.Session.GetString("Token");
+                var handler = new JwtSecurityTokenHandler();
+                if (token != null)
+                {
+                    var jsonToken = handler.ReadToken(token);
+                    var tokenS = jsonToken as JwtSecurityToken;
+                    var userId = tokenS.Claims.First(claim => claim.Type == "Username").Value;
+                    ViewBag.Username = userId;
+                }
                 return View(clothesList);
             }
             catch
@@ -78,7 +99,19 @@ namespace ClothesShop.CustomerSite.Controllers
                     ViewBag.RatingSum = 0;
                     ViewBag.RatingCount = 0;
                 }
-
+                var token = HttpContext.Session.GetString("Token");
+                var handler = new JwtSecurityTokenHandler();
+                if (token != null)
+                {
+                    var jsonToken = handler.ReadToken(token);
+                    var tokenS = jsonToken as JwtSecurityToken;
+                    var user = tokenS.Claims.First(claim => claim.Type == "Username").Value;
+                    int userId = Int32.Parse(tokenS.Claims.First(claim => claim.Type == "Id").Value);
+                    var userRated = await ratingsService.GetRatingByUser(id, userId);
+                    ViewBag.Username = user;
+                    ViewBag.UserId = userId;
+                    ViewBag.UserRating = userRated.RatingNumber;
+                }
                 return View(clothes);
             }
             catch
