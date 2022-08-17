@@ -77,7 +77,6 @@ namespace ClothesShop.API.Controllers
         }
 
         // POST: api/Categories
-        [Authorize(Role.Administrator)]
         [HttpPost]
         public async Task<IActionResult> PostCategory(CategoryDto categoryCreate)
         {
@@ -94,7 +93,6 @@ namespace ClothesShop.API.Controllers
         }
 
         // PUT: api/Categories/{id}
-        [Authorize(Role.Administrator)]
         [HttpPut]
         public async Task<IActionResult> PutCategory(CategoryDto categoryUpdate)
         {
@@ -114,7 +112,6 @@ namespace ClothesShop.API.Controllers
         }
 
         // DELETE: api/Categories/{id}
-        [Authorize(Role.Administrator)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {

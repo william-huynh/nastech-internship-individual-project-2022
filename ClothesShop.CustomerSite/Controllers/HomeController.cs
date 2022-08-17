@@ -7,6 +7,7 @@ using ClothesShop.SharedVMs.Enum;
 using ClothesShop.SharedVMs.Models;
 using Microsoft.AspNetCore.Mvc;
 using Refit;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ClotheShop.CustomerSite.Controllers
 {
@@ -75,6 +76,15 @@ namespace ClotheShop.CustomerSite.Controllers
                 homepageVMs.Categories = categories;
                 clothesList = await clothesService.Get5Clothes();
                 homepageVMs.Clothes = clothesList;
+                var token = HttpContext.Session.GetString("Token");
+                var handler = new JwtSecurityTokenHandler();
+                if (token != null)
+                {
+                    var jsonToken = handler.ReadToken(token);
+                    var tokenS = jsonToken as JwtSecurityToken;
+                    var userId = tokenS.Claims.First(claim => claim.Type == "Username").Value;
+                    ViewBag.Username = userId;
+                }
                 return View(homepageVMs);
             }
             catch
@@ -86,7 +96,8 @@ namespace ClotheShop.CustomerSite.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("Login");
+            ViewBag.Username = null;
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()

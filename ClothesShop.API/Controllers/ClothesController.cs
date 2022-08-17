@@ -40,7 +40,6 @@ namespace ClothesShop.API.Controllers
         }
 
         // GET (all) include deleted: api/Clothes/Deleted
-        [Authorize(Role.Administrator)]
         [HttpGet("Deleted")]
         public async Task<IActionResult> GetAllClothesDeleted()
         {
@@ -113,7 +112,6 @@ namespace ClothesShop.API.Controllers
         }
 
         // POST: api/Clothes
-        [Authorize(Role.Administrator)]
         [HttpPost]
         public async Task<IActionResult> PostClothes(ClothesDto clothesCreate)
         {
@@ -132,7 +130,6 @@ namespace ClothesShop.API.Controllers
         }
 
         // PUT: api/Clothes/{id}
-        [Authorize(Role.Administrator)]
         [HttpPut]
         public async Task<IActionResult> PutClothes(ClothesDto clothesUpdate)
         {
@@ -151,7 +148,6 @@ namespace ClothesShop.API.Controllers
         }
 
         // DELETE: api/Clothes/{id}
-        [Authorize(Role.Administrator)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClothes(int id)
         {

@@ -6,6 +6,7 @@ using ClothesShop.SharedVMs;
 using ClothesShop.SharedVMs.Enum;
 using Microsoft.AspNetCore.Mvc;
 using Refit;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ClothesShop.CustomerSite.Controllers
 {
