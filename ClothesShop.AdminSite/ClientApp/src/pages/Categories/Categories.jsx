@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import "./categories.scss";
+import "./Categories.scss";
 import { Button } from "@mui/material";
 
 import CategoriesTable from "../../components/CategoriesTable/CategoriesTable";

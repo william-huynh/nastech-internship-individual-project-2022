@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import "./clothesCreate.scss";
+import "./ClothesCreate.scss";
 import { Button } from "@mui/material";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -19,6 +19,8 @@ const ClothesCreate = (props) => {
   // States
   let [message, setMessage] = useState(null);
   let [imageURL, setImageURL] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [categoryId, setCategoryId] = useState(null);
   let [imageUploadFile, setImageUploadFile] = useState(null);
 
   // Refs
@@ -36,6 +38,9 @@ const ClothesCreate = (props) => {
     setImageURL("./dummy-image.jpg");
     // Set next clothes Id
     clothesId.current.value = nextClothesId;
+    axios.get(baseAddress + "Categories").then((result) => {
+      setCategories(result.data);
+    });
   }, []);
 
   // Upload file
@@ -59,7 +64,7 @@ const ClothesCreate = (props) => {
         Price: clothesPrice.current.value,
         AddedDate: "2022-01-01T00:00:00.000Z",
         UpdatedDate: "2022-01-01T00:00:00.000Z",
-        CategoryId: clothesCategoryId.current.value,
+        CategoryId: categoryId,
         CategoryName: "",
       })
       .then((result) => {
@@ -167,20 +172,27 @@ const ClothesCreate = (props) => {
                 </div>
               </div>
               <div className="clothesInputGroup">
-                <span>Category Id</span>
+                <span>Category</span>
                 <div>
-                  <input
-                    className="inputId"
-                    type="number"
-                    ref={clothesCategoryId}
-                  />
+                  <select
+                    className="form-select"
+                    id="floatingSelect"
+                    onChange={(e) => setCategoryId(e.target.value)}
+                  >
+                    <option defaultValue>Select category</option>
+                    {categories.map((category) => {
+                      return (
+                        <option value={category.id}>{category.name}</option>
+                      );
+                    })}
+                  </select>
                 </div>
               </div>
             </div>
             <div className="clothesImageContainer">
               <div className="clothesImageUpload">
                 <label
-                  for="imageUpload"
+                  htmlFor="imageUpload"
                   style={{
                     backgroundImage: `url(${imageURL})`,
                   }}

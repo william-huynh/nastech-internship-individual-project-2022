@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import "./usersTable.scss";
+import "./UsersTable.scss";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 // Base address for api

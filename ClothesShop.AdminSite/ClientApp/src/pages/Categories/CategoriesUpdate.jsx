@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-import "./categoriesUpdate.scss";
+import "./CategoriesUpdate.scss";
 import { Button } from "@mui/material";
 
 import Sidebar from "../../components/Sidebar/Sidebar";

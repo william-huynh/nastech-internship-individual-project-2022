@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import "./clothes.scss";
+import "./Clothes.scss";
 import { Button } from "@mui/material";
 
 import ClothesTable from "../../components/ClothesTable/ClothesTable";

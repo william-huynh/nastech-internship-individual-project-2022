@@ -1,4 +1,4 @@
-import "./users.scss";
+import "./Users.scss";
 
 import UsersTable from "../../components/UsersTable/UsersTable";
 import Sidebar from "../../components/Sidebar/Sidebar";

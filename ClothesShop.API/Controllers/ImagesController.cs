@@ -73,17 +73,18 @@ namespace ClothesShop.API.Controllers
             {
                 if (imageCreate.File.Length > 0)
                 {
+                    string uniqueFileName = Guid.NewGuid().ToString() + ".jpg";
                     string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
-                    string fileURL = _webHostEnvironment.WebRootPath + "\\uploads\\" + imageCreate.File.FileName;
+                    string fileURL = _webHostEnvironment.WebRootPath + "\\uploads\\" + uniqueFileName;
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
                     }
-                    using (FileStream fileStream = System.IO.File.Create(path + imageCreate.File.FileName))
+                    using (FileStream fileStream = System.IO.File.Create(path + uniqueFileName))
                     {
                         imageCreate.File.CopyTo(fileStream);
                         fileStream.Flush();
-                        imageCreate.URL = imageCreate.File.FileName;
+                        imageCreate.URL = uniqueFileName;
                         Console.WriteLine(imageCreate);
                         var image = _mapper.Map<Image>(imageCreate);
                         Console.WriteLine(image);
@@ -108,16 +109,17 @@ namespace ClothesShop.API.Controllers
         {
             try
             {
+                string uniqueFileName = Guid.NewGuid().ToString() + ".jpg";
                 string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
                 }
-                using (FileStream fileStream = System.IO.File.Create(path + imageUpdate.File.FileName))
+                using (FileStream fileStream = System.IO.File.Create(path + uniqueFileName))
                 {
                     imageUpdate.File.CopyTo(fileStream);
                     fileStream.Flush();
-                    imageUpdate.URL = imageUpdate.File.FileName;
+                    imageUpdate.URL = uniqueFileName;
                     var image = _mapper.Map<Image>(imageUpdate);
                     var imageUpdated = await _image.PutAsync(id, image);
                     return Ok("Put finished! Successfully updated image!");
