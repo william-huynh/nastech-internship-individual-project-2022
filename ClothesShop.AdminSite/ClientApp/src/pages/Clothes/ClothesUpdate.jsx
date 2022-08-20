@@ -21,7 +21,7 @@ const ClothesUpdate = () => {
   let [message, setMessage] = useState(null);
   let [imageURL, setImageURL] = useState("");
   const [categories, setCategories] = useState([]);
-  const [categoryId, setCategoryId] = useState(null);
+  let [categoryId, setCategoryId] = useState();
   let [imageUploadFile, setImageUploadFile] = useState(null);
 
   // Refs
@@ -47,16 +47,29 @@ const ClothesUpdate = () => {
       clothesAddedDate.current.value = result.data[0].addedDate;
       clothesUpdatedDate.current.value = result.data[0].updatedDate;
       // clothesCategoryId.current.value = result.data[0].categoryId;
-      setCategoryId(result.data[0].categoryId);
-      clothesCategoryName.current.value = result.data[0].categoryName;
+      // setCategoryId(result.data[0].categoryId);
+      // clothesCategoryName.current.value = result.data[0].categoryName;
       if (result.data[0].images.length > 0)
         setImageURL(baseAddress + "Images/" + result.data[0].images[0].id);
       else setImageURL("./dummy-image.jpg");
+      axios.get(baseAddress + "Categories").then((categoriesResult) => {
+        setCategories(categoriesResult.data);
+        categoriesResult.data.map((category, index) => {
+          if (category.id == result.data[0].categoryId) {
+            setCategoryId(index);
+          }
+        });
+      });
     });
+    setCategoriesDefault();
+  }, []);
+
+  const setCategoriesDefault = () => {
     axios.get(baseAddress + "Categories").then((result) => {
       setCategories(result.data);
+      categories.map((category) => {});
     });
-  }, []);
+  };
 
   // Upload file
   const onFileChange = (event) => {
@@ -205,12 +218,15 @@ const ClothesUpdate = () => {
                     id="floatingSelect"
                     onChange={(e) => setCategoryId(e.target.value)}
                   >
-                    <option defaultValue>Select new category</option>
-                    {categories.map((category) => {
-                      return (
-                        <option value={category.id}>{category.name}</option>
-                      );
-                    })}
+                    {/* <option defaultValue>Select new category</option> */}
+                    {categories.map((category, index) => (
+                      <option
+                        value={category.id}
+                        selected={index === categoryId}
+                      >
+                        {category.name}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -224,12 +240,12 @@ const ClothesUpdate = () => {
                   />
                 </div>
               </div> */}
-              <div className="clothesInputGroup">
+              {/* <div className="clothesInputGroup">
                 <span>Current category</span>
                 <div>
                   <input type="text" ref={clothesCategoryName} disabled />
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="clothesImageContainer">
               <div className="clothesImageUpload">

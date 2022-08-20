@@ -12,6 +12,33 @@ const baseAddress = "https://localhost:7167/api/";
 const CategoriesTable = (categoriesList) => {
   // States
   let [message, setMessage] = useState(null);
+  const [pageState, setPageState] = useState({
+    isLoading: false,
+    data: [],
+    total: 0,
+    page: 1,
+    pageSize: 4,
+  });
+
+  useEffect(() => {
+    setPageState((old) => ({ ...old, isLoading: true }));
+    axios
+      .get(
+        baseAddress +
+          "Categories/Getlist/" +
+          pageState.page +
+          "/" +
+          pageState.pageSize
+      )
+      .then((result) => {
+        setPageState((old) => ({
+          ...old,
+          isLoading: false,
+          data: result.data.categories,
+          total: result.data.totalItem,
+        }));
+      });
+  }, [pageState.page, pageState.pageSize]);
 
   // Delete category
   const handleDelete = (id) => {
@@ -20,7 +47,7 @@ const CategoriesTable = (categoriesList) => {
       .then((result) => {
         setMessage(result.data);
         window.location.reload(false);
-        alert("Delete category succesfully!");
+        alert("Delete category successfully!");
       })
       .catch((error) => {
         setMessage(error.response.data);
@@ -67,10 +94,20 @@ const CategoriesTable = (categoriesList) => {
     <div className="datatable">
       <DataGrid
         sx={{ fontSize: 16 }}
-        rows={categoriesList.categoriesList}
+        rows={pageState.data}
+        rowCount={pageState.total}
+        loading={pageState.isLoading}
+        pagination
+        page={pageState.page - 1}
+        pageSize={pageState.pageSize}
+        paginationMode="server"
+        onPageChange={(newPage) => {
+          setPageState((old) => ({ ...old, page: newPage + 1 }));
+        }}
+        onPageSizeChange={(newPageSize) =>
+          setPageState((old) => ({ ...old, pageSize: newPageSize }))
+        }
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
       />
     </div>
   );

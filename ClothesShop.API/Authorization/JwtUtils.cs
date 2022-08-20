@@ -35,7 +35,8 @@ namespace ClothesShop.API.Authorization
                 Subject = new ClaimsIdentity(new[] {
                     new Claim("Id", user.Id.ToString()),
                     new Claim("Username", user.Username),
-                    new Claim("Role", user.Role.ToString())
+                    new Claim("Role", user.Role.ToString()),
+                    new Claim(ClaimTypes.Role, user.Role.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256),

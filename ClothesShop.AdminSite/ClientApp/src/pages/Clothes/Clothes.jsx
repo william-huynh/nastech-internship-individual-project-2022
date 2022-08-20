@@ -13,14 +13,10 @@ const baseAddress = "https://localhost:7167/api/";
 
 const Clothes = () => {
   // States
-  let [clothes, setClothes] = useState([]);
   let [clothesDeleted, setClothesDeleted] = useState([]);
 
   // Get clothes list
   useEffect(() => {
-    axios.get(baseAddress + "Clothes").then((result) => {
-      setClothes(result.data);
-    });
     axios.get(baseAddress + "Clothes/Deleted").then((result) => {
       setClothesDeleted(result.data);
     });
@@ -49,7 +45,7 @@ const Clothes = () => {
               </Button>
             </Link>
           </div>
-          <ClothesTable clothesList={clothes} />
+          <ClothesTable />
         </div>
       </div>
     </div>

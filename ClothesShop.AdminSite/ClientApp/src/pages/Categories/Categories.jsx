@@ -13,14 +13,6 @@ const baseAddress = "https://localhost:7167/api/";
 
 const Categories = () => {
   // States
-  let [categories, setCategories] = useState([]);
-
-  // Get categories list
-  useEffect(() => {
-    axios.get(baseAddress + "Categories").then((result) => {
-      setCategories(result.data);
-    });
-  }, []);
 
   return (
     <div className="mainContainer">
@@ -32,7 +24,6 @@ const Categories = () => {
             <Link
               to={{
                 pathname: "/categories-create",
-                state: categories.at(-1),
               }}
               style={{ textDecoration: "none" }}
             >
@@ -45,7 +36,7 @@ const Categories = () => {
               </Button>
             </Link>
           </div>
-          <CategoriesTable categoriesList={categories} />
+          <CategoriesTable />
         </div>
       </div>
     </div>

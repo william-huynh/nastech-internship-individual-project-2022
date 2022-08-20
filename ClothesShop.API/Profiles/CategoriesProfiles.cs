@@ -12,6 +12,8 @@ namespace ClothesShop.API.Profiles
 
             // Use for read data (GET, GET single)
             CreateMap<Category, CategoryDto>();
+            CreateMap<List<CategoryDto>, CategoriesListDto>()
+                .ForMember(dest => dest.Categories, act => act.MapFrom(src => src));
 
             // Use for write data (POST, PUT)
             CreateMap<CategoryDto, Category>()

@@ -1,5 +1,7 @@
-﻿using ClothesShop.API.Interfaces;
+﻿using AutoMapper;
+using ClothesShop.API.Interfaces;
 using ClothesShop.API.Models;
+using ClothesShop.SharedVMs;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClothesShop.API.Data.Repositories
@@ -7,10 +9,48 @@ namespace ClothesShop.API.Data.Repositories
     public class ClothesRepository : IClothesRepository
     {
         private readonly ClothesDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ClothesRepository(ClothesDbContext context)
+        public ClothesRepository(ClothesDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+        }
+
+        public async Task<ClothesListDto> GetAsyncList(int? page, int? pageSize)
+        {
+            var clothesList = _context.Clothes
+                                    .Where(clothes => clothes.IsDeleted.Equals(false))
+                                    .Select(clothes => new Clothes()
+                                    {
+                                        ID = clothes.ID,
+                                        Name = clothes.Name,
+                                        Description = clothes.Description,
+                                        Stock = clothes.Stock,
+                                        Price = clothes.Price,
+                                        AddedDate = clothes.AddedDate,
+                                        UpdatedDate = clothes.UpdatedDate,
+                                        IsDeleted = clothes.IsDeleted,
+                                        CategoryId = clothes.CategoryId,
+                                        Category = clothes.Category,
+                                        Ratings = clothes.Ratings,
+                                        Images = clothes.Images
+                                                            .Where(images => images.IsDeleted.Equals(false))
+                                                            .ToList(),
+                                    });
+            var pageRecords = pageSize ?? 10;
+            var pageIndex = page ?? 1;
+            int totalPage = clothesList.Count();
+            var startPage = (pageIndex - 1) * pageRecords;
+            if (totalPage > pageRecords)
+                clothesList = clothesList.Skip(startPage).Take(pageRecords);
+            var listDetailClothes = await clothesList.ToListAsync();
+            var listDetailClothesDto = _mapper.Map<List<ClothesDto>>(listDetailClothes);
+            var clothesDto = _mapper.Map<ClothesListDto>(listDetailClothesDto);
+            clothesDto.TotalItem = totalPage;
+            clothesDto.CurrentPage = pageIndex;
+            clothesDto.PageSize = pageRecords;
+            return clothesDto;
         }
 
         public async Task<List<Clothes>> GetAsync()

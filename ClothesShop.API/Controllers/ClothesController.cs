@@ -21,6 +21,20 @@ namespace ClothesShop.API.Controllers
             _clothes = clothes;
         }
 
+        [HttpGet("Getlist/{page}/{pageSize}")]
+        public async Task<IActionResult> GetClothesList(int? page, int? pageSize)
+        {
+            try
+            {
+                var clothes = await _clothes.GetAsyncList(page, pageSize);
+                return Ok(clothes);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         // GET (all): api/Clothes
         [HttpGet]
         public async Task<IActionResult> GetAllClothes()

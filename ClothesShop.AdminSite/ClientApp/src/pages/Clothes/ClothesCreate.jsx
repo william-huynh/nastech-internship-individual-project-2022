@@ -24,7 +24,6 @@ const ClothesCreate = (props) => {
   let [imageUploadFile, setImageUploadFile] = useState(null);
 
   // Refs
-  let clothesId = useRef();
   let clothesName = useRef();
   let clothesDescription = useRef();
   let clothesStock = useRef();
@@ -36,8 +35,6 @@ const ClothesCreate = (props) => {
   useEffect(() => {
     // Set dummy picture
     setImageURL("./dummy-image.jpg");
-    // Set next clothes Id
-    clothesId.current.value = nextClothesId;
     axios.get(baseAddress + "Categories").then((result) => {
       setCategories(result.data);
     });
@@ -71,7 +68,7 @@ const ClothesCreate = (props) => {
         axios
           .post(baseAddress + "Images", formData)
           .then(() => {
-            alert("Create clothes succesfully!");
+            alert("Create clothes successfully!");
             history.push({
               pathname: "/clothes",
             });
@@ -103,17 +100,6 @@ const ClothesCreate = (props) => {
           <hr />
           <div className="clothesDetailContainer">
             <div className="clothesInfo">
-              <div className="clothesInputGroup">
-                <span>Id</span>
-                <div>
-                  <input
-                    className="inputId"
-                    type="number"
-                    ref={clothesId}
-                    disabled
-                  />
-                </div>
-              </div>
               <div className="clothesInputGroup">
                 <span>Name</span>
                 <div>

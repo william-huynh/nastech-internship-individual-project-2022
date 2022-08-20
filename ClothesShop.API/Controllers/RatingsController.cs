@@ -4,8 +4,11 @@ using ClothesShop.API.Interfaces;
 using ClothesShop.API.Models;
 using ClothesShop.SharedVMs;
 using ClothesShop.SharedVMs.Enum;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ClothesShop.API.Controllers
 {
@@ -77,12 +80,19 @@ namespace ClothesShop.API.Controllers
         }
 
         // Post: api/Ratings
+        [Authorize(Roles = "Customer")]
         [HttpPost]
         public async Task<IActionResult> PostRating(RatingDto ratingCreate)
         {
             try
             {
+                var token = Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(token);
+                var tokenS = jsonToken as JwtSecurityToken;
+                int userId = Int32.Parse(tokenS.Claims.First(claim => claim.Type == "Id").Value);
                 var rating = _mapper.Map<Rating>(ratingCreate);
+                rating.UsersId = userId;
                 var ratingCreated = await _rating.PostAsync(rating);
                 return Ok(_mapper.Map<RatingDto>(ratingCreated));
             }

@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
-using ClothesShop.API.Authorization;
 using ClothesShop.API.Data;
 using ClothesShop.API.Interfaces;
 using ClothesShop.API.Models;
 using ClothesShop.SharedVMs;
 using ClothesShop.SharedVMs.Enum;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClothesShop.API.Controllers
 {
+    //[Authorize(Roles = "Administrator")]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
@@ -20,6 +21,20 @@ namespace ClothesShop.API.Controllers
         {
             _mapper = mapper;
             _category = category;
+        }
+
+        [HttpGet("Getlist/{page}/{pageSize}")]
+        public async Task<IActionResult> GetCategoriesList(int? page, int? pageSize)
+        {
+            try
+            {
+                var categories = await _category.GetAsyncList(page, pageSize);
+                return Ok(categories);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // GET (all): api/Categories

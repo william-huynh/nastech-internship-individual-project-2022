@@ -20,13 +20,12 @@ const CategoriesCreate = (props) => {
   let [message, setMessage] = useState(null);
 
   // Refs
-  let categoryId = useRef();
   let categoryName = useRef();
   let categoryDescription = useRef();
 
   useEffect(() => {
     // Set next category Id
-    categoryId.current.value = nextCategoriesId;
+    // categoryId.current.value = nextCategoriesId;
   }, []);
 
   // Create category
@@ -41,7 +40,7 @@ const CategoriesCreate = (props) => {
         history.push({
           pathname: "/categories",
         });
-        alert("Create category succesfully!");
+        alert("Create category successfully!");
       })
       .catch((error) => {
         setMessage(error.response.data);
@@ -65,17 +64,6 @@ const CategoriesCreate = (props) => {
           <hr />
           <div className="categoriesDetailContainer">
             <div className="categoriesInfo">
-              <div className="categoriesInputGroup">
-                <span>Id</span>
-                <div>
-                  <input
-                    type="number"
-                    className="inputId"
-                    ref={categoryId}
-                    disabled
-                  />
-                </div>
-              </div>
               <div className="categoriesInputGroup">
                 <span>Name</span>
                 <div>

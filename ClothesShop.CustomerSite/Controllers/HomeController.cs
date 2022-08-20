@@ -5,6 +5,7 @@ using ClothesShop.SharedVMs;
 using ClothesShop.SharedVMs.Authenticate;
 using ClothesShop.SharedVMs.Enum;
 using ClothesShop.SharedVMs.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Refit;
 using System.IdentityModel.Tokens.Jwt;

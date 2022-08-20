@@ -12,6 +12,35 @@ const baseAddress = "https://localhost:7167/api/";
 const ClothesTable = (clothesList) => {
   // States
   let [message, setMessage] = useState(null);
+  let [clothes, setClothes] = useState([]);
+  const [pageState, setPageState] = useState({
+    isLoading: false,
+    data: [],
+    total: 0,
+    page: 1,
+    pageSize: 4,
+  });
+
+  useEffect(() => {
+    setPageState((old) => ({ ...old, isLoading: true }));
+    axios
+      .get(
+        baseAddress +
+          "Clothes/Getlist/" +
+          pageState.page +
+          "/" +
+          pageState.pageSize
+      )
+      .then((result) => {
+        console.log(result);
+        setPageState((old) => ({
+          ...old,
+          isLoading: false,
+          data: result.data.clothes,
+          total: result.data.totalItem,
+        }));
+      });
+  }, [pageState.page, pageState.pageSize]);
 
   // Delete clothes
   const handleDelete = (id) => {
@@ -20,7 +49,7 @@ const ClothesTable = (clothesList) => {
       .then((result) => {
         setMessage(result.data);
         window.location.reload(false);
-        alert("Delete clothes succesfully!");
+        alert("Delete clothes successfully!");
       })
       .catch((error) => {
         setMessage(error.response.data);
@@ -73,10 +102,20 @@ const ClothesTable = (clothesList) => {
     <div className="datatable">
       <DataGrid
         sx={{ fontSize: 16 }}
-        rows={clothesList.clothesList}
+        rows={pageState.data}
+        rowCount={pageState.total}
+        loading={pageState.isLoading}
+        pagination
+        page={pageState.page - 1}
+        pageSize={pageState.pageSize}
+        paginationMode="server"
+        onPageChange={(newPage) => {
+          setPageState((old) => ({ ...old, page: newPage + 1 }));
+        }}
+        onPageSizeChange={(newPageSize) =>
+          setPageState((old) => ({ ...old, pageSize: newPageSize }))
+        }
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
       />
     </div>
   );

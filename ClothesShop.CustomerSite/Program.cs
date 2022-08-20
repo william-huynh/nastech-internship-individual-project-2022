@@ -38,6 +38,18 @@ var configuration = builder.Configuration;
     // Configure strongly typed settings object
     services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
+    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SymmetricKey"]))
+                    };
+                });
+
     services.AddMvc().AddSessionStateTempDataProvider();
     services.AddSession();
 
@@ -95,8 +107,8 @@ var app = builder.Build();
     // Global error handler
     app.UseMiddleware<ErrorHandlerMiddleware>();
 
-    // Custom jwt auth middleware
-    app.UseMiddleware<JwtMiddleware>();
+    app.UseAuthentication();
+    app.UseAuthorization();
 
     app.MapControllerRoute(
         name: "default",

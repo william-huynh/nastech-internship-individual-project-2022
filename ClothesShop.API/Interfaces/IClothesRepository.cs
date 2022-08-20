@@ -1,9 +1,12 @@
 ﻿using ClothesShop.API.Models;
+using ClothesShop.SharedVMs;
 
 namespace ClothesShop.API.Interfaces
 {
     public interface IClothesRepository
     {
+        Task<ClothesListDto> GetAsyncList(int? page, int? pageSize);
+
         // Get all clothes
         Task<List<Clothes>> GetAsync();
 

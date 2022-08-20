@@ -33,12 +33,22 @@ const CategoriesUpdate = () => {
 
   // Update category
   const handleUpdate = () => {
+    let config = {
+      headers: {
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    };
+
     axios
-      .put(baseAddress + "Categories", {
-        Id: categoryId.current.value,
-        Name: categoryName.current.value,
-        Description: categoryDescription.current.value,
-      })
+      .put(
+        baseAddress + "Categories",
+        {
+          Id: categoryId.current.value,
+          Name: categoryName.current.value,
+          Description: categoryDescription.current.value,
+        },
+        config
+      )
       .then((result) => {
         alert("Update category succesfully!");
         window.location.reload(false);

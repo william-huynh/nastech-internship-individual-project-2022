@@ -1,5 +1,7 @@
-﻿using ClothesShop.API.Interfaces;
+﻿using AutoMapper;
+using ClothesShop.API.Interfaces;
 using ClothesShop.API.Models;
+using ClothesShop.SharedVMs;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClothesShop.API.Data.Repositories
@@ -7,10 +9,30 @@ namespace ClothesShop.API.Data.Repositories
     public class CategoryRepository : ICategoryRepository
     {
         private readonly ClothesDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CategoryRepository(ClothesDbContext context)
+        public CategoryRepository(ClothesDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+        }
+
+        public async Task<CategoriesListDto> GetAsyncList(int? page, int? pageSize)
+        {
+            var categoryList = _context.Categories.Where(category => category.IsDeleted.Equals(false));
+            var pageRecords = pageSize ?? 10;
+            var pageIndex = page ?? 1;
+            int totalPage = categoryList.Count();
+            var startPage = (pageIndex - 1) * pageRecords;
+            if (totalPage > pageRecords)
+                categoryList = categoryList.Skip(startPage).Take(pageRecords);
+            var listDetailCategory = await categoryList.ToListAsync();
+            var listDetailCategoryDto = _mapper.Map<List<CategoryDto>>(listDetailCategory);
+            var categoryDto = _mapper.Map<CategoriesListDto>(listDetailCategoryDto);
+            categoryDto.TotalItem = totalPage;
+            categoryDto.CurrentPage = pageIndex;
+            categoryDto.PageSize = pageRecords;
+            return categoryDto;
         }
 
         public async Task<List<Category>> GetAsync()

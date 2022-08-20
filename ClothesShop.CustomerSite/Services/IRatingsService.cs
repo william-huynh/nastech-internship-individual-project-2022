@@ -18,6 +18,7 @@ namespace ClothesShop.CustomerSite.Services
         Task<RatingDto> GetRatingByUser(int id, int userId);
 
         // Add rating
+        [Headers("Authorization: Bearer")]
         [Post("/Ratings")]
         Task CreateRating([Body] RatingDto rating);
 
